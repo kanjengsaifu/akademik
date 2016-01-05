@@ -1,0 +1,1 @@
+<?phpif (!defined('AURACMS_admin')) {	Header("Location: ../../../index.php");	exit;}if (!cek_login ()){   $admin .='<p class="judul">Access Denied !!!!!!</p>';   exit;}$admin  .='<legend>MASTER</legend>';if($_GET['aksi']==""){$admin .= '<div align="center"></div><br><br>';}echo $admin;?>

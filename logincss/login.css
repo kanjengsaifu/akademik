@@ -1,0 +1,211 @@
+/**
+* @version $Id: admin_login.css,v 1.1 2005/07/22 01:54:30 eddieajau Exp $
+* @package Mambo
+* @copyright (C) 2000 - 2005 Miro International Pty Ltd
+* @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
+* Mambo is Free Software
+*/
+
+body {
+    margin: 0px;
+    /*background-color: red;*/
+    background-color: #014051;
+    width: 100%;
+}
+a { 
+	color: #333333;
+	background-color: transparent;
+	text-decoration: none;
+}
+a:hover {
+	color: #3B5998;
+	background-color: transparent;
+	text-decoration: none;
+}
+#wrapper {
+        border: 0px;
+        margin: 0px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 0px;
+}
+
+#header {
+        background-color: #FFF;
+        background-position: right top;
+        border-bottom: 4px solid #80B5D7;
+}
+
+#break {
+	height: 50px;
+}
+
+form {
+    margin: 0px;
+}
+
+
+.button {
+	border : solid 1px #cccccc;
+	background: #E9ECEF;
+	color : #666666;
+	font-weight : bold;
+	font-size : 11px;
+	padding: 4px;
+}
+
+.login {
+top: 100px;
+	margin-left: auto;
+	margin-right: auto;
+	position: relative;
+	border: 1px solid #cccccc;
+	width: 350px;
+	background: #F1F3F5;
+
+}
+
+.login p {
+	padding: 0 1em 0 1em;
+	}
+	
+.form-block {
+	border: 1px solid #cccccc;
+	background: #E9ECEF;
+	padding-top: 15px;
+	padding-left: 50px;
+	padding-bottom: 10px;
+	padding-right: auto;
+	height:100px;
+}
+.menuutama{
+	border: 1px solid #cccccc;
+	background: #E9ECEF;
+	padding-top: auto;
+	padding-left: 50px;
+	padding-bottom: 10px;
+	padding-right: auto;
+	height:100px;
+}
+.login-form {
+	text-align: left;
+	float: right;
+	width: 60%;
+}
+
+.login-text {
+	text-align: left;
+	width: 40%;
+	float: left;
+}
+.loginbutton {
+	text-align: left;
+	float: right;
+}
+.inputlabel {
+	font-weight: bold;
+	text-align: left;
+	}
+
+.inputbox {
+	width: 150px;
+	margin: 0 0 1em 0;
+	border: 1px solid #cccccc;
+	}
+
+.clr {
+    clear:both;
+    }
+
+.ctr {
+	text-align: center;
+}
+
+.version {
+	font-size: 0.8em;
+}
+
+.footer {
+
+}
+
+div.error {	
+	color: orange;
+    font-family: "Georgia", sans-serif;	
+	position: fixed;
+	top: 25%;
+	left: 40%;
+	    font-size: 19px;
+}
+/* Login Box */
+.LoginBox{
+	position: fixed;
+	top: 35%;
+	left: 27%;
+	width: 350px;
+	z-index: 90;
+	display: block;
+	display: none;
+}
+
+.LoginBox h2{
+	color: white;
+    font-family: "Georgia", sans-serif;
+    font-size: 19px;
+    position: relative;
+	left: 20px;
+
+}
+
+.LoginBox input{
+	padding: 5px;
+	width: 250px;
+	height: 27px;
+	display: block;
+}
+.LoginBox .fields{
+	position: relative;
+	top: -170px;
+	left: 200px;
+}
+
+.LoginBox #botLogIn{
+	
+	border: none;
+	background:url(../img/right.png) no-repeat center center;
+	height: 23px;
+	width: 23px;
+	position: relative;
+	top: -25px;
+	left: 225px;
+}
+
+.LoginBox .seePass{
+	position: relative;
+	top: -27px;
+	left: 170px;
+}
+@media only screen and (device-width: 768px) and (max-width:959px)  {
+  /* For general iPad layouts */
+  .LoginBox #botLogIn{
+		border: none;
+		background:url(../img/right.png) no-repeat center center;
+		height: 23px;
+		width: 23px;
+		position: relative;
+		top: -34px;
+		left: 225px;
+	}
+
+	/* Login Box */
+	.LoginBox{
+		position: relative;
+		top: 30%;
+		left: 23%;
+		width: 350px;
+		z-index: 90;
+		display: block;
+		display: none;
+	}
+}
+

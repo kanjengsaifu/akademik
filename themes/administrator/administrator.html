@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Administrator &laquo; {judul_situs}</title>
+<meta name="Description" content="{meta_description}" />
+<meta name="Keywords" content="{meta_keywords}" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="Distribution" content="Global">
+<meta name="Author" content="">
+<meta name="Robots" content="index,follow">
+<link rel="shortcut icon" href="favicon.ico">
+<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="rss.php">
+<link rel="stylesheet" href="themes/administrator/css/administrator.css" type="text/css">
+<script type="text/javascript" src="themes/administrator/js/jquery.js"> </script>
+<link rel="stylesheet" href="includes/bootstrap/css/bootstrap.min.css" type="text/css">
+<!---------------------------------------->
+	<script type="text/javascript" src="includes/slimbox2/js/slimbox2.js"></script>
+	<link rel="stylesheet" href="includes/slimbox2/css/slimbox2.css" type="text/css" media="screen" />
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<!----------------------------------------->
+<link rel="stylesheet" media="screen" href="includes/media/css/jquery.dataTables.css" />
+<script language="javascript" type="text/javascript" src="includes/media/js/jquery.js"></script>
+<script language="javascript" type="text/javascript" src="includes/media/js/jquery.dataTables.js"></script>
+<script type="text/javascript"> 
+
+function stopRKey(evt) { 
+  var evt = (evt) ? evt : ((event) ? event : null); 
+  var node = (evt.target) ? evt.target : ((evt.srcElement) ? evt.srcElement : null); 
+  if ((evt.keyCode == 13) && (node.type=="text"))  {return false;} 
+} 
+
+document.onkeypress = stopRKey; 
+
+</script>
+<!----------------------------------------------------->
+<link href="js/combobox/jquery-ui.css" rel="stylesheet">
+
+<script src="js/combobox/jquery-ui.js"></script>
+<script src="js/combobox/jquery-combobox.js"></script>
+<script src="js/combobox/jquery-combobox2.js"></script>
+<style>
+  .custom-combobox {
+    position: relative;
+    display: inline-block;
+	padding-right: 30px;
+  }
+  .custom-combobox-toggle {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin-left: -1px;
+    padding: 0;
+  }
+  .custom-combobox-input {
+    margin: 0;
+    padding: 5px 10px;
+  }
+  </style>
+{style_include}
+{script_include}
+</head>
+
+<body>
+
+<div id="wrap">
+<div id="header"> 
+{menupos}
+</div>
+<div id="main"> 
+{content}
+
+</div>  
+
+<!-- footer starts here --> 
+
+   </div>
+   <div id="footer"><div align="right">
+<table><tr align="right"><td>
+<b><a href="#">SISTER</a></b> : Sistem Informasi Sekolah Terpadu Copyright @2014
+<br>
+</td></tr></table></div>
+</div>
+
+</body>
+</html>
