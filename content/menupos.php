@@ -18,6 +18,9 @@ echo '<div class="border2">
 <a href="admin.php?pilih=mnmaster&mod=yes"><img src="images/master.jpg" width="50px"><br>MASTER</a>&nbsp;&nbsp;
 </td>
 <td>
+<a href="admin.php?pilih=mntransaksi&mod=yes"><img src="images/transaksi.jpg" width="50px"><br>TRANSAKSI</a>&nbsp;&nbsp;
+</td>
+<td>
 <a href="admin.php?pilih=mnlaporan&mod=yes"><img src="images/report.png" width="50px" height="50px"><br>LAPORAN</a>&nbsp;&nbsp;
 </td>
 <td>
