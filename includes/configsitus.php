@@ -6,7 +6,7 @@
  * Author: Teamworks Creative - reky@teamworks.co.id - +6285732037068 - pin 25b7edd4
  */
  
-$hasil =  $koneksi_db->sql_query( "SELECT * FROM pos_situs " );
+$hasil =  $koneksi_db->sql_query( "SELECT * FROM akad_situs " );
 $data = $koneksi_db->sql_fetchrow($hasil);
 $email_master=$data['email_master'];
 $judul_situs =$data['judul_situs'];
