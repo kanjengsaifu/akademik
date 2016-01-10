@@ -34,86 +34,93 @@ if($_GET['aksi']== 'del'){
 if($_GET['aksi'] == 'edit'){
 $id = int_filter ($_GET['id']);
 if(isset($_POST['submit'])){
-$nama 		= $_POST['nama'];
+	$lokasi 		= $_POST['lokasi'];
+	$matpel 		= $_POST['matpel'];
+	$guru 		= $_POST['guru'];
 	$sks 		= $_POST['sks'];
-	$slot 		= $_POST['slot'];
-	$jenjang 		= $_POST['jenjang'];
-	$tingkat 		= $_POST['tingkat'];
-	$kuota 		= $_POST['kuota'];	
+	$status 		= $_POST['status'];	
 
 	$error 	= '';	
 	if ($error){
 		$tengah .= '<div class="error">'.$error.'</div>';
 	}else{
-		$hasil  = mysql_query( "UPDATE `akad_matpel` SET `nama`='$nama' ,`sks`='$sks',`slot`='$slot',`jenjang`='$jenjang',`tingkat`='$tingkat',`kuota`='$kuota' WHERE `id`='$id'" );
+		$hasil  = mysql_query( "UPDATE `akad_guru` SET `lokasi`='$lokasi' ,`matpel`='$matpel',`guru`='$guru',`sks`='$sks',`status`='$status' WHERE `id`='$id'" );
 		if($hasil){
 			$admin .= '<div class="sukses"><b>Berhasil di Update.</b></div>';
-			$style_include[] ='<meta http-equiv="refresh" content="1; url=admin.php?pilih=matpel&amp;mod=yes" />';	
+			$style_include[] ='<meta http-equiv="refresh" content="1; url=admin.php?pilih=guru&amp;mod=yes" />';	
 		}else{
 			$admin .= '<div class="error"><b>Gagal di Update.</b></div>';
 		}
 	}
 
 }
-$query 		= mysql_query ("SELECT * FROM `akad_matpel` WHERE `id`='$id'");
+$query 		= mysql_query ("SELECT * FROM `akad_guru` WHERE `id`='$id'");
 $data 		= mysql_fetch_array($query);
-$nama 		= $data['nama'];
+$lokasi 		= $data['lokasi'];
+	$matpel 		= $data['matpel'];
+	$guru 		= $data['guru'];
 	$sks 		= $data['sks'];
-	$slot 		= $data['slot'];
-	$jenjang 		= $data['jenjang'];
-	$tingkat 		= $data['tingkat'];
-	$kuota 		= $data['kuota'];	
-	$nama     		= !isset($nama) ? '' : $nama;
-$sks     		= !isset($sks) ? '0' : $sks;
-$slot     		= !isset($slot) ? '' : $slot;
-$jenjang     		= !isset($jenjang) ? '' : $jenjang;
-$tingkat     		= !isset($tingkat) ? '' : $tingkat;
-$kuota     		= !isset($kuota) ? '' : $kuota;
+	$status 		= $data['status'];	
+
+$lokasi     		= !isset($lokasi) ? '' : $lokasi;
+$matpel     		= !isset($matpel) ? '' : $matpel;
+$guru     		= !isset($guru) ? '' : $guru;
+$sks     		= !isset($sks) ? '' : $sks;
+$status     		= !isset($status) ? '' : $status;
 $admin .= '<div class="panel panel-info">
 <div class="panel-heading"><h3 class="panel-title">Tambah</h3></div>';
 $admin .= '
 <form method="post" action="" class="form-inline">
 <table class="table table-striped table-hover">';
 $admin .= '<tr>
-	<td>Jenjang</td>
+	<td>Lokasi</td>
 		<td>:</td>
-	<td><select name="jenjang" class="form-control" id="jenjang"required>';
-$hasilj = $koneksi_db->sql_query("SELECT * FROM aka_tingkat ORDER BY urutan asc");
-$admin .= '<option value="">== Jenjang ==</option>';
+	<td><select name="lokasi" class="form-control" id="lokasi"required>';
+$hasilj = $koneksi_db->sql_query("SELECT * FROM departemen ORDER BY urut asc");
+$admin .= '<option value="">== Lokasi ==</option>';
 while ($datasj =  $koneksi_db->sql_fetchrow ($hasilj)){
-		$pilihan = ($datasj['replid']==$jenjang)?"selected":'';
-$admin .= '<option value="'.$datasj['replid'].'"'.$pilihan.'>'.$datasj['tingkat'].'</option>';
+		$pilihan = ($datasj['replid']==$lokasi)?"selected":'';
+$admin .= '<option value="'.$datasj['replid'].'"'.$pilihan.'>'.$datasj['nama'].'</option>';
 }
 $admin .='</select></td>
-</tr>
-<tr>
-	<td>Tingkat</td>
-		<td>:</td>
-	<td>';
-	$admin .='<input type="text" name="tingkat" value="'.$tingkat.'" size="30" class="form-control"required>';
-$admin .='</td>
 </tr>';
-$admin .='<tr>
-		<td>Nama Mata Pelajaran</td>
+$admin .= '<tr>
+	<td>Mata Pelajaran</td>
 		<td>:</td>
-		<td><input type="text" name="nama" value="'.$nama.'" size="30" class="form-control"required></td>
-	</tr>
+	<td><select name="matpel" class="form-control" id="matpel"required>';
+$hasilj = $koneksi_db->sql_query("SELECT * FROM akad_matpel ORDER BY nama asc");
+$admin .= '<option value="">== Mata Pelajaran ==</option>';
+while ($datasj =  $koneksi_db->sql_fetchrow ($hasilj)){
+		$pilihan = ($datasj['id']==$matpel)?"selected":'';
+$admin .= '<option value="'.$datasj['id'].'"'.$pilihan.'>'.$datasj['nama'].'</option>';
+}
+$admin .='</select></td>
+</tr>';
+$admin .= '<tr>
+	<td>Guru</td>
+		<td>:</td>
+	<td><select name="guru" class="form-control" id="guru"required>';
+$hasilj = $koneksi_db->sql_query("SELECT * FROM hrd_karyawan ORDER BY nama asc");
+$admin .= '<option value="">== Nama Guru ==</option>';
+while ($datasj =  $koneksi_db->sql_fetchrow ($hasilj)){
+		$pilihan = ($datasj['id']==$guru)?"selected":'';
+$admin .= '<option value="'.$datasj['id'].'"'.$pilihan.'>'.$datasj['nama'].' ('.$datasj['nip'].')</option>';
+}
+$admin .='</select></td>
+</tr>';
+$admin .='
 	<tr>
-		<td>SKS</td>
+		<td>SKS Max Per Minggu</td>
 		<td>:</td>
 		<td><input type="text" name="sks" value="'.$sks.'" size="30" class="form-control"required></td>
 	</tr>
 	<tr>
-		<td>Slot</td>
+		<td>Status</td>
 		<td>:</td>
-		<td><input type="text" name="slot" value="'.$slot.'" size="30" class="form-control"required></td>
+		<td><input type="text" name="status" value="'.$status.'" size="30" class="form-control"required></td>
 	</tr>';
 
-$admin .='<tr>
-		<td>Kuota</td>
-		<td>:</td>
-		<td><input type="text" name="kuota" value="'.$kuota.'" size="30" class="form-control"required></td>
-	</tr>
+$admin .='
 	<tr>
 		<td></td>
 		<td></td>
@@ -209,11 +216,7 @@ $admin .='
 		<td><input type="text" name="status" value="'.$status.'" size="30" class="form-control"required></td>
 	</tr>';
 
-$admin .='<tr>
-		<td>Kuota</td>
-		<td>:</td>
-		<td><input type="text" name="kuota" value="'.$kuota.'" size="30" class="form-control"required></td>
-	</tr>
+$admin .='
 	<tr>
 		<td></td>
 		<td></td>
@@ -247,12 +250,12 @@ while ($data = $koneksi_db->sql_fetchrow($hasil)) {
 	$sks 		= $data['sks'];
 	$status 		= $data['status'];
 $admin .='<tr>
-<td>'.$guru.'</td>
-<td>'.$guru.'</td>
-<td>'.$matpel.'</td>
+<td>'.getdataguru("nama",$guru).'</td>
+<td>'.getdataguru("nip",$guru).'</td>
+<td>'.getmatpel($matpel).'</td>
 <td>'.$sks.'</td>
 <td>'.$status.'</td>
-<td>'.$lokasi.'</td>
+<td>'.getlokasi($lokasi).'</td>
 <td><a href="?pilih=guru&amp;mod=yes&amp;aksi=del&amp;id='.$data['id'].'" onclick="return confirm(\'Apakah Anda Yakin Ingin Menghapus Data Ini ?\')"><span class="btn btn-danger">Hapus</span></a> <a href="?pilih=guru&amp;mod=yes&amp;aksi=edit&amp;id='.$data['id'].'"><span class="btn btn-warning">Edit</span></a></td>
 </tr>';
 }
