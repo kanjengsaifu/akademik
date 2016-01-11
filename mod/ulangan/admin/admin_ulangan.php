@@ -38,6 +38,7 @@ if(isset($_POST['submit'])){
 	$kode 		= kodeulangan($_POST['kode']);	
 
 	$error 	= '';	
+		if (cekkodesama('kode','akad_ulangan',$kode) > 1) $error .= "Error: Kode ".$kode." sudah terdaftar , silahkan ulangi.<br />";
 	if ($error){
 		$tengah .= '<div class="error">'.$error.'</div>';
 	}else{
@@ -79,7 +80,8 @@ $admin .='
 		<td></td>
 		<td></td>
 		<td>
-		<input type="submit" value="Simpan" name="submit"class="btn btn-success"></td>
+		<input type="submit" value="Simpan" name="submit"class="btn btn-success">&nbsp;
+		<a href="?pilih=ulangan&amp;mod=yes"><span class="btn btn-warning">Batal</span></a></td>
 	</tr>
 </table>
 </form></div>
@@ -91,6 +93,7 @@ if(isset($_POST['submit'])){
 	$nama 		= $_POST['nama'];
 	$kode 		= kodeulangan($_POST['kode']);	
 	$error 	= '';	
+			if (cekkodesama('kode','akad_ulangan',$kode) > 0) $error .= "Error: Kode ".$kode." sudah terdaftar , silahkan ulangi.<br />";
 	if ($error){
 		$admin .= '<div class="error">'.$error.'</div>';
 	}else{
@@ -129,7 +132,8 @@ $admin .='
 		<td></td>
 		<td></td>
 		<td>
-		<input type="submit" value="Simpan" name="submit"class="btn btn-success"></td>
+		<input type="submit" value="Simpan" name="submit"class="btn btn-success">&nbsp;
+		<a href="?pilih=ulangan&amp;mod=yes"><span class="btn btn-warning">Batal</span></a></td>
 	</tr>
 </table>
 </form></div>
