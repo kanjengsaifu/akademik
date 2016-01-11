@@ -1,13 +1,23 @@
-﻿# Host: localhost  (Version: 5.5.5-10.1.9-MariaDB)
-# Date: 2016-01-10 23:55:05
-# Generator: MySQL-Front 5.3  (Build 4.128)
+/*
+Navicat MySQL Data Transfer
 
-/*!40101 SET NAMES utf8 */;
+Source Server         : lokalmysql
+Source Server Version : 50616
+Source Host           : 127.0.0.1:3306
+Source Database       : sister_siadu
 
-#
-# Structure for table "akad_situs"
-#
+Target Server Type    : MYSQL
+Target Server Version : 50616
+File Encoding         : 65001
 
+Date: 2016-01-11 13:12:10
+*/
+
+SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for akad_situs
+-- ----------------------------
 DROP TABLE IF EXISTS `akad_situs`;
 CREATE TABLE `akad_situs` (
   `id` int(2) NOT NULL AUTO_INCREMENT,
@@ -33,10 +43,7 @@ CREATE TABLE `akad_situs` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
-#
-# Data for table "akad_situs"
-#
-
-/*!40000 ALTER TABLE `akad_situs` DISABLE KEYS */;
-INSERT INTO `akad_situs` VALUES (1,'rekysda@gmail.com','Akademik','http://localhost/sister/akademik/','Akademik','WebDesign dengan sistem Responsive','akademik,student service,surabaya,indonesia',5,50,5,4,3,'pos','Elyon Christian School','Surabaya',1,1,12,1,2);
-/*!40000 ALTER TABLE `akad_situs` ENABLE KEYS */;
+-- ----------------------------
+-- Records of akad_situs
+-- ----------------------------
+INSERT INTO `akad_situs` VALUES ('1', 'rekysda@gmail.com', 'Akademik', 'http://localhost/sister/akademik/', 'Akademik', 'WebDesign dengan sistem Responsive', 'akademik,student service,surabaya,indonesia', '5', '50', '5', '4', '3', 'pos', 'Elyon Christian School', 'Surabaya', '1', '1', '12', '1', '2');

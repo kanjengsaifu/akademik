@@ -1,13 +1,23 @@
-﻿# Host: localhost  (Version: 5.5.5-10.1.9-MariaDB)
-# Date: 2016-01-10 23:54:54
-# Generator: MySQL-Front 5.3  (Build 4.128)
+/*
+Navicat MySQL Data Transfer
 
-/*!40101 SET NAMES utf8 */;
+Source Server         : lokalmysql
+Source Server Version : 50616
+Source Host           : 127.0.0.1:3306
+Source Database       : sister_siadu
 
-#
-# Structure for table "akad_matpel"
-#
+Target Server Type    : MYSQL
+Target Server Version : 50616
+File Encoding         : 65001
 
+Date: 2016-01-11 13:11:56
+*/
+
+SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for akad_matpel
+-- ----------------------------
 DROP TABLE IF EXISTS `akad_matpel`;
 CREATE TABLE `akad_matpel` (
   `id` int(4) NOT NULL AUTO_INCREMENT,
@@ -20,8 +30,8 @@ CREATE TABLE `akad_matpel` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
-#
-# Data for table "akad_matpel"
-#
-
-INSERT INTO `akad_matpel` VALUES (4,'Matematika','2','10','3','1','1'),(5,'Bahasa Indonesia','0','2','1','1','2');
+-- ----------------------------
+-- Records of akad_matpel
+-- ----------------------------
+INSERT INTO `akad_matpel` VALUES ('4', 'Matematika', '2', '10', '3', '1', '1');
+INSERT INTO `akad_matpel` VALUES ('5', 'Bahasa Indonesia', '0', '2', '1', '1', '2');

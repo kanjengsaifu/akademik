@@ -1,13 +1,23 @@
-﻿# Host: localhost  (Version: 5.5.5-10.1.9-MariaDB)
-# Date: 2016-01-10 23:54:29
-# Generator: MySQL-Front 5.3  (Build 4.128)
+/*
+Navicat MySQL Data Transfer
 
-/*!40101 SET NAMES utf8 */;
+Source Server         : lokalmysql
+Source Server Version : 50616
+Source Host           : 127.0.0.1:3306
+Source Database       : sister_siadu
 
-#
-# Structure for table "akad_guru"
-#
+Target Server Type    : MYSQL
+Target Server Version : 50616
+File Encoding         : 65001
 
+Date: 2016-01-11 13:11:02
+*/
+
+SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for akad_guru
+-- ----------------------------
 DROP TABLE IF EXISTS `akad_guru`;
 CREATE TABLE `akad_guru` (
   `id` int(4) NOT NULL AUTO_INCREMENT,
@@ -17,10 +27,9 @@ CREATE TABLE `akad_guru` (
   `sks` varchar(50) NOT NULL,
   `status` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
-#
-# Data for table "akad_guru"
-#
-
-INSERT INTO `akad_guru` VALUES (1,'2','4','132','11','1');
+-- ----------------------------
+-- Records of akad_guru
+-- ----------------------------
+INSERT INTO `akad_guru` VALUES ('1', '2', '4', '132', '11', '1');

@@ -10,25 +10,23 @@ Target Server Type    : MYSQL
 Target Server Version : 50616
 File Encoding         : 65001
 
-Date: 2016-01-11 13:11:18
+Date: 2016-01-11 13:12:03
 */
 
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
--- Table structure for akad_jam
+-- Table structure for akad_pelanggaran
 -- ----------------------------
-DROP TABLE IF EXISTS `akad_jam`;
-CREATE TABLE `akad_jam` (
-  `id` int(4) NOT NULL AUTO_INCREMENT,
-  `nama` varchar(255) NOT NULL,
-  `jenjang` varchar(5) NOT NULL,
-  `mulai` varchar(10) NOT NULL,
-  `selesai` varchar(10) NOT NULL,
+DROP TABLE IF EXISTS `akad_pelanggaran`;
+CREATE TABLE `akad_pelanggaran` (
+  `id` int(5) NOT NULL AUTO_INCREMENT,
+  `nama` varchar(215) NOT NULL,
+  `point` varchar(215) NOT NULL,
+  `hukuman` varchar(512) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
--- Records of akad_jam
+-- Records of akad_pelanggaran
 -- ----------------------------
-INSERT INTO `akad_jam` VALUES ('1', '1', '3', '06.45', '07.30');
