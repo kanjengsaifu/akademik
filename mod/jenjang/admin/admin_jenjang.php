@@ -20,6 +20,16 @@ js;
 
 $script_include[] = $JS_SCRIPT;
 $admin .='<h4 class="page-header">Administrasi Jenjang</h4>';
+$admin  .= '<div class="border2">
+<table  ><tr align="center">
+<td>
+<a href="admin.php?pilih=jenjang&mod=yes">Jenjang</a>&nbsp;&nbsp;-&nbsp;&nbsp;
+</td>
+<td>
+<a href="admin.php?pilih=tingkat&mod=yes">Tingkat</a>&nbsp;&nbsp;
+</td>
+</tr></table>
+</div>';
 
 if($_GET['aksi']== 'del'){    
 	global $koneksi_db;    
