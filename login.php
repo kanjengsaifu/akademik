@@ -11,7 +11,7 @@ global $koneksi_db;
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <link rel="stylesheet" href="logincss/login.css" type="text/css" />
 <link rel="shortcut icon" href="favicon.ico" >
-<title>.:SISTER:.</title>
+<title>.:SISTER~ AKADEMIK :.</title>
 </head>
 
 <body onload="setFocus();">
