@@ -3,8 +3,8 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 12 Jan 2016 pada 14.51
--- Versi Server: 5.6.16
+-- Generation Time: Jan 13, 2016 at 01:39 PM
+-- Server version: 5.6.16
 -- PHP Version: 5.5.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -22,7 +22,7 @@ SET time_zone = "+00:00";
 
 DELIMITER $$
 --
--- Prosedur
+-- Procedures
 --
 DROP PROCEDURE IF EXISTS `listdept`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `listdept`()
@@ -44,7 +44,7 @@ BEGIN
 END$$
 
 --
--- Fungsi
+-- Functions
 --
 DROP FUNCTION IF EXISTS `getAnggaranKuota`$$
 CREATE DEFINER=`root`@`localhost` FUNCTION `getAnggaranKuota`(`idAnggaranTahunan` int) RETURNS decimal(14,0)
@@ -332,7 +332,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `akad_guru`
+-- Table structure for table `akad_guru`
 --
 
 DROP TABLE IF EXISTS `akad_guru`;
@@ -347,7 +347,7 @@ CREATE TABLE IF NOT EXISTS `akad_guru` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
--- Dumping data untuk tabel `akad_guru`
+-- Dumping data for table `akad_guru`
 --
 
 INSERT INTO `akad_guru` (`id`, `lokasi`, `matpel`, `guru`, `sks`, `status`) VALUES
@@ -356,7 +356,7 @@ INSERT INTO `akad_guru` (`id`, `lokasi`, `matpel`, `guru`, `sks`, `status`) VALU
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `akad_jam`
+-- Table structure for table `akad_jam`
 --
 
 DROP TABLE IF EXISTS `akad_jam`;
@@ -367,19 +367,48 @@ CREATE TABLE IF NOT EXISTS `akad_jam` (
   `mulai` varchar(10) NOT NULL,
   `selesai` varchar(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
--- Dumping data untuk tabel `akad_jam`
+-- Dumping data for table `akad_jam`
 --
 
 INSERT INTO `akad_jam` (`id`, `nama`, `jenjang`, `mulai`, `selesai`) VALUES
-(1, '1', '3', '06.45', '07.30');
+(1, '1', '1', '06.30', '07.15'),
+(2, '2', '1', '07.15', '08.00'),
+(3, '3', '1', '08.00', '08.45'),
+(4, '4', '1', '08.45', '09.30');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `akad_kegiatan`
+-- Table structure for table `akad_kalender`
+--
+
+DROP TABLE IF EXISTS `akad_kalender`;
+CREATE TABLE IF NOT EXISTS `akad_kalender` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `lokasi` varchar(4) NOT NULL,
+  `tgl1` datetime NOT NULL,
+  `tgl2` datetime NOT NULL,
+  `nama` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+
+--
+-- Dumping data for table `akad_kalender`
+--
+
+INSERT INTO `akad_kalender` (`id`, `lokasi`, `tgl1`, `tgl2`, `nama`) VALUES
+(1, '2', '2016-01-01 08:00:00', '2016-01-08 11:00:00', 'Bersihkan kamar'),
+(6, '1', '2016-01-28 00:00:00', '2016-01-28 00:00:00', 'u6u'),
+(7, '1', '2016-01-05 00:00:00', '2016-01-07 00:00:00', 'test sukomanunggal'),
+(8, '4', '2016-01-14 00:00:00', '2016-01-22 00:00:00', 'ssf wrew rw werwer');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `akad_kegiatan`
 --
 
 DROP TABLE IF EXISTS `akad_kegiatan`;
@@ -392,7 +421,7 @@ CREATE TABLE IF NOT EXISTS `akad_kegiatan` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
--- Dumping data untuk tabel `akad_kegiatan`
+-- Dumping data for table `akad_kegiatan`
 --
 
 INSERT INTO `akad_kegiatan` (`id`, `matpel`, `jenis`, `penilaian`) VALUES
@@ -401,7 +430,7 @@ INSERT INTO `akad_kegiatan` (`id`, `matpel`, `jenis`, `penilaian`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `akad_kegiatannon`
+-- Table structure for table `akad_kegiatannon`
 --
 
 DROP TABLE IF EXISTS `akad_kegiatannon`;
@@ -416,7 +445,7 @@ CREATE TABLE IF NOT EXISTS `akad_kegiatannon` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `akad_kelas`
+-- Table structure for table `akad_kelas`
 --
 
 DROP TABLE IF EXISTS `akad_kelas`;
@@ -436,7 +465,7 @@ CREATE TABLE IF NOT EXISTS `akad_kelas` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=73 ;
 
 --
--- Dumping data untuk tabel `akad_kelas`
+-- Dumping data for table `akad_kelas`
 --
 
 INSERT INTO `akad_kelas` (`replid`, `departemen`, `kelas`, `subtingkat`, `kapasitas`, `keterangan`, `ts`, `tahunajaran`, `walikelas`) VALUES
@@ -516,7 +545,7 @@ INSERT INTO `akad_kelas` (`replid`, `departemen`, `kelas`, `subtingkat`, `kapasi
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `akad_lessonplan`
+-- Table structure for table `akad_lessonplan`
 --
 
 DROP TABLE IF EXISTS `akad_lessonplan`;
@@ -532,7 +561,7 @@ CREATE TABLE IF NOT EXISTS `akad_lessonplan` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `akad_lomba`
+-- Table structure for table `akad_lomba`
 --
 
 DROP TABLE IF EXISTS `akad_lomba`;
@@ -547,7 +576,7 @@ CREATE TABLE IF NOT EXISTS `akad_lomba` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `akad_matpel`
+-- Table structure for table `akad_matpel`
 --
 
 DROP TABLE IF EXISTS `akad_matpel`;
@@ -563,7 +592,7 @@ CREATE TABLE IF NOT EXISTS `akad_matpel` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
--- Dumping data untuk tabel `akad_matpel`
+-- Dumping data for table `akad_matpel`
 --
 
 INSERT INTO `akad_matpel` (`id`, `nama`, `sks`, `slot`, `jenjang`, `tingkat`, `kuota`) VALUES
@@ -573,7 +602,7 @@ INSERT INTO `akad_matpel` (`id`, `nama`, `sks`, `slot`, `jenjang`, `tingkat`, `k
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `akad_pelanggaran`
+-- Table structure for table `akad_pelanggaran`
 --
 
 DROP TABLE IF EXISTS `akad_pelanggaran`;
@@ -588,7 +617,7 @@ CREATE TABLE IF NOT EXISTS `akad_pelanggaran` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `akad_situs`
+-- Table structure for table `akad_situs`
 --
 
 DROP TABLE IF EXISTS `akad_situs`;
@@ -617,7 +646,7 @@ CREATE TABLE IF NOT EXISTS `akad_situs` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=2 ;
 
 --
--- Dumping data untuk tabel `akad_situs`
+-- Dumping data for table `akad_situs`
 --
 
 INSERT INTO `akad_situs` (`id`, `email_master`, `judul_situs`, `url_situs`, `slogan`, `description`, `keywords`, `maxkonten`, `maxadmindata`, `maxdata`, `maxgalleri`, `widgetshare`, `theme`, `author`, `alamatkantor`, `publishwebsite`, `publishnews`, `maxgalleridata`, `widgetkomentar`, `widgetpenulis`) VALUES
@@ -626,7 +655,7 @@ INSERT INTO `akad_situs` (`id`, `email_master`, `judul_situs`, `url_situs`, `slo
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `akad_ulangan`
+-- Table structure for table `akad_ulangan`
 --
 
 DROP TABLE IF EXISTS `akad_ulangan`;
@@ -638,7 +667,7 @@ CREATE TABLE IF NOT EXISTS `akad_ulangan` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
--- Dumping data untuk tabel `akad_ulangan`
+-- Dumping data for table `akad_ulangan`
 --
 
 INSERT INTO `akad_ulangan` (`id`, `nama`, `kode`) VALUES
@@ -647,7 +676,7 @@ INSERT INTO `akad_ulangan` (`id`, `nama`, `kode`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `akad_useraura`
+-- Table structure for table `akad_useraura`
 --
 
 DROP TABLE IF EXISTS `akad_useraura`;
@@ -668,11 +697,11 @@ CREATE TABLE IF NOT EXISTS `akad_useraura` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=35 ;
 
 --
--- Dumping data untuk tabel `akad_useraura`
+-- Dumping data for table `akad_useraura`
 --
 
 INSERT INTO `akad_useraura` (`UserId`, `user`, `password`, `email`, `avatar`, `level`, `tipe`, `is_online`, `last_ping`, `start`, `exp`, `biodata`) VALUES
-(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'admin@elyon.sch.id', 'af0675a9e843c6c8f78163a9118efc78.jpg', 'Administrator', 'aktif', 1, '2016-01-12 13:19:31', '2010-08-27 00:00:00', '2034-08-27 00:00:00', '<p><b>none</b></p>'),
+(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'admin@elyon.sch.id', 'af0675a9e843c6c8f78163a9118efc78.jpg', 'Administrator', 'aktif', 1, '2016-01-13 07:34:17', '2010-08-27 00:00:00', '2034-08-27 00:00:00', '<p><b>none</b></p>'),
 (28, 'superadmin', 'b11d5ece6353d17f85c5ad30e0a02360', 'rekysda@gmail.com', '', 'Administrator', 'aktif', 1, '2015-03-21 23:05:28', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

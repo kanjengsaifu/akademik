@@ -40,8 +40,9 @@ if(isset($_POST['submit'])){
 	$selesai 		= $_POST['selesai'];	
 
 	$error 	= '';	
+		if ($koneksi_db->sql_numrows($koneksi_db->sql_query("SELECT * FROM akad_jam WHERE jenjang='$jenjang' and nama = '$nama'")) > 1) $error .= "Error: Terdapat duplikasi data, silahkan ulangi.<br />";
 	if ($error){
-		$tengah .= '<div class="error">'.$error.'</div>';
+		$admin .= '<div class="error">'.$error.'</div>';
 	}else{
 		$hasil  = mysql_query( "UPDATE `akad_jam` SET `nama`='$nama' ,`jenjang`='$jenjang',`mulai`='$mulai',`selesai`='$selesai' WHERE `id`='$id'" );
 		if($hasil){
@@ -81,10 +82,16 @@ $admin .= '<option value="'.$datasj['replid'].'"'.$pilihan.'>'.$datasj['tingkat'
 $admin .='</select></td>
 </tr>';
 $admin .='<tr>
-		<td>Jam Mata Pelajaran</td>
+		<td>Jam Ke</td>
 		<td>:</td>
-		<td><input type="text" name="nama" value="'.$nama.'" size="30" class="form-control"required></td>
-	</tr>
+		<td><select name="nama" class="form-control" id="nama"required>';
+		for ($i= 1; $i <= 15; $i++)
+{
+			$pilihan = ($i==$nama)?"selected":'';
+$admin .= '<option value="'.$i.'"'.$pilihan.'>'.$i.'</option>';	
+}
+$admin .='</select></td></tr>';
+$admin .='
 	<tr>
 		<td>Mulai</td>
 		<td>:</td>
@@ -116,6 +123,7 @@ if(isset($_POST['submit'])){
 	$mulai 		= $_POST['mulai'];
 	$selesai 		= $_POST['selesai'];	
 	$error 	= '';	
+	if ($koneksi_db->sql_numrows($koneksi_db->sql_query("SELECT * FROM akad_jam WHERE jenjang='$jenjang' and nama = '$nama'")) > 0) $error .= "Error: Terdapat duplikasi data, silahkan ulangi.<br />";
 	if ($error){
 		$admin .= '<div class="error">'.$error.'</div>';
 	}else{
@@ -155,10 +163,16 @@ $admin .= '<option value="'.$datasj['replid'].'"'.$pilihan.'>'.$datasj['tingkat'
 $admin .='</select></td>
 </tr>';
 $admin .='<tr>
-		<td>Jam Mata Pelajaran</td>
+		<td>Jam Ke</td>
 		<td>:</td>
-		<td><input type="text" name="nama" value="'.$nama.'" size="30" class="form-control"required></td>
-	</tr>
+		<td><select name="nama" class="form-control" id="nama"required>';
+		for ($i= 1; $i <= 15; $i++)
+{
+			$pilihan = ($i==$nama)?"selected":'';
+$admin .= '<option value="'.$i.'"'.$pilihan.'>'.$i.'</option>';	
+}
+$admin .='</select></td></tr>';
+$admin .='
 	<tr>
 		<td>Mulai</td>
 		<td>:</td>
