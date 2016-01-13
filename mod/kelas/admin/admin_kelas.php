@@ -89,7 +89,7 @@ $walikelas     		= $_POST['walikelas'];
 }
 $query 		= mysql_query ("SELECT * FROM `akad_kelas` WHERE `replid`='$id'");
 $data 		= mysql_fetch_array($query);
-$lokasi     		= $data['lokasi'];
+$lokasi     		= $data['departemen'];
 $jenjang     		= $data['jenjang'];
 $tingkat     		= $data['subtingkat'];
 $tahunajaran     		= $data['tahunajaran'];
@@ -215,7 +215,7 @@ $walikelas     		= $_POST['walikelas'];
 	if ($error){
 		$admin .= '<div class="error">'.$error.'</div>';
 	}else{
-		$hasil  = mysql_query( "INSERT INTO `akad_kelas` (`departemen` ,`kelas`,`subtingkat`,`kapasitas`,`keterangan`,`tahunajaran`,`walikelas`) VALUES ('$departemen','$kelas','$tingkat','$kapasitas','$keterangan','$tahunajaran','$walikelas')" );
+		$hasil  = mysql_query( "INSERT INTO `akad_kelas` (`departemen` ,`kelas`,`subtingkat`,`kapasitas`,`keterangan`,`tahunajaran`,`walikelas`) VALUES ('$lokasi','$kelas','$tingkat','$kapasitas','$keterangan','$tahunajaran','$walikelas')" );
 		if($hasil){
 			$admin .= '<div class="sukses"><b>Berhasil di Buat.</b></div>';
 		}else{
@@ -402,21 +402,6 @@ $admin .= '
 $admin.='
 </table>';
 $admin .='</form>';
-$admin .= '
-<select id="mark" name="mark">
-  <option value="">--</option>
-  <option value="bmw">BMW</option>
-  <option value="audi">Audi</option>
-</select>
-<select id="series" name="series">
-  <option value="">--</option>
-  <option value="series-3" class="bmw">3 series</option>
-  <option value="series-5" class="bmw">5 series</option>
-  <option value="series-6" class="bmw">6 series</option>
-  <option value="a3" class="audi">A3</option>
-  <option value="a4" class="audi">A4</option>
-  <option value="a5" class="audi">A5</option>
-</select>';
 /************************************/
 
 $admin.='
