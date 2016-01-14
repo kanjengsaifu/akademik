@@ -38,12 +38,11 @@ if($_GET['aksi']==""){
 /*******************/
 $sql2 = "SELECT * FROM `akad_hari` order by id asc";
 $query2 = mysql_query( $sql2 );
-
 while ($data2 = mysql_fetch_array($query2)) { 
 $nama = $data2['nama'];
 $id = $data2['id'];
 $namahari.='<td>'.$nama.'</td>';
-$idhari.='<td>'.$id.'</td>';
+
 }
 /*********************/
 $admin.='
@@ -56,10 +55,18 @@ $admin.='
 	$jam=1;
 $hasil = $koneksi_db->sql_query( "SELECT * FROM akad_jam" );
 while ($data = $koneksi_db->sql_fetchrow($hasil)) {
-$nama=$data['nama'];
-$namajam=''.$nama.'';
-$admin .='<tr><td>'.$namajam.'</td>'.$idhari.'
-</tr>';
+$idjam=$data['id'];
+$namajam=$data['nama'];
+
+$admin .='<tr><td>'.$namajam.'</td>';
+/***************************/
+$hasil3 = $koneksi_db->sql_query( "SELECT * FROM akad_hari order by id asc" );
+while ($data3 = $koneksi_db->sql_fetchrow($hasil3)) {
+$idhari = $data3['id'];
+$admin.='<td>idhari:'.$idhari.', idjam:'.$idjam.'</td>';	
+}
+/*************************/
+$admin .='</tr>';
 $jam++;
 }
 $admin .= '</tbody></table>';
