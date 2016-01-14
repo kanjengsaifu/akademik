@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 14, 2016 at 08:32 AM
+-- Generation Time: Jan 14, 2016 at 12:58 PM
 -- Server version: 5.6.16
 -- PHP Version: 5.5.11
 
@@ -370,6 +370,51 @@ CREATE TABLE IF NOT EXISTS `akad_guru` (
 
 INSERT INTO `akad_guru` (`id`, `lokasi`, `matpel`, `guru`, `sks`, `status`) VALUES
 (1, '2', '4', '132', '11', '1');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `akad_hari`
+--
+
+DROP TABLE IF EXISTS `akad_hari`;
+CREATE TABLE IF NOT EXISTS `akad_hari` (
+  `id` int(4) NOT NULL AUTO_INCREMENT,
+  `nama` varchar(10) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+
+--
+-- Dumping data for table `akad_hari`
+--
+
+INSERT INTO `akad_hari` (`id`, `nama`) VALUES
+(1, 'Senin'),
+(2, 'Selasa'),
+(3, 'Rabu'),
+(4, 'Kamis'),
+(5, 'Jumat'),
+(6, 'Sabtu');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `akad_jadwal`
+--
+
+DROP TABLE IF EXISTS `akad_jadwal`;
+CREATE TABLE IF NOT EXISTS `akad_jadwal` (
+  `id` int(4) NOT NULL AUTO_INCREMENT,
+  `lokasi` int(4) NOT NULL,
+  `jenjang` int(4) NOT NULL,
+  `tahunajaran` int(4) NOT NULL,
+  `kelas` int(4) NOT NULL,
+  `pelajaran` int(4) NOT NULL,
+  `guru` int(4) NOT NULL,
+  `hari` int(4) NOT NULL,
+  `jam` int(4) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
