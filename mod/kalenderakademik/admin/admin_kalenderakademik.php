@@ -45,10 +45,10 @@ $admin .='<h4 class="page-header">Administrasi Kalender Akademik</h4>';
 if($_GET['aksi']== 'del'){    
 	global $koneksi_db;    
 	$id     = int_filter($_GET['id']);    
-	$hasil = $koneksi_db->sql_query("DELETE FROM `akad_kalenderkegiatan` WHERE `id`='$id'");    
+	$hasil = $koneksi_db->sql_query("DELETE FROM `akad_kalender` WHERE `id`='$id'");    
 	if($hasil){    
-		$admin.='<div class="sukses">Kegiatan berhasil dihapus! .</div>';    
-		$style_include[] ='<meta http-equiv="refresh" content="1; url=admin.php?pilih=kalenderkegiatan&mod=yes" />';    
+		$admin.='<div class="sukses">Kalender Akademik berhasil dihapus! .</div>';    
+		$style_include[] ='<meta http-equiv="refresh" content="1; url=admin.php?pilih=kalenderakademik&mod=yes" />';    
 	}
 }
 
