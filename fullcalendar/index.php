@@ -6,6 +6,7 @@
 <script src="fullcalender/lib/jquery.min.js" type="text/javascript"></script>
 <script src="fullcalender/lib/jquery-ui.custom.min.js" type="text/javascript"></script>
 <script src="fullcalender/fullcalendar.min.js" type="text/javascript"></script>
+<link rel="stylesheet" href="../includes/bootstrap/css/bootstrap.min.css" type="text/css">
 <?php
 function tanggal_sekarang($time=FALSE)
 {
@@ -51,5 +52,7 @@ function tanggal_sekarang($time=FALSE)
 		margin: 0 auto;
 	}
 </style>
+<div align="center">
+<h2>Kalender Akademik</h2></div>
 <div id='loading'>loading...</div>
 <div id='calendar'></div>

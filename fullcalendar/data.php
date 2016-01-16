@@ -1,6 +1,8 @@
 <?php
+
 require_once("mysqlminang.php");
 $p=new Mysqlminang("sister_siadu","localhost","root","");
+
 
 $sql="Select * from akad_kalender";
 $data=array();

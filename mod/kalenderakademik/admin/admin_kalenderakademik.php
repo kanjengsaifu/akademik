@@ -278,7 +278,7 @@ $admin .= '<option value="'.$i.'"'.$pilihan.'>'.$i.'</option>';
 }
 $admin .='</select></td>';
 $admin .= '
-		<td>&nbsp;&nbsp;<a href="./fullcalendar/" target="new"class="btn btn-primary">Lihat Versi kalender</a>&nbsp;&nbsp;<input type="submit" value="Lihat" name="lihatdata" class="btn btn-success"></td>
+		<td>&nbsp;&nbsp;<a href="./fullcalendar/" target="_blank" class="btn btn-primary">Lihat Versi kalender</a>&nbsp;&nbsp;<input type="submit" value="Lihat" name="lihatdata" class="btn btn-success"></td>
 </tr>
 ';
 $admin.='
