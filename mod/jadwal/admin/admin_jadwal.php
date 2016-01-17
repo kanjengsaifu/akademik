@@ -145,7 +145,8 @@ $JS_SCRIPT.= <<<js
 <script language="JavaScript" type="text/javascript">
 $(function() {
 $("#tingkat").chained("#jenjang");
-$("#kelas").chained("#subtingkat"); /* or $("#series").chainedTo("#mark"); */
+$("#kelas").chained("#tingkat"); 
+$("#matpel").chained("#guru");/* or $("#series").chainedTo("#mark"); */
 } );
 </script>
 js;
@@ -158,23 +159,29 @@ if($_GET['aksi']== 'del'){
 	$id     = int_filter($_GET['id']);    
 	$hasil = $koneksi_db->sql_query("DELETE FROM `akad_jadwal` WHERE `id`='$id'");    
 	if($hasil){    
-		$admin.='<div class="sukses">Jadwal Pelajaran berhasil dihapus! .</div>';    
-		$style_include[] ='<meta http-equiv="refresh" content="1; url=admin.php?pilih=jadwal&mod=yes" />';    
+		$admin.='<div class="sukses">Jadwal Pelajaran berhasil dihapus! .</div>';   
+			$style_include[] ='<meta http-equiv="refresh" content="1; url=admin.php?pilih=jadwal&mod=yes&lokasi='.$lokasi.'&jenjang='.$jenjang.'&tingkat='.$tingkat.'&kelas='.$kelas.'&tahunajaran='.$tahunajaran.'" />';  		
 	}
 }
 
 
 if($_GET['aksi']==""){
-	
+$lokasi = $_GET['lokasi'];
+$jenjang = $_GET['jenjang'];	
+$tingkat = $_GET['tingkat'];
+$kelas = $_GET['kelas'];
+$tahunajaran = $_GET['tahunajaran'];	
+$hari = $_GET['hari'];	
+$jamke = $_GET['jamke'];	
 /************************************/
 /********************************************************/
-	if (isset($_POST['lihatdata'])){
+	if (isset($_GET['lihatdata'])){
 	
-$lokasi = $_POST['lokasi'];
-$jenjang = $_POST['jenjang'];	
-$tingkat = $_POST['tingkat'];
-$kelas = $_POST['kelas'];
-$tahunajaran = $_POST['tahunajaran'];
+$lokasi = $_GET['lokasi'];
+$jenjang = $_GET['jenjang'];	
+$tingkat = $_GET['tingkat'];
+$kelas = $_GET['kelas'];
+$tahunajaran = $_GET['tahunajaran'];
 if($lokasi==''){
          $wherelokasi="";
 }else{
@@ -205,7 +212,7 @@ if($tahunajaran==''){
 
 $admin .= '<div class="panel panel-info">
 <div class="panel-heading"><h3 class="panel-title">Daftar Kelas</h3></div>';
-$admin.='<form class="form-inline" method="post" action="" enctype ="multipart/form-data" id="posts">';
+$admin.='<form class="form-inline" method="get" action="" enctype ="multipart/form-data" id="posts">';
 $admin.='
 <table class="table">';
 $admin .= '<tr>
@@ -255,7 +262,9 @@ $admin .= '<option value="'.$datasj['replid'].'"'.$pilihan.'>'.$datasj['tahunaja
 }
 $admin .='</select></td>';
 $admin .= '
-		<td><input type="submit" value="Lihat" name="lihatdata" class="btn btn-success"></td>
+		<td><input type="hidden" name="pilih" value="jadwal" size="30" class="form-control">
+		<input type="hidden" name="mod" value="yes" size="30" class="form-control">
+		<input type="submit" value="Lihat" name="lihatdata" class="btn btn-success"></td>
 </tr>
 ';
 $admin.='
@@ -269,14 +278,14 @@ $query2 = mysql_query( $sql2 );
 while ($data2 = mysql_fetch_array($query2)) { 
 $nama = $data2['nama'];
 $id = $data2['id'];
-$namahari.='<td>'.$nama.'</td>';
+$namahari.='<td width="250px">'.$nama.'</td>';
 
 }
 /*********************/
 $admin.='
-<table class="table table-striped table-bordered" cellspacing="0" width="100%">
+<table class="table table-bordered">
     <thead>
-        <tr><td></td>
+        <tr><td width="50px">Jam</td>
             '.$namahari.'
         </tr>
     </thead>';
@@ -288,10 +297,23 @@ $namajam=$data['nama'];
 
 $admin .='<tr><td>'.$namajam.'</td>';
 /***************************/
+if (isset($_GET['lihatdata'])or isset($_GET['kelas'])){
 $hasil3 = $koneksi_db->sql_query( "SELECT * FROM akad_hari order by id asc" );
 while ($data3 = $koneksi_db->sql_fetchrow($hasil3)) {
 $idhari = $data3['id'];
-$admin.='<td><a href="#popup"> idhari:'.$idhari.', idjam:'.$idjam.'</td>';	
+$cekajar = cekajar($lokasi,$kelas,$idhari,$idjam);
+if($cekajar>0){
+$getjadwal	=getjadwal($lokasi,$kelas,$idhari,$idjam);
+//$namaguru = 	getdataguru('nama',getjadwal($lokasi,$kelas,$idhari,$idjam));
+	$admin.='<td>
+	<a href="admin.php?pilih=jadwal&mod=yes&lokasi='.$lokasi.'&jenjang='.$jenjang.'&tingkat='.$tingkat.'&kelas='.$kelas.'&tahunajaran='.$tahunajaran.'&hari='.$idhari.'&jamke='.$idjam.'&aksi=del&id='.$getjadwal['id'].'" onclick="return confirm(\'Apakah Anda Yakin Ingin Menghapus Data Ini ?\')"class="btn btn-warning">
+	'.getdataguru('nama',$getjadwal['guru']).'<br>(
+	'.getmatpel($getjadwal['matpel']).')</a>
+	</td>';
+}else{
+$admin.='<td align="center"><a href="admin.php?pilih=jadwal&mod=yes&lokasi='.$lokasi.'&jenjang='.$jenjang.'&tingkat='.$tingkat.'&kelas='.$kelas.'&tahunajaran='.$tahunajaran.'&hari='.$idhari.'&jamke='.$idjam.'&popup#popup"class="btn btn-primary">Tambah</a></td>';	
+}
+}
 }
 /*************************/
 $admin .='</tr>';
@@ -300,30 +322,114 @@ $jam++;
 $admin .= '</tbody></table>';
 }
 /************************************/
-}
 $admin .= '
 <div class="popup-wrapper" id="popup">
-	<div class="popup-container">
-		<form action="http://www.syakirurohman.net/2015/01/tutorial-membuat-popup-tanpa-javascript-jquery.html#" method="post" class="popup-form">
-			<h2>Ikuti Update !!</h2>
-			<p>Daripada hanya melihat demo untuk popup-nya saja, lebih baik masukkan juga email anda agar mendapatkan pemberitahuan saat ada update posting menarik lain seperti ini.<br/>
-			<strong>Percayalah, saya hanya akan mengirim sesuatu yang bermanfaat untuk anda :)</strong></p>
-			<div class="input-group">
-				<p><input type="email" name="email" placeholder="Email Address"></p>
-				<p> 
-				<input type="hidden" name="action" value="subscribe"> 
-				<input type="hidden" name="source" value="http://www.syakirurohman.net/2015/01/tutorial-membuat-popup-tanpa-javascript-jquery.html"> 
-				<input type="hidden" name="sub-type" value="widget"> 
-				<input type="hidden" name="redirect_fragment" value="blog_subscription-2"> 
-				<input type="hidden" id="_wpnonce" name="_wpnonce" value="aaf0b68fcd"> 
-				<input type="submit" value="Submit" name="jetpack_subscriptions_widget">
-				</p>
-			</div>
-		</form>
-		<a class="popup-close" href="#closed">X</a>
+	<div class="popup-container">';
+	if (isset($_POST['submit'])){
+
+$lokasi = $_POST['lokasi'];
+$jenjang = $_POST['jenjang'];	
+$tingkat = $_POST['tingkat'];
+$kelas = $_POST['kelas'];
+$tahunajaran = $_POST['tahunajaran'];
+$hari = $_POST['hari'];
+$jam = $_POST['jam'];	
+$guru = $_POST['guru'];	
+$matpel = $_POST['matpel'];	
+	if (cekjadwaldobelguru($guru,$hari,$jam) > 0) $error .= "Error: Terdapat duplikasi data mengajar, silahkan memilih Guru lain atau Batal.<br />";
+	if ($error){
+		$admin .= '<div class="error">'.$error.'</div>';
+	}else{
+		$hasil  = mysql_query( "INSERT INTO `akad_jadwal` VALUES ('','$lokasi','$jenjang','$tahunajaran','$tingkat','$kelas','$matpel','$guru','$hari','$jam')" );
+			$style_include[] ='<meta http-equiv="refresh" content="1; url=admin.php?pilih=jadwal&mod=yes&lokasi='.$lokasi.'&jenjang='.$jenjang.'&tingkat='.$tingkat.'&kelas='.$kelas.'&tahunajaran='.$tahunajaran.'" />'; 
+				}
+	}
+
+$admin .= '
+<form method="post" action="" class="form-inline">
+<table class="table">';
+$admin .= '<tr>
+<td>Lokasi</td>
+		<td>:</td>
+		<td>'.getlokasi($lokasi).'</td>
+</tr>';
+$admin .= '<tr>
+<td>Jenjang</td>
+		<td>:</td>
+		<td>'.getjenjang($jenjang).'</td>
+</tr>';
+$admin .= '<tr>
+<td>Tahun Ajaran</td>
+		<td>:</td>
+		<td>'.gettahunajaran($tahunajaran).'</td>
+</tr>';
+$admin .= '<tr>
+<td>Tingkat</td>
+		<td>:</td>
+		<td>'.gettingkat($tingkat).'</td>
+</tr>';
+$admin .= '<tr>
+<td>Kelas</td>
+		<td>:</td>
+		<td>'.getkelas($kelas).'</td>
+</tr>';
+$admin .= '<tr>
+<td>Hari</td>
+		<td>:</td>
+		<td>'.gethari($hari).'</td>
+</tr>';
+$admin .= '<tr>
+<td>Jam Ke</td>
+		<td>:</td>
+		<td>'.getjam($jamke).'</td>
+</tr>';
+$admin .='
+	<tr>
+		<td>Guru</td>
+		<td>:</td>
+<td><select name="guru" class="form-control" id="guru" required>';
+$hasilj = $koneksi_db->sql_query("SELECT * FROM akad_guru ORDER BY id asc");
+$admin .= '<option value="">== Pilih Guru ==</option>';
+while ($datasj =  $koneksi_db->sql_fetchrow ($hasilj)){
+$admin .= '<option value="'.$datasj['guru'].'"'.$pilihan.'>'.getdataguru('nama',$datasj['guru']).'</option>';
+}
+$admin .='</select></td>
+	</tr>';
+$admin .='
+	<tr>
+		<td>Mata Pelajaran</td>
+		<td>:</td>
+<td><select name="matpel" class="form-control" id="matpel" required>';
+$hasilj = $koneksi_db->sql_query("SELECT *FROM akad_guru ORDER BY id asc");
+$admin .= '<option value="">== Pilih Mata Pelajaran ==</option>';
+while ($datasj =  $koneksi_db->sql_fetchrow ($hasilj)){
+$admin .= '<option value="'.$datasj['matpel'].'"class="'.$datasj['guru'].'">'.getmatpel($datasj['matpel']).'</option>';
+}
+$admin .='</select></td>
+	</tr>';
+
+$admin .='
+	<tr>
+		<td></td>
+		<td></td>
+		<td>
+		<input type="hidden" name="lokasi" value="'.$lokasi.'">
+<input type="hidden" name="jenjang" value="'.$jenjang.'">
+<input type="hidden" name="tingkat" value="'.$tingkat.'">
+<input type="hidden" name="kelas" value="'.$kelas.'">
+<input type="hidden" name="tahunajaran" value="'.$tahunajaran.'">
+<input type="hidden" name="hari" value="'.$hari.'">
+<input type="hidden" name="jam" value="'.$jamke.'">
+		<input type="submit" value="Simpan" name="submit"class="btn btn-success">&nbsp;
+		<a href="admin.php?pilih=jadwal&mod=yes&lokasi='.$lokasi.'&jenjang='.$jenjang.'&tingkat='.$tingkat.'&kelas='.$kelas.'&tahunajaran='.$tahunajaran.'"><span class="btn btn-warning">Batal</span></a></td>
+	</tr>
+</table>
+</form>';
+
+$admin.='<a class="popup-close" href="#closed">X</a>
 	</div>
 </div>';
-
+}
 echo $admin;
 
 ?>

@@ -6,7 +6,7 @@
  * Author: Teamworks Creative - reky@teamworks.co.id - +6285732037068 - pin 25b7edd4
  */
 
-error_reporting(1);
+error_reporting(0);
 
 /*---------------------------------------------------------------------------------
  konfigurasi database
