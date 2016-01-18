@@ -45,6 +45,7 @@ $hasil2 =  $koneksi_db->sql_query( "SELECT * FROM akad_setting " );
 $data2 = $koneksi_db->sql_fetchrow($hasil2);
 $semesteraktif=$data2['semesteraktif'];
 $tahunaktif=$data2['tahunaktif'];
+$tahunajaranaktif=$data2['tahunajaranaktif'];
 $tahunskrg = date("Y");
 $bulanskrg = date("m");
 ?>

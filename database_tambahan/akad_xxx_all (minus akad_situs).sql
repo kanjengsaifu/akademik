@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 18 Jan 2016 pada 11.01
+-- Generation Time: 18 Jan 2016 pada 13.29
 -- Versi Server: 5.6.16
 -- PHP Version: 5.5.11
 
@@ -353,6 +353,7 @@ CREATE TABLE IF NOT EXISTS `akad_setting` (
   `id` int(4) NOT NULL AUTO_INCREMENT,
   `semesteraktif` int(4) NOT NULL,
   `tahunaktif` int(5) NOT NULL,
+  `tahunajaranaktif` int(5) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
@@ -360,8 +361,8 @@ CREATE TABLE IF NOT EXISTS `akad_setting` (
 -- Dumping data untuk tabel `akad_setting`
 --
 
-INSERT INTO `akad_setting` (`id`, `semesteraktif`, `tahunaktif`) VALUES
-(1, 1, 2015);
+INSERT INTO `akad_setting` (`id`, `semesteraktif`, `tahunaktif`, `tahunajaranaktif`) VALUES
+(1, 1, 2015, 5);
 
 -- --------------------------------------------------------
 
@@ -375,21 +376,25 @@ CREATE TABLE IF NOT EXISTS `akad_siswaabsen` (
   `semester` int(4) NOT NULL,
   `bulan` int(5) NOT NULL,
   `tahun` int(5) NOT NULL,
+  `kelas` int(5) NOT NULL,
   `siswa` int(5) NOT NULL,
   `hadir` int(5) NOT NULL,
-  `ijin` int(5) NOT NULL,
   `sakit` int(5) NOT NULL,
+  `ijin` int(5) NOT NULL,
   `alpa` int(5) NOT NULL,
   `cuti` int(5) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data untuk tabel `akad_siswaabsen`
 --
 
-INSERT INTO `akad_siswaabsen` (`id`, `semester`, `bulan`, `tahun`, `siswa`, `hadir`, `ijin`, `sakit`, `alpa`, `cuti`) VALUES
-(1, 1, 1, 2015, 577, 0, 3, 2, 4, 5);
+INSERT INTO `akad_siswaabsen` (`id`, `semester`, `bulan`, `tahun`, `kelas`, `siswa`, `hadir`, `sakit`, `ijin`, `alpa`, `cuti`) VALUES
+(1, 1, 1, 2015, 2, 577, 0, 2, 0, 4, 5),
+(3, 1, 12, 2014, 2, 577, 4, 4, 0, 4, 4),
+(5, 1, 1, 2015, 2, 293, 5, 5, 0, 3, 5),
+(6, 1, 12, 2014, 2, 293, 50, 4, 3, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -404,7 +409,7 @@ CREATE TABLE IF NOT EXISTS `akad_siswakelas` (
   `kelas` int(5) NOT NULL,
   `siswa` int(5) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
 
 --
 -- Dumping data untuk tabel `akad_siswakelas`
@@ -415,7 +420,8 @@ INSERT INTO `akad_siswakelas` (`id`, `tahunajaran`, `kelas`, `siswa`) VALUES
 (2, 5, 2, 102),
 (3, 5, 2, 205),
 (8, 5, 3, 0),
-(14, 5, 3, 22);
+(14, 5, 3, 22),
+(15, 5, 2, 293);
 
 -- --------------------------------------------------------
 
