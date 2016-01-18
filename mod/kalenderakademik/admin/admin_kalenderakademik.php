@@ -271,7 +271,7 @@ $admin .='</select></td>';
 $admin .='
 		<td> <select name="tahun" class="form-control"required>';
 		$admin .= '<option value="">== Tahun ==</option>';
-		for ($i= 2015; $i <= 2050; $i++)
+		for ($i= 2010; $i <= 2050; $i++)
 {
 			$pilihan = ($i==$tahun)?"selected":'';
 $admin .= '<option value="'.$i.'"'.$pilihan.'>'.$i.'</option>';	

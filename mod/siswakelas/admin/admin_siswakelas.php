@@ -47,9 +47,10 @@ if($_GET['aksi']== 'del'){
 
 
 if($_GET['aksi']=="addsiswa"){
-	$id = int_filter ($_GET['id']);
-$query 		= mysql_query ("SELECT * FROM `akad_kelas` WHERE `replid`='$id'");
+	$idkelas = int_filter ($_GET['idkelas']);
+$query 		= mysql_query ("SELECT * FROM `akad_kelas` WHERE `replid`='$idkelas'");
 $data 		= mysql_fetch_array($query);
+$idkelas     		= $data['replid'];
 $lokasi     		= $data['departemen'];
 $kelas     		= $data['kelas'];
 $tingkat     		= $data['subtingkat'];
@@ -102,8 +103,72 @@ $admin .='<tr>
 	</tr>
 </table>
 </div>
-';	
+';
+if($_GET['detail']=="hapussiswa"){
+	$idkelas 		= $_GET['idkelas'];
+$idsiswa 		= $_GET['idsiswa'];	
+$hasil = $koneksi_db->sql_query("DELETE FROM `akad_siswakelas` WHERE `id`='$idsiswa'");    
+	if($hasil){    
+		$admin.='<div class="sukses">Siswa di Kelas tersebut berhasil dihapus! .</div>';   
+			$style_include[] ='<meta http-equiv="refresh" content="1; url=admin.php?pilih=siswakelas&mod=yes&aksi=addsiswa&idkelas='.$idkelas.'" />';  		
+	}
+}
 
+if(isset($_POST['submitadd'])){
+$siswa 		= $_POST['siswa'];	
+$idkelas 		= $_POST['idkelas'];	
+$tahunajaran 		= $_POST['tahunajaran'];
+	if (cekkelasdobelsiswa($tahunajaran,$idkelas,$siswa) > 0) $error .= "Error: Terdapat duplikasi data siswa pada kelas yg sama, silahkan memilih Siswa yang lain.<br />";
+		if (cekajardobelsiswa($tahunajaran,$siswa)>0) $error .= "Error: Terdapat duplikasi data siswa pada tahun ajaran yg sama, silahkan memilih Siswa yang lain.<br />";
+	if ($error){
+		$admin .= '<div class="error">'.$error.'</div>';
+	}else{	
+$hasil  = mysql_query( "INSERT INTO `akad_siswakelas` VALUES ('','$tahunajaran','$idkelas','$siswa')" );
+			$style_include[] ='<meta http-equiv="refresh" content="1; url=admin.php?pilih=siswakelas&mod=yes&aksi=addsiswa&idkelas='.$idkelas.'" />'; 
+	}
+}
+$admin .= '<div class="panel panel-info">
+<div class="panel-heading"><h3 class="panel-title">Input Siswa</h3></div>';
+$admin .= '
+<form method="post" action="" class="form-inline"id="posts">
+<input type="hidden" name="idkelas" value="'.$idkelas.'">
+<input type="hidden" name="tahunajaran" value="'.$tahunajaran.'">
+<table class="table table-striped table-hover">
+	<tr>
+		<td>Siswa</td>
+		<td>:</td>
+		<td><select name="siswa" id="combobox" required>';
+$hasilj = $koneksi_db->sql_query("SELECT * FROM aka_siswa ORDER BY nama asc");
+$admin .= '<option value="">== Siswa ==</option>';
+while ($datasj =  $koneksi_db->sql_fetchrow ($hasilj)){
+$pilihanj = ($datasj['replid']==$siswa)?"selected":'';
+$admin .= '<option value="'.$datasj['replid'].'"'.$pilihanj.'>('.$datasj['nis'].') '.$datasj['nama'].'</option>';
+}
+$admin .='</select>&nbsp;&nbsp;<input type="submit" value="Tambah" name="submitadd"class="btn btn-success" ></td>
+		</tr></table></form></div>';
+
+$admin.='
+<table id="example"class="table table-striped table-bordered" cellspacing="0" width="100%">
+    <thead>
+        <tr>
+            <th>NIS</th>
+            <th>Nama</th>
+            <th>Aksi</th>
+        </tr>
+    </thead>';
+$hasil = $koneksi_db->sql_query( "SELECT ask.id,ask.siswa,aks.nis,aks.nama FROM akad_siswakelas as ask,aka_siswa as aks where ask.kelas='$idkelas' and ask.siswa=aks.replid order by aks.nis asc" );
+while ($data = $koneksi_db->sql_fetchrow($hasil)) {
+	$idsiswa     		= $data['id'];
+$siswa     		= $data['siswa'];
+$nis     		= $data['nis'];
+$nama     		= $data['nama'];
+$admin .='<tr>
+<td>'.$nis.'</td>
+<td>'.$nama.'</td>
+<td><a href="?pilih=siswakelas&amp;mod=yes&amp;aksi=addsiswa&amp;idkelas='.$idkelas.'&amp;detail=hapussiswa&amp;idsiswa='.$idsiswa.'"onclick="return confirm(\'Apakah Anda Yakin Ingin Menghapus Data Ini ?\')"><span class="btn btn-danger">Hapus Siswa</span></a></td>
+</tr>';
+}
+$admin .= '</tbody></table>';
 }
 
 if($_GET['aksi']==""){
@@ -224,7 +289,7 @@ $admin .='<tr>
 <td>'.$kapasitas.'</td>
 <td></td>
 <td>'.$keterangan.'</td>
-<td><a href="?pilih=siswakelas&amp;mod=yes&amp;aksi=addsiswa&amp;id='.$data['replid'].'"><span class="btn btn-warning">Tambah Siswa</span></a></td>
+<td><a href="?pilih=siswakelas&amp;mod=yes&amp;aksi=addsiswa&amp;idkelas='.$data['replid'].'"><span class="btn btn-warning">Tambah Siswa</span></a></td>
 </tr>';
 }
 $admin .= '</tbody></table>';

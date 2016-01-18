@@ -41,4 +41,10 @@ $publishwebsite=$data['publishwebsite'];
 $publishnews=$data['publishnews'];
 $tags=$_META['keywords'];
 $maxgalleridata = $data['maxgalleridata'];
+$hasil2 =  $koneksi_db->sql_query( "SELECT * FROM akad_setting " );
+$data2 = $koneksi_db->sql_fetchrow($hasil2);
+$semesteraktif=$data2['semesteraktif'];
+$tahunaktif=$data2['tahunaktif'];
+$tahunskrg = date("Y");
+$bulanskrg = date("m");
 ?>
