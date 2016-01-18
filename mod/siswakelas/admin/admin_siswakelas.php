@@ -279,6 +279,7 @@ $kelas=$data['kelas'];
 $walikelas=$data['walikelas'];
 $kapasitas=$data['kapasitas'];
 $keterangan=$data['keterangan'];
+$terisi=getisikelas($data['replid']);
 $admin .='<tr>
 <td>'.getfieldtabel('nama','departemen','replid',$lokasi).'</td>
 <td>'.getfieldtabel('tingkat','aka_tingkat','replid',$jenjang).'</td>
@@ -287,7 +288,7 @@ $admin .='<tr>
 <td>'.$kelas.'</td>
 <td>'.getfieldtabel('nama','hrd_karyawan','id',$walikelas).'</td>
 <td>'.$kapasitas.'</td>
-<td></td>
+<td>('.$terisi.')</td>
 <td>'.$keterangan.'</td>
 <td><a href="?pilih=siswakelas&amp;mod=yes&amp;aksi=addsiswa&amp;idkelas='.$data['replid'].'"><span class="btn btn-warning">Tambah Siswa</span></a></td>
 </tr>';
