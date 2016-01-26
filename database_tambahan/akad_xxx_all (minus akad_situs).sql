@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 18 Jan 2016 pada 13.29
+-- Generation Time: 26 Jan 2016 pada 13.29
 -- Versi Server: 5.6.16
 -- PHP Version: 5.5.11
 
@@ -315,11 +315,66 @@ INSERT INTO `akad_matpel` (`id`, `nama`, `sks`, `slot`, `jenjang`, `tingkat`, `k
 DROP TABLE IF EXISTS `akad_pelanggaran`;
 CREATE TABLE IF NOT EXISTS `akad_pelanggaran` (
   `id` int(5) NOT NULL AUTO_INCREMENT,
+  `kategori` int(4) NOT NULL,
   `nama` varchar(215) NOT NULL,
   `point` varchar(215) NOT NULL,
   `hukuman` varchar(512) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=26 ;
+
+--
+-- Dumping data untuk tabel `akad_pelanggaran`
+--
+
+INSERT INTO `akad_pelanggaran` (`id`, `kategori`, `nama`, `point`, `hukuman`) VALUES
+(2, 1, 'Terlambat kurang dari 10 menit', '2', 'Peringatan lisan'),
+(3, 1, 'Terlambat lebih dari 15 menit', '10', 'Membersihkan lingkungan sekolah dan diijinkan masuk pada jam ke dua'),
+(4, 1, 'Izin keluar (piket) pekarangan sekolah dan tidak kembali lagi', '10', 'Surat peringatan'),
+(5, 2, 'Siswa tidak masuk sekolah karena Sakit atau Izin tanpa keterangan', '2', 'Peringatan lisan'),
+(6, 2, 'Tidak mengikuti upacara bendera, dan hari besar nasional', '10', 'Peringatan lisan'),
+(7, 3, 'Seragam tidak sesuai dengan ketentuan', '10', 'Surat peringatan'),
+(8, 3, ' Tidak memasukkan baju seragam (Siswa Putra)', '10', 'Peringatan lisan, Memasukkan baju'),
+(9, 3, 'Menggunakan perhiasan / berhias berlebihan (Siswa Putri)', '10', 'Peringatan lisan, penyitaan barang'),
+(10, 3, 'Memakai aksesoris gelang, kalung, anting  kecuali jam tangan (Siswa Pria)', '10', '	Peringatan lisan, penyitaan barang'),
+(11, 3, 'Memiliki tattoo, Kuping/lidah/hidung ditindik', '25', 'Peringatan lisan, ubah/hapus warna ,Surat peringatan, Pemanggilan ORTU'),
+(12, 4, 'Mencuri/mengambil barang milik orang lain', '50', 'Surat peringatan, Pemanggilan ORTU'),
+(13, 4, ' Mencorat-coret dinding, tembok, meja, kursi, dan pagar sekolah', '25', 'Surat peringatan, Pemanggilan ORTU,  mengecat ulang'),
+(14, 4, 'Menyita dengan paksa (merampas) barang milik teman', '50', 'Surat peringatan, Pemanggilan ORTU'),
+(15, 4, ' Merusak/menghilangkan sarana dan prasarana milik sekolah, guru, karyawan, dan teman', '20', 'Surat peringatan, Pemanggilan ORTU'),
+(16, 5, ' Membawa rokok milik sendiri (titipan)', '25', 'Surat peringatan, Pemanggilan ORTU'),
+(17, 5, 'Membawa/menghidupkan HP berkamera/MP3/MP4/Wolkman/Portable saat belajar', '50', 'Surat peringatan, Pemanggilan ORTU, penyitaan barang'),
+(18, 5, 'Berkelahi di lingkungan sekolah (lingkungan sekitar sekolah)', '50', 'Surat peringatan, Pemanggilan ORTU, skorsing bakti kampus 1 minggu.'),
+(19, 5, '  Ditemukan diluar sekolah pada jam pelajaran berlangsung (Nongkrong)', '25', 'Surat peringatan, Pemanggilan ORTU'),
+(20, 5, ' Melakukan tindak kriminal / berusan dengan pihak kepolisian (hukum)', '250', 'Surat peringatan, Pemanggilan ORTU, dikembalikan ke ORTU'),
+(21, 5, 'Membawa /menggunakan/memperjual belikan  narkotika dan zat adiktif lainnya', '250', 'Surat peringatan, Pemanggilan ORTU, dikembalikan ke ORTU'),
+(22, 6, ' Melawan kepala sekolah, Wakil kepala sekolah, Kepala Program, guru, dan karyawan dengan ucapan/tulisan kata-kata kasar', '250', 'Surat peringatan, Pemanggilan ORTU, dikembalikan ke ORTU'),
+(23, 6, 'Melawan kepala sekolah, Wakil kepala sekolah, Kepala Program, guru, dan karyawan disertai ancaman', '250', 'Surat peringatan, Pemanggilan ORTU, dikembalikan ke ORTU'),
+(24, 6, 'Melawan kepala sekola, Wakil kepala sekolah, Kepala Program, guru, dan karyawan disertai pemukulan', '250', 'Surat peringatan, Pemanggilan ORTU, dikembalikan ke ORTU');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `akad_pelanggarankat`
+--
+
+DROP TABLE IF EXISTS `akad_pelanggarankat`;
+CREATE TABLE IF NOT EXISTS `akad_pelanggarankat` (
+  `id` int(5) NOT NULL AUTO_INCREMENT,
+  `nama` varchar(215) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+
+--
+-- Dumping data untuk tabel `akad_pelanggarankat`
+--
+
+INSERT INTO `akad_pelanggarankat` (`id`, `nama`) VALUES
+(1, 'Keterlambatan'),
+(2, 'Kerajinan'),
+(3, 'Kerapihan'),
+(4, 'Kepribadian'),
+(5, 'Ketertiban'),
+(6, 'Pelanggaran terhadap Sekolah');
 
 -- --------------------------------------------------------
 
@@ -426,6 +481,22 @@ INSERT INTO `akad_siswakelas` (`id`, `tahunajaran`, `kelas`, `siswa`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `akad_siswapelanggaran`
+--
+
+DROP TABLE IF EXISTS `akad_siswapelanggaran`;
+CREATE TABLE IF NOT EXISTS `akad_siswapelanggaran` (
+  `id` int(4) NOT NULL AUTO_INCREMENT,
+  `tgl` varchar(10) NOT NULL,
+  `siswa` int(4) NOT NULL,
+  `kelas` int(4) NOT NULL,
+  `pelanggaran` int(4) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `akad_ulangan`
 --
 
@@ -474,7 +545,7 @@ CREATE TABLE IF NOT EXISTS `akad_useraura` (
 --
 
 INSERT INTO `akad_useraura` (`UserId`, `user`, `password`, `email`, `avatar`, `level`, `tipe`, `is_online`, `last_ping`, `start`, `exp`, `biodata`) VALUES
-(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'admin@elyon.sch.id', 'af0675a9e843c6c8f78163a9118efc78.jpg', 'Administrator', 'aktif', 1, '2016-01-18 08:47:15', '2010-08-27 00:00:00', '2034-08-27 00:00:00', '<p><b>none</b></p>'),
+(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'admin@elyon.sch.id', 'af0675a9e843c6c8f78163a9118efc78.jpg', 'Administrator', 'aktif', 0, '2016-01-26 11:32:43', '2010-08-27 00:00:00', '2034-08-27 00:00:00', '<p><b>none</b></p>'),
 (28, 'superadmin', 'b11d5ece6353d17f85c5ad30e0a02360', 'rekysda@gmail.com', '', 'Administrator', 'aktif', 1, '2015-03-21 23:05:28', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

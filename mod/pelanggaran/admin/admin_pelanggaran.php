@@ -20,7 +20,16 @@ js;
 
 $script_include[] = $JS_SCRIPT;
 $admin .='<h4 class="page-header">Administrasi Pelanggaran</h4>';
-
+$admin  .= '<div class="border2">
+<table  ><tr align="center">
+<td>
+<a href="admin.php?pilih=pelanggaran&mod=yes">Pelanggaran</a>&nbsp;&nbsp;-&nbsp;&nbsp;
+</td>
+<td>
+<a href="admin.php?pilih=pelanggarankat&mod=yes">Kategori</a>&nbsp;&nbsp;
+</td>
+</tr></table>
+</div>';
 if($_GET['aksi']== 'del'){    
 	global $koneksi_db;    
 	$id     = int_filter($_GET['id']);    
@@ -34,6 +43,7 @@ if($_GET['aksi']== 'del'){
 if($_GET['aksi'] == 'edit'){
 $id = int_filter ($_GET['id']);
 if(isset($_POST['submit'])){
+		$kategori 		= $_POST['kategori'];
 	$nama 		= $_POST['nama'];
 	$point 		= $_POST['point'];
 	$hukuman 		= $_POST['hukuman'];
@@ -42,7 +52,7 @@ if(isset($_POST['submit'])){
 	if ($error){
 		$tengah .= '<div class="error">'.$error.'</div>';
 	}else{
-		$hasil  = mysql_query( "UPDATE `akad_pelanggaran` SET `nama`='$nama' ,`point`='$point',`hukuman`='$hukuman' WHERE `id`='$id'" );
+		$hasil  = mysql_query( "UPDATE `akad_pelanggaran` SET `kategori`='$kategori' ,`nama`='$nama' ,`point`='$point',`hukuman`='$hukuman' WHERE `id`='$id'" );
 		if($hasil){
 			$admin .= '<div class="sukses"><b>Berhasil di Update.</b></div>';
 			$style_include[] ='<meta http-equiv="refresh" content="1; url=admin.php?pilih=pelanggaran&amp;mod=yes" />';	
@@ -54,9 +64,11 @@ if(isset($_POST['submit'])){
 }
 $query 		= mysql_query ("SELECT * FROM `akad_pelanggaran` WHERE `id`='$id'");
 $data 		= mysql_fetch_array($query);
+	$kategori 		= $data['kategori'];
 	$nama 		= $data['nama'];
 	$point 		= $data['point'];	
 	$hukuman 		= $data['hukuman'];	
+	$kategori     		= !isset($kategori) ? '' : $kategori;
 $nama     		= !isset($nama) ? '' : $nama;
 $point     		= !isset($point) ? '' : $point;
 $hukuman     		= !isset($hukuman) ? '' : $hukuman;
@@ -65,6 +77,18 @@ $admin .= '<div class="panel panel-info">
 $admin .= '
 <form method="post" action="" class="form-inline">
 <table class="table table-striped table-hover">';
+$admin .= '<tr>
+	<td>Kategori</td>
+		<td>:</td>
+	<td><select name="kategori" class="form-control" id="kategori"required>';
+$hasilj = $koneksi_db->sql_query("SELECT * FROM akad_pelanggarankat ORDER BY id asc");
+$admin .= '<option value="">== Kategori ==</option>';
+while ($datasj =  $koneksi_db->sql_fetchrow ($hasilj)){
+		$pilihan = ($datasj['id']==$kategori)?"selected":'';
+$admin .= '<option value="'.$datasj['id'].'"'.$pilihan.'>'.$datasj['nama'].'</option>';
+}
+$admin .='</select></td>
+</tr>';
 $admin .='<tr>
 		<td>Nama Pelanggaran</td>
 		<td>:</td>
@@ -78,7 +102,7 @@ $admin .='<tr>
 	<tr>
 		<td>Hukuman</td>
 		<td>:</td>
-		<td><input type="text" name="hukuman" value="'.$hukuman.'" size="30" class="form-control"required></td>
+		<td><input type="text" name="hukuman" value="'.$hukuman.'" size="30" class="form-control"></td>
 	</tr>';
 
 $admin .='
@@ -96,6 +120,7 @@ $admin .='
 
 if($_GET['aksi']==""){
 if(isset($_POST['submit'])){
+	$kategori 		= $_POST['kategori'];
 	$nama 		= $_POST['nama'];
 	$point 		= $_POST['point'];
 	$hukuman 		= $_POST['hukuman'];	
@@ -103,12 +128,13 @@ if(isset($_POST['submit'])){
 	if ($error){
 		$admin .= '<div class="error">'.$error.'</div>';
 	}else{
-		$hasil  = mysql_query( "INSERT INTO `akad_pelanggaran` VALUES ('','$nama','$point','$hukuman')" );
+		$hasil  = mysql_query( "INSERT INTO `akad_pelanggaran` VALUES ('','$kategori','$nama','$point','$hukuman')" );
 		if($hasil){
 			$admin .= '<div class="sukses"><b>Berhasil di Buat.</b></div>';
 		}else{
 			$admin .= '<div class="error"><b> Gagal di Buat.</b></div>';
 		}
+		unset($kategori);
 		unset($nama);
 		unset($point);
 		unset($hukuman);
@@ -116,6 +142,7 @@ if(isset($_POST['submit'])){
 	}
 
 }
+$kategori     		= !isset($kategori) ? '' : $kategori;
 $nama     		= !isset($nama) ? '' : $nama;
 $point     		= !isset($point) ? '' : $point;
 $hukuman     		= !isset($hukuman) ? '' : $hukuman;
@@ -124,6 +151,18 @@ $admin .= '<div class="panel panel-info">
 $admin .= '
 <form method="post" action="" class="form-inline">
 <table class="table table-striped table-hover">';
+$admin .= '<tr>
+	<td>Kategori</td>
+		<td>:</td>
+	<td><select name="kategori" class="form-control" id="kategori"required>';
+$hasilj = $koneksi_db->sql_query("SELECT * FROM akad_pelanggarankat ORDER BY id asc");
+$admin .= '<option value="">== Kategori ==</option>';
+while ($datasj =  $koneksi_db->sql_fetchrow ($hasilj)){
+		$pilihan = ($datasj['id']==$kategori)?"selected":'';
+$admin .= '<option value="'.$datasj['id'].'"'.$pilihan.'>'.$datasj['nama'].'</option>';
+}
+$admin .='</select></td>
+</tr>';
 $admin .='<tr>
 		<td>Nama Pelanggaran</td>
 		<td>:</td>
@@ -137,7 +176,7 @@ $admin .='<tr>
 	<tr>
 		<td>Hukuman</td>
 		<td>:</td>
-		<td><input type="text" name="hukuman" value="'.$hukuman.'" size="30" class="form-control"required></td>
+		<td><input type="text" name="hukuman" value="'.$hukuman.'" size="30" class="form-control"></td>
 	</tr>';
 
 $admin .='
@@ -158,18 +197,21 @@ $admin.='
 <table id="example"class="table table-striped table-bordered" cellspacing="0" width="100%">
     <thead>
         <tr>
+		            <th>Kategori</th>
             <th>Nama Pelanggaran</th>
             <th>Point</th>
             <th>Hukuman</th>
-            <th>Aksi</th>
+            <th width="12%">Aksi</th>
         </tr>
     </thead>';
-$hasil = $koneksi_db->sql_query( "SELECT * FROM akad_pelanggaran" );
+$hasil = $koneksi_db->sql_query( "SELECT * FROM akad_pelanggaran order by kategori,abs(point) asc" );
 while ($data = $koneksi_db->sql_fetchrow($hasil)) {
+	$kategori=$data['kategori'];
 $nama=$data['nama'];
 $point=$data['point'];
 $hukuman=$data['hukuman'];
 $admin .='<tr>
+<td>'.getfieldtabel('nama','akad_pelanggarankat','id',$kategori).'</td>
 <td>'.$nama.'</td>
 <td>'.$point.'</td>
 <td>'.$hukuman.'</td>
