@@ -24,6 +24,9 @@ echo '<div class="border2">
 <a href="admin.php?pilih=mnlaporan&mod=yes"><img src="images/report.png" width="50px" height="50px"><br>LAPORAN</a>&nbsp;&nbsp;
 </td>
 <td>
+<a href="admin.php?pilih=setting&mod=yes"><img src="images/tools.png" width="50px"><br>SETTING</a>&nbsp;&nbsp;
+</td>
+<td>
 <a href="admin.php?pilih=user&mod=yes"><img src="images/userlogin.jpg" width="50px"><br>USER</a>&nbsp;&nbsp;
 </td>
 <td>

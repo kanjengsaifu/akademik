@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 26 Jan 2016 pada 13.29
+-- Generation Time: 27 Jan 2016 pada 12.48
 -- Versi Server: 5.6.16
 -- PHP Version: 5.5.11
 
@@ -278,7 +278,14 @@ CREATE TABLE IF NOT EXISTS `akad_lomba` (
   `pic` varchar(215) NOT NULL,
   `bulan` varchar(215) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data untuk tabel `akad_lomba`
+--
+
+INSERT INTO `akad_lomba` (`id`, `nama`, `pic`, `bulan`) VALUES
+(1, 'asd', 'asd', '1');
 
 -- --------------------------------------------------------
 
@@ -320,7 +327,7 @@ CREATE TABLE IF NOT EXISTS `akad_pelanggaran` (
   `point` varchar(215) NOT NULL,
   `hukuman` varchar(512) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=26 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=25 ;
 
 --
 -- Dumping data untuk tabel `akad_pelanggaran`
@@ -545,7 +552,7 @@ CREATE TABLE IF NOT EXISTS `akad_useraura` (
 --
 
 INSERT INTO `akad_useraura` (`UserId`, `user`, `password`, `email`, `avatar`, `level`, `tipe`, `is_online`, `last_ping`, `start`, `exp`, `biodata`) VALUES
-(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'admin@elyon.sch.id', 'af0675a9e843c6c8f78163a9118efc78.jpg', 'Administrator', 'aktif', 0, '2016-01-26 11:32:43', '2010-08-27 00:00:00', '2034-08-27 00:00:00', '<p><b>none</b></p>'),
+(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'admin@elyon.sch.id', 'af0675a9e843c6c8f78163a9118efc78.jpg', 'Administrator', 'aktif', 1, '2016-01-27 07:49:17', '2010-08-27 00:00:00', '2034-08-27 00:00:00', '<p><b>none</b></p>'),
 (28, 'superadmin', 'b11d5ece6353d17f85c5ad30e0a02360', 'rekysda@gmail.com', '', 'Administrator', 'aktif', 1, '2015-03-21 23:05:28', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -74,13 +74,19 @@ $admin .='<tr>
 		<td>PIC</td>
 		<td>:</td>
 		<td><input type="text" name="pic" value="'.$pic.'" size="30" class="form-control"required></td>
-	</tr>
-	<tr>
-		<td>Bulan Lomba</td>
-		<td>:</td>
-		<td><input type="text" name="bulan" value="'.$bulan.'" size="30" class="form-control"required></td>
 	</tr>';
-
+$admin .= '<tr>
+	<td>Bulan Lomba</td>
+		<td>:</td>
+	<td><select name="bulan" class="form-control" id="bulan"required>';
+$hasilj = $koneksi_db->sql_query("SELECT * FROM akad_bulan ORDER BY id asc");
+$admin .= '<option value="">== Bulan ==</option>';
+while ($datasj =  $koneksi_db->sql_fetchrow ($hasilj)){
+		$pilihan = ($datasj['id']==$bulan)?"selected":'';
+$admin .= '<option value="'.$datasj['id'].'"'.$pilihan.'>'.$datasj['nama'].'</option>';
+}
+$admin .='</select></td>
+</tr>';
 $admin .='
 	<tr>
 		<td></td>
@@ -134,12 +140,19 @@ $admin .='<tr>
 		<td>:</td>
 		<td><input type="text" name="pic" value="'.$pic.'" size="30" class="form-control"required></td>
 	</tr>
-	<tr>
-		<td>Bulan Lomba</td>
+';
+$admin .= '<tr>
+	<td>Bulan Lomba</td>
 		<td>:</td>
-		<td><input type="text" name="bulan" value="'.$bulan.'" size="30" class="form-control"required></td>
-	</tr>';
-
+	<td><select name="bulan" class="form-control" id="bulan"required>';
+$hasilj = $koneksi_db->sql_query("SELECT * FROM akad_bulan ORDER BY id asc");
+$admin .= '<option value="">== Bulan ==</option>';
+while ($datasj =  $koneksi_db->sql_fetchrow ($hasilj)){
+		$pilihan = ($datasj['id']==$bulan)?"selected":'';
+$admin .= '<option value="'.$datasj['id'].'"'.$pilihan.'>'.$datasj['nama'].'</option>';
+}
+$admin .='</select></td>
+</tr>';
 $admin .='
 	<tr>
 		<td></td>
@@ -161,7 +174,7 @@ $admin.='
             <th>Nama Lomba</th>
             <th>PIC</th>
             <th>Bulan Lomba</th>
-            <th>Aksi</th>
+            <th width="150">Aksi</th>
         </tr>
     </thead>';
 $hasil = $koneksi_db->sql_query( "SELECT * FROM akad_lomba" );
@@ -172,7 +185,7 @@ $bulan=$data['bulan'];
 $admin .='<tr>
 <td>'.$nama.'</td>
 <td>'.$pic.'</td>
-<td>'.$bulan.'</td>
+<td>'.getbulan($bulan).'</td>
 <td><a href="?pilih=lomba&amp;mod=yes&amp;aksi=del&amp;id='.$data['id'].'" onclick="return confirm(\'Apakah Anda Yakin Ingin Menghapus Data Ini ?\')"><span class="btn btn-danger">Hapus</span></a> <a href="?pilih=lomba&amp;mod=yes&amp;aksi=edit&amp;id='.$data['id'].'"><span class="btn btn-warning">Edit</span></a></td>
 </tr>';
 }
