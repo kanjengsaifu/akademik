@@ -45,11 +45,156 @@ $admin .= '<script type="text/javascript" language="javascript">
 }
 </script>';
 $admin  .='<legend>SETTING DEFAULT</legend>';
+if($_GET['aksi']== 'del'){    
+	global $koneksi_db;    
+	$id     = int_filter($_GET['id']);    
+	$hasil = $koneksi_db->sql_query("DELETE FROM `akad_siswapelanggaran` WHERE `id`='$id'");    
+	if($hasil){    
+		$admin.='<div class="sukses">pelanggaran Siswa berhasil dihapus! .</div>';    
+		$style_include[] ='<meta http-equiv="refresh" content="1; url=admin.php?pilih=siswapelanggaran&mod=yes" />';    
+	}
+}
+######################################
+# Edit
+######################################
+if ($_GET['aksi'] == 'edit'){
+$id = int_filter ($_GET['id']);
+if(isset($_POST['submit'])){
+$tgl1     		= $_POST['tgl1'];
+$siswa     		= $_POST['siswa'];
+$kelas     		= $_POST['kelas'];
+$pelanggaran     		= $_POST['pelanggaran'];
+
+	$error 	= '';	
+	if ($error){
+		$admin .= '<div class="error">'.$error.'</div>';
+	}else{
+		$hasil  = mysql_query( "update `akad_siswapelanggaran` set tgl='$tgl1',siswa='$siswa',kelas='$kelas',pelanggaran='$pelanggaran' ");
+		if($hasil){
+			$admin .= '<div class="sukses"><b>Berhasil di Buat.</b></div>';
+		}else{
+			$admin .= '<div class="error"><b> Gagal di Buat.</b></div>';
+		}
+		unset($tgl1);
+		unset($siswa);
+		unset($kelas);
+		unset($pelanggaran);
+
+		$style_include[] ='<meta http-equiv="refresh" content="1; url=admin.php?pilih=siswapelanggaran&mod=yes" />';  
+	}
+
+}
+$hasil = $koneksi_db->sql_query( "SELECT * FROM akad_siswapelanggaran  where id='$id'" );
+$data = $koneksi_db->sql_fetchrow($hasil);
+$tgl1     		= $data['tgl'];
+$siswa     		= $data['siswa'];
+$kelas     		= $data['kelas'];
+$pelanggaran= $data['pelanggaran'];
+$kategori = getkatdaripelanggaran($data['pelanggaran']);
+$tgl1     		= !isset($tgl1) ? '' : $tgl1;
+$siswa     		= !isset($siswa) ? '' : $siswa;
+$kelas     		= !isset($kelas) ? '' : $kelas;
+$pelanggaran     		= !isset($pelanggaran) ? '' : $pelanggaran;
+	
+$admin .= '<div class="panel panel-info">
+<div class="panel-heading"><h3 class="panel-title">Siswa Pelanggaran</h3></div>';
+
+$admin .= '<form method="post" action=""class="form-inline">
+<table class="table table-striped">
+';
+$admin .= '<tr>
+	<td>Nama Siswa</td>
+		<td>:</td>
+	<td><select name="siswa" id="siswa" class="form-control"  required >';
+$hasilj = $koneksi_db->sql_query("SELECT * FROM aka_siswa ORDER BY nama asc");
+$admin .= '<option value="">== Siswa ==</option>';
+while ($datasj =  $koneksi_db->sql_fetchrow ($hasilj)){
+$pilihanj = ($datasj['replid']==$siswa)?"selected":'';
+$admin .= '<option value="'.$datasj['replid'].'"'.$pilihanj.'>('.$datasj['nis'].') '.$datasj['nama'].'</option>';
+}
+$admin .='</select></td>
+</tr>';
+$admin .= '<tr>
+	<td>Kelas Siswa</td>
+		<td>:</td>
+	<td><select name="kelas" id="kelas"class="form-control" required>';
+$hasilj = $koneksi_db->sql_query("SELECT * FROM akad_siswakelas ORDER BY tahunajaran desc");
+$admin .= '<option value="">== Kelas ==</option>';
+while ($datasj =  $koneksi_db->sql_fetchrow ($hasilj)){
+	$pilihanj = ($datasj['id']==$kelas)?"selected":'';
+				$aktif = ($datasj['tahunajaran']==$tahunajaranaktif)?"(Aktif)":'';
+$admin .= '<option value="'.$datasj['id'].'"class="'.$datasj['siswa'].'"'.$pilihanj.'>'.getkelas($datasj['kelas']).' ('.$aktif.')</option>';
+}
+$admin .='</select></td>
+</tr>';
+$admin .= '<tr>
+		<td>Tanggal</td>
+		<td>:</td>
+		<td><input type="text" name="tgl1" id="tgl1" value="'.$tgl1.'" size="30" class="form-control"required>&nbsp;</td>
+	</tr>';
+$admin .= '<tr>
+	<td>Kategori</td>
+		<td>:</td>
+	<td><select name="kategori" id="kategori" class="form-control"  required >';
+$hasilj = $koneksi_db->sql_query("SELECT * FROM akad_pelanggarankat ORDER BY id asc");
+$admin .= '<option value="">== Kategori ==</option>';
+while ($datasj =  $koneksi_db->sql_fetchrow ($hasilj)){
+$pilihanj = ($datasj['id']==$kategori)?"selected":'';
+$admin .= '<option value="'.$datasj['id'].'"'.$pilihanj.'>'.$datasj['nama'].'</option>';
+}
+$admin .='</select></td>
+</tr>';
+$admin .= '<tr>
+	<td>Pelanggaran</td>
+		<td>:</td>
+	<td><select name="pelanggaran" id="pelanggaran"class="form-control" required>';
+$hasilj = $koneksi_db->sql_query("SELECT * FROM akad_pelanggaran ORDER BY point asc");
+$admin .= '<option value="">== Pelanggaran ==</option>';
+while ($datasj =  $koneksi_db->sql_fetchrow ($hasilj)){
+$pilihanj = ($datasj['id']==$pelanggaran)?"selected":'';
+$admin .= '<option value="'.$datasj['id'].'"class="'.$datasj['kategori'].'"'.$pilihanj .'>'.$datasj['nama'].' ('.$datasj['point'].')</option>';
+}
+$admin .='</select></td>
+</tr>';
+$admin .= '<tr>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+    <td><input type="submit" value="Simpan" name="submit" class="btn btn-success">&nbsp;&nbsp;<a href="?pilih=siswapelanggaran&mod=yes" class="btn btn-warning">Batal</a></td>
+  </tr>
+</table></form>';
+$admin .= '</div>';
+/******************/
+}
 
 ######################################
-# Edit User
+# Add
 ######################################
 if ($_GET['aksi'] == ''){
+if(isset($_POST['submit'])){
+$tgl1     		= $_POST['tgl1'];
+$siswa     		= $_POST['siswa'];
+$kelas     		= $_POST['kelas'];
+$pelanggaran     		= $_POST['pelanggaran'];
+
+	$error 	= '';	
+	if ($error){
+		$admin .= '<div class="error">'.$error.'</div>';
+	}else{
+		$hasil  = mysql_query( "INSERT INTO `akad_siswapelanggaran`  VALUES ('','$tgl1','$siswa','$kelas','$pelanggaran')" );
+		if($hasil){
+			$admin .= '<div class="sukses"><b>Berhasil di Buat.</b></div>';
+		}else{
+			$admin .= '<div class="error"><b> Gagal di Buat.</b></div>';
+		}
+		unset($tgl1);
+		unset($siswa);
+		unset($kelas);
+		unset($pelanggaran);
+
+		$style_include[] ='<meta http-equiv="refresh" content="1; url=admin.php?pilih=siswapelanggaran&mod=yes" />';  
+	}
+
+}
 
 	
 $admin .= '<div class="panel panel-info">
@@ -114,9 +259,42 @@ $admin .='</select></td>
 $admin .= '<tr>
 	<td>&nbsp;</td>
 	<td>&nbsp;</td>
-    <td><input type="submit" value="Simpan" name="submit" class="btn btn-success"></td>
+    <td><input type="submit" value="Simpan" name="submit" class="btn btn-success">&nbsp;&nbsp;<a href="?pilih=siswapelanggaran&mod=yes" class="btn btn-warning">Batal</a></td>
   </tr>
 </table></form>';
+$admin .= '</div>';
+/******************/
+}
+
+if (($_GET['aksi'] == '')or($_GET['aksi'] == 'edit')){
+$admin .= '<div class="panel panel-info">
+<div class="panel-heading"><h3 class="panel-title">Siswa Pelanggaran</h3></div>';
+$admin.='
+<table id="example"class="table table-striped table-bordered" cellspacing="0" width="100%">
+    <thead>
+        <tr>
+            <th>Tanggal</th>
+            <th>Siswa</th>
+            <th>Kelas</th>
+            <th>Pelanggaran</th>			
+            <th>Aksi</th>
+        </tr>
+    </thead>';
+$hasil = $koneksi_db->sql_query( "SELECT * FROM akad_siswapelanggaran  order by tgl desc" );
+while ($data = $koneksi_db->sql_fetchrow($hasil)) {
+$tgl1     		= $data['tgl'];
+$siswa     		= $data['siswa'];
+$kelas     		= $data['kelas'];
+$pelanggaran= $data['pelanggaran'];
+$admin .='<tr>
+<td>'.datetimes($tgl1,false,false).'</td>
+<td>'.getsiswa($siswa).'</td>
+<td>'.getkelas($kelas).'</td>
+<td>'.getpelanggaran($pelanggaran).'</td>
+<td><a href="?pilih=siswapelanggaran&amp;mod=yes&amp;aksi=del&amp;id='.$data['id'].'" onclick="return confirm(\'Apakah Anda Yakin Ingin Menghapus Data Ini ?\')"><span class="btn btn-danger">Hapus</span></a> <a href="?pilih=siswapelanggaran&amp;mod=yes&amp;aksi=edit&amp;id='.$data['id'].'"><span class="btn btn-warning">Edit</span></a></td>
+</tr>';
+}
+$admin .= '</tbody></table>';
 $admin .= '</div>';
 }
 
