@@ -6,7 +6,7 @@ include 'includes/configsitus.php';
 global $koneksi_db,$url_situs;
 $idsiswa 		= $_GET['idsiswa'];
 
-echo "<html><head><title>Cetak Presensi Siswa</title>";
+echo "<html><head><title>Cetak Absensi Siswa</title>";
 echo '<style type="text/css">
    table { page-break-inside:auto; 
     font-size: 0.8em; /* 14px/16=0.875em */
@@ -35,7 +35,7 @@ font-family: "Times New Roman", Times, serif;
 echo "</head><body>";
 echo'<table border="0" cellpadding="0" cellspacing="0" width="100%">	<tr>		<td width="20%" align="center"><img src="images/logotutwuri.png" height="70" /></td><td valign="top" align="left"><font size="5"><strong>SMA Sekolah</strong></font><br />				<strong>Jl. Pendidikan No.1				<br>Telp. (031)1234567				, (031)1234567				&nbsp;&nbsp;Fax. (022)1234567&nbsp;&nbsp;				<br>				Website: www.sekolah.com&nbsp;&nbsp;				Email: info@sekolah.com			</strong>			</td>		</tr>		<tr>			<td colspan="2"><hr width="100%" /></td>		</tr>		</table>	<br />	
 <center>
-  <font size="4"><strong>LAPORAN PRESENSI HARIAN SISWA</strong></font><br />
+  <font size="4"><strong>LAPORAN ABSENSI SISWA</strong></font><br />
  </center><br /><br />
 <table>
 ';
@@ -54,7 +54,7 @@ echo '
 </tr>
 
 <tr>
-	<td><strong>Periode Presensi</strong></td>
+	<td><strong>Periode Absensi</strong></td>
     <td><strong>: Semester 1</strong></td>
 </tr>
 </table>

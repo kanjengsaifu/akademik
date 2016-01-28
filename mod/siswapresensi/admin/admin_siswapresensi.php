@@ -19,7 +19,7 @@ $(document).ready(function() {
 js;
 
 $script_include[] = $JS_SCRIPT;
-$admin .='<h4 class="page-header">Administrasi Presensi Siswa</h4>';
+$admin .='<h4 class="page-header">Administrasi Absensi Siswa</h4>';
 
 if($_GET['aksi']== 'cetak'){ 
 $idsiswa     = int_filter($_GET['idsiswa']);
