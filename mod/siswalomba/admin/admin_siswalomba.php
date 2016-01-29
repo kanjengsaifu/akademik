@@ -44,14 +44,14 @@ $admin .= '<script type="text/javascript" language="javascript">
   document.MM_returnValue = confirm(msg);
 }
 </script>';
-$admin .='<h4 class="page-header">Administrasi Prestasi Siswa</h4>';
+$admin .='<h4 class="page-header">Administrasi Siswa Lomba</h4>';
 if($_GET['aksi']== 'del'){    
 	global $koneksi_db;    
 	$id     = int_filter($_GET['id']); 
 $siswa = int_filter ($_GET['siswa']);	
 	$hasil = $koneksi_db->sql_query("DELETE FROM `akad_siswalomba` WHERE `id`='$id'");    
 	if($hasil){    
-		$admin.='<div class="sukses">Prestasi Siswa berhasil dihapus! .</div>'; 
+		$admin.='<div class="sukses">Lomba Siswa berhasil dihapus! .</div>'; 
 		$style_include[] ='<meta http-equiv="refresh" content="1; url=admin.php?pilih=siswalomba&mod=yes&aksi=add&siswa='.$siswa.'" />';  		
 	//	$style_include[] ='<meta http-equiv="refresh" content="1; url=admin.php?pilih=siswapelanggaran&mod=yes" />';    
 	}
@@ -66,12 +66,13 @@ $tgl1     		= $_POST['tgl1'];
 $siswa     		= $_POST['siswa1'];
 $kelas     		= $_POST['kelas'];
 $lomba     		= $_POST['lomba'];
+$hasillomba     		= $_POST['hasillomba'];
 $pic = getfieldtabel('pic','akad_lomba','id',$lomba);
 	$error 	= '';	
 	if ($error){
 		$admin .= '<div class="error">'.$error.'</div>';
 	}else{
-		$hasil  = mysql_query( "update `akad_siswalomba` set tgl='$tgl1',kelas='$kelas',lomba='$lomba',pic='$pic' ");
+		$hasil  = mysql_query( "update `akad_siswalomba` set tgl='$tgl1',kelas='$kelas',lomba='$lomba',pic='$pic',hasillomba='$hasillomba' ");
 		if($hasil){
 			$admin .= '<div class="sukses"><b>Berhasil di Buat.</b></div>';
 		}else{
@@ -79,8 +80,8 @@ $pic = getfieldtabel('pic','akad_lomba','id',$lomba);
 		}
 		unset($tgl1);
 		unset($kelas);
-		unset($pelanggaran);
-
+		unset($lomba);
+		unset($hasillomba);
 		$style_include[] ='<meta http-equiv="refresh" content="1; url=admin.php?pilih=siswalomba&mod=yes&aksi=add&siswa='.$siswa.'" />';  
 	}
 
@@ -91,12 +92,14 @@ $tgl1     		= $data['tgl'];
 $siswa     		= $data['siswa'];
 $kelas     		= $data['kelas'];
 $lomba= $data['lomba'];
+$hasillomba= $data['hasillomba'];
 $bulan = getbulandarilomba($data['lomba']);
 $tgl1     		= !isset($tgl1) ? '' : $tgl1;
 $siswa     		= !isset($siswa) ? '' : $siswa;
 $kelas     		= !isset($kelas) ? '' : $kelas;
 $lomba     		= !isset($lomba) ? '' : $lomba;
 $bulan     		= !isset($bulan) ? '' : $bulan;	
+$hasillomba     		= !isset($hasillomba) ? '' : $hasillomba;	
 $admin .= '<div class="panel panel-info">
 <div class="panel-heading"><h3 class="panel-title">Prestasi Siswa</h3></div>';
 
@@ -124,8 +127,9 @@ $admin .= '<tr>
 $hasilj = $koneksi_db->sql_query("SELECT * FROM akad_siswakelas ORDER BY tahunajaran desc");
 $admin .= '<option value="">== Kelas ==</option>';
 while ($datasj =  $koneksi_db->sql_fetchrow ($hasilj)){
-				$aktif = ($datasj['tahunajaran']==$tahunajaranaktif)?"(Aktif)":'';
-$admin .= '<option value="'.$datasj['kelas'].'"class="'.$datasj['siswa'].'">'.getkelas($datasj['kelas']).' ('.$aktif.')</option>';
+$pilihanj = ($datasj['kelas']==$kelas)?"selected":'';
+$aktif = ($datasj['tahunajaran']==$tahunajaranaktif)?"(Aktif)":'';
+$admin .= '<option value="'.$datasj['kelas'].'"class="'.$datasj['siswa'].'"'.$pilihanj.'>'.getkelas($datasj['kelas']).' ('.$aktif.')</option>';
 }
 $admin .='</select></td>
 </tr>';
@@ -154,10 +158,15 @@ $hasilj = $koneksi_db->sql_query("SELECT * FROM akad_lomba ORDER BY bulan asc");
 $admin .= '<option value="">== Lomba ==</option>';
 while ($datasj =  $koneksi_db->sql_fetchrow ($hasilj)){
 $pilihanj = ($datasj['id']==$lomba)?"selected":'';
-$admin .= '<option value="'.$datasj['id'].'"class="'.$datasj['bulan'].'">'.$datasj['nama'].'</option>';
+$admin .= '<option value="'.$datasj['id'].'"class="'.$datasj['bulan'].'"'.$pilihanj.'>'.$datasj['nama'].'</option>';
 }
 $admin .='</select></td>
 </tr>';
+$admin .= '<tr>
+		<td>Hasil Lomba</td>
+		<td>:</td>
+		<td><input type="text" name="hasillomba" value="'.$hasillomba.'" size="30" class="form-control"required></td>
+	</tr>';
 $admin .= '<tr>
 	<td>&nbsp;</td>
 	<td>&nbsp;</td>
@@ -178,22 +187,22 @@ $tgl1     		= $_POST['tgl1'];
 $siswa     		= $_POST['siswa1'];
 $kelas     		= $_POST['kelas'];
 $lomba     		= $_POST['lomba'];
+$hasillomba     		= $_POST['hasillomba'];
 $pic = getfieldtabel('pic','akad_lomba','id',$lomba);
 	$error 	= '';	
 	if ($error){
 		$admin .= '<div class="error">'.$error.'</div>';
 	}else{
-		$hasil  = mysql_query( "INSERT INTO `akad_siswalomba`  VALUES ('','$tgl1','$siswa','$kelas','$lomba','$pic')" );
+		$hasil  = mysql_query( "INSERT INTO `akad_siswalomba`  VALUES ('','$tgl1','$siswa','$kelas','$lomba','$pic','$hasillomba')" );
 		if($hasil){
 			$admin .= '<div class="sukses"><b>Berhasil di Buat.</b></div>';
 		}else{
 			$admin .= '<div class="error"><b> Gagal di Buat.</b></div>';
 		}
 		unset($tgl1);
-		unset($siswa);
 		unset($kelas);
 		unset($lomba);
-
+		unset($hasillomba);
 		$style_include[] ='<meta http-equiv="refresh" content="1; url=admin.php?pilih=siswalomba&mod=yes&aksi=add&siswa='.$siswa.'" />';  
 	}
 
@@ -265,6 +274,11 @@ $admin .= '<option value="'.$datasj['id'].'"class="'.$datasj['bulan'].'">'.$data
 $admin .='</select></td>
 </tr>';
 $admin .= '<tr>
+		<td>Hasil Lomba</td>
+		<td>:</td>
+		<td><input type="text" name="hasillomba" value="'.$hasillomba.'" size="30" class="form-control"required></td>
+	</tr>';
+$admin .= '<tr>
 	<td>&nbsp;</td>
 	<td>&nbsp;</td>
     <td><input type="submit" value="Simpan" name="submit" class="btn btn-success">&nbsp;&nbsp;<a href="?pilih=siswalomba&mod=yes" class="btn btn-warning">Kembali</a></td>
@@ -276,7 +290,7 @@ $admin .= '</div>';
 
 if (($_GET['aksi'] == 'add')or($_GET['aksi'] == 'edit')){
 $admin .= '<div class="panel panel-info">
-<div class="panel-heading"><h3 class="panel-title">Prestasi Siswa</h3></div>';
+<div class="panel-heading"><h3 class="panel-title">Lomba Siswa</h3></div>';
 $admin.='
 <table id="example"class="table table-striped table-bordered" cellspacing="0" width="100%">
     <thead>
@@ -284,8 +298,9 @@ $admin.='
             <th>Tanggal</th>
             <th>Siswa</th>
             <th>Kelas</th>
-            <th>Prestasi</th>
-            <th>PIC</th>			
+            <th>Lomba</th>
+            <th>PIC</th>	
+            <th>Hasil</th>			
             <th>Aksi</th>
         </tr>
     </thead>';
@@ -296,12 +311,14 @@ $siswa     		= $data['siswa'];
 $kelas     		= $data['kelas'];
 $lomba= $data['lomba'];
 $pic     		= $data['pic'];
+$hasillomba     		= $data['hasillomba'];
 $admin .='<tr>
 <td>'.datetimes($tgl1,false,false).'</td>
 <td>'.getsiswa($siswa).'</td>
 <td>'.getkelas($kelas).'</td>
 <td>'.getlomba($lomba).'</td>
 <td>'.$pic.'</td>
+<td>'.$hasillomba.'</td>
 <td><a href="?pilih=siswalomba&amp;mod=yes&amp;aksi=del&amp;id='.$data['id'].'&siswa='.$siswa.'" onclick="return confirm(\'Apakah Anda Yakin Ingin Menghapus Data Ini ?\')"><span class="btn btn-danger">Hapus</span></a> <a href="?pilih=siswalomba&amp;mod=yes&amp;aksi=edit&amp;id='.$data['id'].'"><span class="btn btn-warning">Edit</span></a></td>
 </tr>';
 }
@@ -319,7 +336,7 @@ $admin.='
             <th>NIS</th>
             <th>NISN</th>
             <th>Nama</th>
-            <th>Prestasi</th>
+            <th>Lomba</th>
             <th>Aksi</th>
         </tr>
     </thead>';
@@ -329,6 +346,7 @@ while ($data = $koneksi_db->sql_fetchrow($hasil)) {
 $nama     		= $data['nama'];
 $nis     		= $data['nis'];
 $nisn     		= $data['nisn'];
+$hasillomba     		= $data['hasillomba'];
 $datalomba=getlombapersiswa($replid);
 $admin .='<tr>
 <td>'.($nis).'</td>
