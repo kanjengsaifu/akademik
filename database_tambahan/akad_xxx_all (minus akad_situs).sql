@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 28 Jan 2016 pada 11.39
+-- Generation Time: 29 Jan 2016 pada 12.31
 -- Versi Server: 5.6.16
 -- PHP Version: 5.5.11
 
@@ -499,15 +499,16 @@ CREATE TABLE IF NOT EXISTS `akad_siswalomba` (
   `kelas` int(4) NOT NULL,
   `lomba` int(4) NOT NULL,
   `pic` varchar(50) NOT NULL,
+  `hasillomba` varchar(125) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data untuk tabel `akad_siswalomba`
 --
 
-INSERT INTO `akad_siswalomba` (`id`, `tgl`, `siswa`, `kelas`, `lomba`, `pic`) VALUES
-(2, '2016-01-28', 293, 2, 1, 'ELyon SUKO');
+INSERT INTO `akad_siswalomba` (`id`, `tgl`, `siswa`, `kelas`, `lomba`, `pic`, `hasillomba`) VALUES
+(2, '2016-01-28', 293, 2, 1, 'ELyon SUKO', 'Menang');
 
 -- --------------------------------------------------------
 
