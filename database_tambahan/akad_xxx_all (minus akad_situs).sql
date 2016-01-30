@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 29 Jan 2016 pada 12.31
+-- Generation Time: 30 Jan 2016 pada 12.38
 -- Versi Server: 5.6.16
 -- PHP Version: 5.5.11
 
@@ -444,19 +444,21 @@ CREATE TABLE IF NOT EXISTS `akad_siswaabsen` (
   `sakit` int(5) NOT NULL,
   `ijin` int(5) NOT NULL,
   `alpa` int(5) NOT NULL,
-  `cuti` int(5) NOT NULL,
+  `terlambat` int(5) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
 
 --
 -- Dumping data untuk tabel `akad_siswaabsen`
 --
 
-INSERT INTO `akad_siswaabsen` (`id`, `semester`, `bulan`, `tahun`, `kelas`, `siswa`, `hadir`, `sakit`, `ijin`, `alpa`, `cuti`) VALUES
+INSERT INTO `akad_siswaabsen` (`id`, `semester`, `bulan`, `tahun`, `kelas`, `siswa`, `hadir`, `sakit`, `ijin`, `alpa`, `terlambat`) VALUES
 (1, 1, 1, 2015, 2, 577, 0, 2, 0, 4, 5),
 (3, 1, 12, 2014, 2, 577, 4, 4, 0, 4, 4),
-(5, 1, 1, 2015, 2, 293, 5, 5, 0, 3, 5),
-(6, 1, 12, 2014, 2, 293, 50, 4, 3, 2, 1);
+(5, 1, 1, 2015, 2, 293, 5, 5, 0, 3, 1),
+(6, 1, 12, 2014, 2, 293, 50, 4, 3, 2, 1),
+(8, 2, 1, 2016, 2, 293, 0, 0, 0, 0, 1),
+(9, 1, 1, 2016, 2, 293, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -501,7 +503,7 @@ CREATE TABLE IF NOT EXISTS `akad_siswalomba` (
   `pic` varchar(50) NOT NULL,
   `hasillomba` varchar(125) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data untuk tabel `akad_siswalomba`
@@ -586,7 +588,7 @@ CREATE TABLE IF NOT EXISTS `akad_useraura` (
 --
 
 INSERT INTO `akad_useraura` (`UserId`, `user`, `password`, `email`, `avatar`, `level`, `tipe`, `is_online`, `last_ping`, `start`, `exp`, `biodata`) VALUES
-(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'admin@elyon.sch.id', 'af0675a9e843c6c8f78163a9118efc78.jpg', 'Administrator', 'aktif', 1, '2016-01-28 07:58:24', '2010-08-27 00:00:00', '2034-08-27 00:00:00', '<p><b>none</b></p>'),
+(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'admin@elyon.sch.id', 'af0675a9e843c6c8f78163a9118efc78.jpg', 'Administrator', 'aktif', 1, '2016-01-30 08:00:11', '2010-08-27 00:00:00', '2034-08-27 00:00:00', '<p><b>none</b></p>'),
 (28, 'superadmin', 'b11d5ece6353d17f85c5ad30e0a02360', 'rekysda@gmail.com', '', 'Administrator', 'aktif', 1, '2015-03-21 23:05:28', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
