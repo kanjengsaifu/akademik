@@ -105,13 +105,13 @@ $hadir 		= $_POST['hadir'];
 $sakit 		= $_POST['sakit'];
 $ijin 		= $_POST['ijin'];
 $alpa 		= $_POST['alpa'];
-$cuti 		= $_POST['cuti'];
+$terlambat 		= $_POST['terlambat'];
 	$error 	= '';	
 		if ($koneksi_db->sql_numrows($koneksi_db->sql_query("SELECT * FROM akad_siswaabsen WHERE siswa='$idsiswa' and semester = '$semester'and bulan = '$bulan' and tahun = '$tahun'")) > 0) $error .= "Error: Terdapat duplikasi data, silahkan ulangi.<br />";
 	if ($error){
 		$admin .= '<div class="error">'.$error.'</div>';
 	}else{
-		$hasil  = mysql_query( "UPDATE `akad_siswaabsen` SET `hadir`='$hadir' ,`sakit`='$sakit',`ijin`='$ijin',`alpa`='$alpa',`cuti`='$cuti' WHERE `id`='$id'" );
+		$hasil  = mysql_query( "UPDATE `akad_siswaabsen` SET `hadir`='$hadir' ,`sakit`='$sakit',`ijin`='$ijin',`alpa`='$alpa',`terlambat`='$terlambat' WHERE `id`='$id'" );
 		if($hasil){
 			$admin .= '<div class="sukses"><b>Berhasil di Update.</b></div>';
 			$style_include[] ='<meta http-equiv="refresh" content="1; url=admin.php?pilih=siswapresensi&amp;mod=yes&aksi=lihat&idsiswa='.$idsiswa.'" />';	
@@ -131,7 +131,7 @@ $hadir 		= $data['hadir'];
 $sakit 		= $data['sakit'];
 $ijin 		= $data['ijin'];
 $alpa 		= $data['alpa'];
-$cuti 		= $data['cuti'];
+$terlambat 		= $data['terlambat'];
 
 	
 $semester     		= !isset($semester) ? $semesteraktif : $semester;
@@ -142,7 +142,7 @@ $hadir     		= !isset($hadir) ? '0' : $hadir;
 $sakit     		= !isset($sakit) ? '0' : $sakit;
 $ijin     		= !isset($ijin) ? '0' : $ijin;
 $alpa     		= !isset($alpa) ? '0' : $alpa;
-$cuti     		= !isset($cuti) ? '0' : $cuti;
+$terlambat     		= !isset($terlambat) ? '0' : $terlambat;
 $query 		= mysql_query ("SELECT * FROM `aka_siswa` WHERE `replid`='$idsiswa'");
 $data 		= mysql_fetch_array($query);
 $replid     		= $data['replid'];
@@ -155,10 +155,7 @@ $admin .= '
 <form method="post" action="" class="form-inline">
 <table class="table table-striped table-hover">
 <input type="hidden" name="idsiswa" value="'.$replid.'">
-<input type="hidden" name="idsiswa" value="'.$replid.'">
-<input type="hidden" name="idsiswa" value="'.$replid.'">
-<input type="hidden" name="idsiswa" value="'.$replid.'">
-<input type="hidden" name="idsiswa" value="'.$replid.'">
+
 ';
 
 $admin .= '<tr>
@@ -190,31 +187,31 @@ $admin .='
 	<tr>
 		<td>Hadir</td>
 		<td>:</td>
-		<td><input type="text" name="hadir" value="'.$hadir.'" size="30" class="form-control"required></td>
+		<td><input type="text" name="hadir" value="'.$hadir.'" size="30" class="form-control"required> Hari</td>
 	</tr>';
 	$admin .='
 	<tr>
 		<td>Sakit</td>
 		<td>:</td>
-		<td><input type="text" name="sakit" value="'.$sakit.'" size="30" class="form-control"required></td>
+		<td><input type="text" name="sakit" value="'.$sakit.'" size="30" class="form-control"required> Hari</td>
 	</tr>';
 	$admin .='
 	<tr>
 		<td>Ijin</td>
 		<td>:</td>
-		<td><input type="text" name="ijin" value="'.$ijin.'" size="30" class="form-control"required></td>
+		<td><input type="text" name="ijin" value="'.$ijin.'" size="30" class="form-control"required> Hari</td>
 	</tr>';
 	$admin .='
 	<tr>
 		<td>Alpa</td>
 		<td>:</td>
-		<td><input type="text" name="alpa" value="'.$alpa.'" size="30" class="form-control"required></td>
+		<td><input type="text" name="alpa" value="'.$alpa.'" size="30" class="form-control"required> Hari</td>
 	</tr>';
 	$admin .='
 	<tr>
-		<td>Cuti</td>
+		<td>Terlambat</td>
 		<td>:</td>
-		<td><input type="text" name="cuti" value="'.$cuti.'" size="30" class="form-control"required></td>
+		<td><input type="text" name="terlambat" value="'.$terlambat.'" size="30" class="form-control"required> Kali</td>
 	</tr>';
 $admin .='<tr>
 		<td></td>
@@ -245,13 +242,13 @@ $hadir 		= $_POST['hadir'];
 $sakit 		= $_POST['sakit'];
 $ijin 		= $_POST['ijin'];
 $alpa 		= $_POST['alpa'];
-$cuti 		= $_POST['cuti'];
+$terlambat 		= $_POST['terlambat'];
 	$error 	= '';	
 		if ($koneksi_db->sql_numrows($koneksi_db->sql_query("SELECT * FROM akad_siswaabsen WHERE siswa='$idsiswa' and semester = '$semester'and bulan = '$bulan' and tahun = '$tahun'")) > 0) $error .= "Error: Terdapat duplikasi data, silahkan ulangi.<br />";
 	if ($error){
 		$admin .= '<div class="error">'.$error.'</div>';
 	}else{
-		$hasil  = mysql_query( "INSERT INTO `akad_siswaabsen`VALUES ('','$semester','$bulan','$tahun','$kelas','$siswa','$hadir','$sakit','$ijin','$alpa','$cuti')" );
+		$hasil  = mysql_query( "INSERT INTO `akad_siswaabsen`VALUES ('','$semester','$bulan','$tahun','$kelas','$siswa','$hadir','$sakit','$ijin','$alpa','$terlambat')" );
 		if($hasil){
 			$admin .= '<div class="sukses"><b>Presensi Berhasil di Tambah.</b></div>';
 			$style_include[] ='<meta http-equiv="refresh" content="1; url=admin.php?pilih=siswapresensi&amp;mod=yes&aksi=lihat&idsiswa='.$siswa.'" />';	
@@ -269,7 +266,7 @@ $hadir     		= !isset($hadir) ? '0' : $hadir;
 $sakit     		= !isset($sakit) ? '0' : $sakit;
 $ijin     		= !isset($ijin) ? '0' : $ijin;
 $alpa     		= !isset($alpa) ? '0' : $alpa;
-$cuti     		= !isset($cuti) ? '0' : $cuti;
+$terlambat     		= !isset($terlambat) ? '0' : $terlambat;
 $query 		= mysql_query ("SELECT * FROM `aka_siswa` WHERE `replid`='$idsiswa'");
 $data 		= mysql_fetch_array($query);
 $replid     		= $data['replid'];
@@ -344,32 +341,32 @@ $admin .='
 	<tr>
 		<td>Hadir</td>
 		<td>:</td>
-		<td><input type="text" name="hadir" value="'.$hadir.'" size="30" class="form-control"required></td>
+		<td><input type="text" name="hadir" value="'.$hadir.'" size="30" class="form-control"required> Hari</td>
 	</tr>';
 	$admin .='
 	<tr>
 		<td>Sakit</td>
 		<td>:</td>
-		<td><input type="text" name="sakit" value="'.$sakit.'" size="30" class="form-control"required></td>
+		<td><input type="text" name="sakit" value="'.$sakit.'" size="30" class="form-control"required> Hari</td>
 	</tr>';
 	$admin .='
 	<tr>
 		<td>Ijin</td>
 		<td>:</td>
-		<td><input type="text" name="ijin" value="'.$ijin.'" size="30" class="form-control"required></td>
+		<td><input type="text" name="ijin" value="'.$ijin.'" size="30" class="form-control"required> Hari</td>
 	</tr>';
 
 	$admin .='
 	<tr>
 		<td>Alpa</td>
 		<td>:</td>
-		<td><input type="text" name="alpa" value="'.$alpa.'" size="30" class="form-control"required></td>
+		<td><input type="text" name="alpa" value="'.$alpa.'" size="30" class="form-control"required> Hari</td>
 	</tr>';
 	$admin .='
 	<tr>
-		<td>Cuti</td>
+		<td>Terlambat</td>
 		<td>:</td>
-		<td><input type="text" name="cuti" value="'.$cuti.'" size="30" class="form-control"required></td>
+		<td><input type="text" name="terlambat" value="'.$terlambat.'" size="30" class="form-control"required> Kali</td>
 	</tr>';
 $admin .='<tr>
 		<td></td>
@@ -393,7 +390,7 @@ $admin.='
 <table id="example"class="table table-striped table-bordered" cellspacing="0" width="100%">
     <thead>
         <tr>
-            <th>Tahun</th>
+            <th>Tahun / Semester</th>
             <th>Bulan</th>
             <th>NIS</th>
             <th>Nama</th>
@@ -401,23 +398,24 @@ $admin.='
             <th>Sakit</th>
             <th>Ijin</th>
             <th>Alpa</th>
-            <th>Cuti</th>
+            <th>Terlambat</th>
             <th width="13%">Aksi</th>
         </tr>
     </thead>';
-$hasil = $koneksi_db->sql_query( "SELECT * FROM akad_siswaabsen where siswa='$idsiswa' order by tahun,bulan,semester asc" );
+$hasil = $koneksi_db->sql_query( "SELECT * FROM akad_siswaabsen where siswa='$idsiswa' order by tahun,bulan,semester desc" );
 while ($data = $koneksi_db->sql_fetchrow($hasil)) {
 	$id=$data['id'];
 $tahun=$data['tahun'];
+$semester=$data['semester'];
 $bulan=$data['bulan'];
 $siswa=$data['siswa'];
 $hadir=$data['hadir'];
 $sakit=$data['sakit'];
 $ijin=$data['ijin'];
 $alpa=$data['alpa'];
-$cuti=$data['cuti'];
+$terlambat=$data['terlambat'];
 $admin .='<tr>
-<td>'.$tahun.'</td>
+<td>'.$tahun.' / '.$semester.'</td>
 <td>'.getfieldtabel('nama','akad_bulan','id',$bulan).'</td>
 <td>'.getfieldtabel('nis','aka_siswa','replid',$siswa).'</td>
 <td>'.getfieldtabel('nama','aka_siswa','replid',$siswa).'</td>
@@ -425,7 +423,7 @@ $admin .='<tr>
 <td>'.$sakit.'</td>
 <td>'.$ijin.'</td>
 <td>'.$alpa.'</td>
-<td>'.$cuti.'</td>
+<td>'.$terlambat.'</td>
 <td><a href="?pilih=siswapresensi&amp;mod=yes&amp;aksi=del&amp;id='.$data['id'].'&idsiswa='.$replid.'"onclick="return confirm(\'Apakah Anda Yakin Ingin Menghapus Data Ini ?\')"><span class="btn btn-danger">Hapus</span></a>&nbsp;&nbsp;<a href="?pilih=siswapresensi&amp;mod=yes&amp;aksi=edit&amp;id='.$data['id'].'&idsiswa='.$replid.'"><span class="btn btn-primary">Edit</span></a></td>
 </tr>';
 }
