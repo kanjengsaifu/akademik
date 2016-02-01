@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 30 Jan 2016 pada 12.38
+-- Generation Time: 01 Feb 2016 pada 13.37
 -- Versi Server: 5.6.16
 -- PHP Version: 5.5.11
 
@@ -54,6 +54,30 @@ INSERT INTO `akad_bulan` (`id`, `nama`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `akad_gradeafektif`
+--
+
+DROP TABLE IF EXISTS `akad_gradeafektif`;
+CREATE TABLE IF NOT EXISTS `akad_gradeafektif` (
+  `id` int(5) NOT NULL AUTO_INCREMENT,
+  `nama` varchar(125) NOT NULL,
+  `ket` varchar(512) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+
+--
+-- Dumping data untuk tabel `akad_gradeafektif`
+--
+
+INSERT INTO `akad_gradeafektif` (`id`, `nama`, `ket`) VALUES
+(1, 'V', 'Very Good'),
+(2, 'G', 'Good'),
+(3, 'S', 'Satisfactory'),
+(4, 'I', 'Needs Improvements');
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `akad_guru`
 --
 
@@ -65,15 +89,18 @@ CREATE TABLE IF NOT EXISTS `akad_guru` (
   `guru` varchar(50) NOT NULL,
   `sks` varchar(50) NOT NULL,
   `status` varchar(50) NOT NULL,
+  `jenjang` int(4) NOT NULL,
+  `tingkat` int(4) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data untuk tabel `akad_guru`
 --
 
-INSERT INTO `akad_guru` (`id`, `lokasi`, `matpel`, `guru`, `sks`, `status`) VALUES
-(1, '2', '4', '132', '11', '1');
+INSERT INTO `akad_guru` (`id`, `lokasi`, `matpel`, `guru`, `sks`, `status`, `jenjang`, `tingkat`) VALUES
+(1, '2', '4', '132', '11', '1', 1, 4),
+(3, '1', '5', '108', '1', '1', 1, 4);
 
 -- --------------------------------------------------------
 
@@ -119,7 +146,7 @@ CREATE TABLE IF NOT EXISTS `akad_jadwal` (
   `hari` int(4) NOT NULL,
   `jam` int(4) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
 
 --
 -- Dumping data untuk tabel `akad_jadwal`
@@ -128,7 +155,8 @@ CREATE TABLE IF NOT EXISTS `akad_jadwal` (
 INSERT INTO `akad_jadwal` (`id`, `lokasi`, `jenjang`, `tahunajaran`, `tingkat`, `kelas`, `matpel`, `guru`, `hari`, `jam`) VALUES
 (6, 1, 1, 12, 4, 2, 4, 132, 3, 1),
 (7, 1, 1, 12, 4, 2, 4, 132, 1, 3),
-(8, 1, 2, 12, 5, 3, 4, 132, 1, 1);
+(8, 1, 2, 12, 5, 3, 4, 132, 1, 1),
+(9, 1, 1, 5, 4, 2, 5, 108, 4, 1);
 
 -- --------------------------------------------------------
 
@@ -588,7 +616,7 @@ CREATE TABLE IF NOT EXISTS `akad_useraura` (
 --
 
 INSERT INTO `akad_useraura` (`UserId`, `user`, `password`, `email`, `avatar`, `level`, `tipe`, `is_online`, `last_ping`, `start`, `exp`, `biodata`) VALUES
-(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'admin@elyon.sch.id', 'af0675a9e843c6c8f78163a9118efc78.jpg', 'Administrator', 'aktif', 1, '2016-01-30 08:00:11', '2010-08-27 00:00:00', '2034-08-27 00:00:00', '<p><b>none</b></p>'),
+(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'admin@elyon.sch.id', 'af0675a9e843c6c8f78163a9118efc78.jpg', 'Administrator', 'aktif', 1, '2016-02-01 13:15:24', '2010-08-27 00:00:00', '2034-08-27 00:00:00', '<p><b>none</b></p>'),
 (28, 'superadmin', 'b11d5ece6353d17f85c5ad30e0a02360', 'rekysda@gmail.com', '', 'Administrator', 'aktif', 1, '2015-03-21 23:05:28', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
