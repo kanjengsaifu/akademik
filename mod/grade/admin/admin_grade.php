@@ -31,7 +31,164 @@ $admin  .= '<div class="border2">
 </tr></table>
 </div>';
 
+if($_GET['aksi']== 'del'){    
+	global $koneksi_db;    
+	$id     = int_filter($_GET['id']);    
+	$hasil = $koneksi_db->sql_query("DELETE FROM `akad_grade` WHERE `id`='$id'");    
+	if($hasil){    
+		$admin.='<div class="sukses">Grade  berhasil dihapus! .</div>';    
+		$style_include[] ='<meta http-equiv="refresh" content="1; url=admin.php?pilih=grade&mod=yes" />';    
+	}
+}
 
+if($_GET['aksi'] == 'edit'){
+$id = int_filter ($_GET['id']);
+if(isset($_POST['submit'])){
+	$nilai 		= $_POST['nilai'];
+	$nama 		= $_POST['nama'];
+	$ket 		= $_POST['ket'];	
+
+	$error 	= '';	
+		if (cekkodesama('nama','akad_grade',$nama) > 1) $error .= "Error: Nama ".$nama." sudah terdaftar , silahkan ulangi.<br />";
+	if ($error){
+		$tengah .= '<div class="error">'.$error.'</div>';
+	}else{
+		$hasil  = mysql_query( "UPDATE `akad_gradeafektif` SET `nilai`='$nilai' ,`nama`='$nama' ,`ket`='$ket' WHERE `id`='$id'" );
+		if($hasil){
+			$admin .= '<div class="sukses"><b>Berhasil di Update.</b></div>';
+			$style_include[] ='<meta http-equiv="refresh" content="1; url=admin.php?pilih=gradeafektif&amp;mod=yes" />';	
+		}else{
+			$admin .= '<div class="error"><b>Gagal di Update.</b></div>';
+		}
+	}
+
+}
+$query 		= mysql_query ("SELECT * FROM `akad_grade` WHERE `id`='$id'");
+$data 		= mysql_fetch_array($query);
+$nilai 		= $data['nilai'];
+$nama 		= $data['nama'];
+$ket 		= $data['ket'];
+$nilai     		= !isset($nilai) ? '' : $nilai;
+$nama     		= !isset($nama) ? '' : $nama;
+$ket     		= !isset($ket) ? '' : $ket;
+$admin .= '<div class="panel panel-info">
+<div class="panel-heading"><h3 class="panel-title">Tambah</h3></div>';
+$admin .= '
+<form method="post" action="" class="form-inline">
+<table class="table table-striped table-hover">';
+$admin .='
+<tr>
+		<td>Nilai</td>
+		<td>:</td>
+		<td><input type="text" name="nilai" value="'.$nilai.'" size="30" class="form-control"required></td>
+	</tr><tr>
+		<td>Nama</td>
+		<td>:</td>
+		<td><input type="text" name="nama" value="'.$nama.'" size="30" class="form-control"required></td>
+	</tr>
+	<tr>
+		<td>Keterangan</td>
+		<td>:</td>
+		<td><input type="text" name="ket" value="'.$ket.'" size="30" class="form-control"></td>
+	</tr>';
+
+$admin .='
+	<tr>
+		<td></td>
+		<td></td>
+		<td>
+		<input type="submit" value="Simpan" name="submit"class="btn btn-success">&nbsp;
+		<a href="?pilih=grade&amp;mod=yes"><span class="btn btn-warning">Batal</span></a></td>
+	</tr>
+</table>
+</form></div>
+';	
+}
+
+if($_GET['aksi']==""){
+if(isset($_POST['submit'])){
+	$nilai 		= $_POST['nilai'];
+	$nama 		= $_POST['nama'];
+	$ket 		= $_POST['ket'];	
+	$error 	= '';	
+			if (cekkodesama('nama','akad_grade',$nama) > 0) $error .= "Error: Nama ".$nama." sudah terdaftar , silahkan ulangi.<br />";
+	if ($error){
+		$admin .= '<div class="error">'.$error.'</div>';
+	}else{
+		$hasil  = mysql_query( "INSERT INTO `akad_grade` (`nilai` ,`nama` ,`ket`) VALUES ('$nilai','$nama','$ket')" );
+		if($hasil){
+			$admin .= '<div class="sukses"><b>Berhasil di Buat.</b></div>';
+		}else{
+			$admin .= '<div class="error"><b> Gagal di Buat.</b></div>';
+		}
+		unset($nama);
+		unset($ket);
+		$style_include[] ='<meta http-equiv="refresh" content="1; url=admin.php?pilih=grade&mod=yes" />';  
+	}
+
+}
+$nilai     		= !isset($nilai) ? '' : $nilai;
+$nama     		= !isset($nama) ? '' : $nama;
+$ket     		= !isset($ket) ? '' : $ket;
+$admin .= '<div class="panel panel-info">
+<div class="panel-heading"><h3 class="panel-title">Tambah</h3></div>';
+$admin .= '
+<form method="post" action="" class="form-inline">
+<table class="table table-striped table-hover">';
+$admin .='<tr>
+		<td>Nilai</td>
+		<td>:</td>
+		<td><input type="text" name="nilai" value="'.$nilai.'" size="30" class="form-control"required></td>
+	</tr><tr>
+		<td>Nama</td>
+		<td>:</td>
+		<td><input type="text" name="nama" value="'.$nama.'" size="30" class="form-control"required></td>
+	</tr>
+	<tr>
+		<td>Keterangan</td>
+		<td>:</td>
+		<td><input type="text" name="ket" value="'.$ket.'" size="30" class="form-control"></td>
+	</tr>';
+
+$admin .='
+	<tr>
+		<td></td>
+		<td></td>
+		<td>
+		<input type="submit" value="Simpan" name="submit"class="btn btn-success">&nbsp;
+		<a href="?pilih=grade&amp;mod=yes"><span class="btn btn-warning">Batal</span></a></td>
+	</tr>
+</table>
+</form></div>
+';	
+}
+
+/************************************/
+$admin.='
+<table id="example"class="table table-striped table-bordered" cellspacing="0" width="100%">
+    <thead>
+        <tr>
+		    <th>Nilai</th>
+            <th>Grade</th>
+            <th>Keterangan</th>
+            <th>Aksi</th>
+        </tr>
+    </thead>';
+$hasil = $koneksi_db->sql_query( "SELECT * FROM akad_grade" );
+while ($data = $koneksi_db->sql_fetchrow($hasil)) {
+$nilai=$data['nilai'];
+$nama=$data['nama'];
+$ket=$data['ket'];
+$admin .='<tr>
+<td>'.$nilai.'</td>
+<td>'.$nama.'</td>
+<td>'.$ket.'</td>
+<td><a href="?pilih=grade&amp;mod=yes&amp;aksi=del&amp;id='.$data['id'].'" onclick="return confirm(\'Apakah Anda Yakin Ingin Menghapus Data Ini ?\')"><span class="btn btn-danger">Hapus</span></a> <a href="?pilih=grade&amp;mod=yes&amp;aksi=edit&amp;id='.$data['id'].'"><span class="btn btn-warning">Edit</span></a></td>
+</tr>';
+}
+$admin .= '</tbody></table>';
+
+/************************************/
 }
 echo $admin;
 

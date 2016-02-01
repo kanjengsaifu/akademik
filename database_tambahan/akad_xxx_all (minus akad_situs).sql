@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 01 Feb 2016 pada 13.37
+-- Generation Time: 01 Feb 2016 pada 14.21
 -- Versi Server: 5.6.16
 -- PHP Version: 5.5.11
 
@@ -50,6 +50,33 @@ INSERT INTO `akad_bulan` (`id`, `nama`) VALUES
 (10, 'Oktober'),
 (11, 'Nopember'),
 (12, 'Desember');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `akad_grade`
+--
+
+DROP TABLE IF EXISTS `akad_grade`;
+CREATE TABLE IF NOT EXISTS `akad_grade` (
+  `id` int(5) NOT NULL AUTO_INCREMENT,
+  `nilai` int(4) NOT NULL,
+  `nama` varchar(125) NOT NULL,
+  `ket` varchar(512) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+
+--
+-- Dumping data untuk tabel `akad_grade`
+--
+
+INSERT INTO `akad_grade` (`id`, `nilai`, `nama`, `ket`) VALUES
+(1, 90, 'A', ''),
+(2, 80, 'B+', ''),
+(3, 70, 'B', ''),
+(4, 61, 'C', ''),
+(5, 50, 'D', ''),
+(6, 30, 'E', '');
 
 -- --------------------------------------------------------
 

@@ -91,7 +91,7 @@ $admin .='
 		<td></td>
 		<td>
 		<input type="submit" value="Simpan" name="submit"class="btn btn-success">&nbsp;
-		<a href="?pilih=ulangan&amp;mod=yes"><span class="btn btn-warning">Batal</span></a></td>
+		<a href="?pilih=gradeafektif&amp;mod=yes"><span class="btn btn-warning">Batal</span></a></td>
 	</tr>
 </table>
 </form></div>
@@ -143,7 +143,7 @@ $admin .='
 		<td></td>
 		<td>
 		<input type="submit" value="Simpan" name="submit"class="btn btn-success">&nbsp;
-		<a href="?pilih=ulangan&amp;mod=yes"><span class="btn btn-warning">Batal</span></a></td>
+		<a href="?pilih=gradeafektif&amp;mod=yes"><span class="btn btn-warning">Batal</span></a></td>
 	</tr>
 </table>
 </form></div>
