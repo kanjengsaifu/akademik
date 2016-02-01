@@ -17,7 +17,14 @@ $(document).ready(function() {
 } );
 </script>
 js;
+$JS_SCRIPT.= <<<js
+<script language="JavaScript" type="text/javascript">
+$(function() {
+$("#tingkat").chained("#jenjang");
 
+} );
+</script>
+js;
 $script_include[] = $JS_SCRIPT;
 $admin .='<h4 class="page-header">Administrasi Guru</h4>';
 
@@ -34,6 +41,8 @@ if($_GET['aksi']== 'del'){
 if($_GET['aksi'] == 'edit'){
 $id = int_filter ($_GET['id']);
 if(isset($_POST['submit'])){
+	$jenjang 		= $_POST['jenjang'];
+	$tingkat 		= $_POST['tingkat'];
 	$lokasi 		= $_POST['lokasi'];
 	$matpel 		= $_POST['matpel'];
 	$guru 		= $_POST['guru'];
@@ -44,7 +53,7 @@ if(isset($_POST['submit'])){
 	if ($error){
 		$tengah .= '<div class="error">'.$error.'</div>';
 	}else{
-		$hasil  = mysql_query( "UPDATE `akad_guru` SET `lokasi`='$lokasi' ,`matpel`='$matpel',`guru`='$guru',`sks`='$sks',`status`='$status' WHERE `id`='$id'" );
+		$hasil  = mysql_query( "UPDATE `akad_guru` SET `tingkat`='$tingkat' ,`jenjang`='$jenjang' ,`lokasi`='$lokasi' ,`matpel`='$matpel',`guru`='$guru',`sks`='$sks',`status`='$status' WHERE `id`='$id'" );
 		if($hasil){
 			$admin .= '<div class="sukses"><b>Berhasil di Update.</b></div>';
 			$style_include[] ='<meta http-equiv="refresh" content="1; url=admin.php?pilih=guru&amp;mod=yes" />';	
@@ -56,12 +65,15 @@ if(isset($_POST['submit'])){
 }
 $query 		= mysql_query ("SELECT * FROM `akad_guru` WHERE `id`='$id'");
 $data 		= mysql_fetch_array($query);
+$jenjang 		= $data['jenjang'];
+$tingkat 		= $data['tingkat'];
 $lokasi 		= $data['lokasi'];
 	$matpel 		= $data['matpel'];
 	$guru 		= $data['guru'];
 	$sks 		= $data['sks'];
 	$status 		= $data['status'];	
-
+$jenjang     		= !isset($jenjang) ? '' : $jenjang;
+$tingkat     		= !isset($tingkat) ? '' : $tingkat;
 $lokasi     		= !isset($lokasi) ? '' : $lokasi;
 $matpel     		= !isset($matpel) ? '' : $matpel;
 $guru     		= !isset($guru) ? '' : $guru;
@@ -72,6 +84,30 @@ $admin .= '<div class="panel panel-info">
 $admin .= '
 <form method="post" action="" class="form-inline">
 <table class="table table-striped table-hover">';
+$admin .= '<tr>
+	<td>Jenjang</td>
+		<td>:</td>
+	<td><select name="jenjang" class="form-control" id="jenjang"required>';
+$hasilj = $koneksi_db->sql_query("SELECT * FROM aka_tingkat ORDER BY urutan asc");
+$admin .= '<option value="">== Jenjang ==</option>';
+while ($datasj =  $koneksi_db->sql_fetchrow ($hasilj)){
+		$pilihan = ($datasj['replid']==$jenjang)?"selected":'';
+$admin .= '<option value="'.$datasj['replid'].'"'.$pilihan.'>'.$datasj['tingkat'].'</option>';
+}
+$admin .='</select></td>
+</tr>';
+$admin .= '<tr>
+	<td>Tingkat</td>
+		<td>:</td>
+	<td><select name="tingkat" class="form-control" id="tingkat"required>';
+$hasilj = $koneksi_db->sql_query("SELECT * FROM aka_subtingkat ORDER BY subtingkat asc");
+$admin .= '<option value="">== Tingkat ==</option>';
+while ($datasj =  $koneksi_db->sql_fetchrow ($hasilj)){
+		$pilihan = ($datasj['replid']==$tingkat)?"selected":'';
+$admin .= '<option value="'.$datasj['replid'].'"class="'.$datasj['tingkat'].'"'.$pilihan.'>'.$datasj['subtingkat'].'</option>';
+}
+$admin .='</select></td>
+</tr>';
 $admin .= '<tr>
 	<td>Lokasi</td>
 		<td>:</td>
@@ -135,6 +171,8 @@ $admin .='
 
 if($_GET['aksi']==""){
 if(isset($_POST['submit'])){
+	$jenjang 		= $_POST['jenjang'];
+	$tingkat 		= $_POST['tingkat'];
 	$lokasi 		= $_POST['lokasi'];
 	$matpel 		= $_POST['matpel'];
 	$guru 		= $_POST['guru'];
@@ -144,12 +182,14 @@ if(isset($_POST['submit'])){
 	if ($error){
 		$admin .= '<div class="error">'.$error.'</div>';
 	}else{
-		$hasil  = mysql_query( "INSERT INTO `akad_guru` (`lokasi` ,`matpel`,`guru`,`sks`,`status`) VALUES ('$lokasi','$matpel','$guru','$sks','$status')" );
+		$hasil  = mysql_query( "INSERT INTO `akad_guru` (`jenjang` ,`tingkat` ,`lokasi` ,`matpel`,`guru`,`sks`,`status`) VALUES ('$jenjang','$tingkat','$lokasi','$matpel','$guru','$sks','$status')" );
 		if($hasil){
 			$admin .= '<div class="sukses"><b>Berhasil di Buat.</b></div>';
 		}else{
 			$admin .= '<div class="error"><b> Gagal di Buat.</b></div>';
 		}
+		unset($jenjang);
+		unset($tingkat);
 		unset($lokasi);
 		unset($matpel);
 		unset($guru);
@@ -159,6 +199,8 @@ if(isset($_POST['submit'])){
 	}
 
 }
+$jenjang     		= !isset($jenjang) ? '' : $jenjang;
+$tingkat     		= !isset($tingkat) ? '' : $tingkat;
 $lokasi     		= !isset($lokasi) ? '' : $lokasi;
 $matpel     		= !isset($matpel) ? '' : $matpel;
 $guru     		= !isset($guru) ? '' : $guru;
@@ -169,6 +211,30 @@ $admin .= '<div class="panel panel-info">
 $admin .= '
 <form method="post" action="" class="form-inline">
 <table class="table table-striped table-hover">';
+$admin .= '<tr>
+	<td>Jenjang</td>
+		<td>:</td>
+	<td><select name="jenjang" class="form-control" id="jenjang"required>';
+$hasilj = $koneksi_db->sql_query("SELECT * FROM aka_tingkat ORDER BY urutan asc");
+$admin .= '<option value="">== Jenjang ==</option>';
+while ($datasj =  $koneksi_db->sql_fetchrow ($hasilj)){
+		$pilihan = ($datasj['replid']==$jenjang)?"selected":'';
+$admin .= '<option value="'.$datasj['replid'].'"'.$pilihan.'>'.$datasj['tingkat'].'</option>';
+}
+$admin .='</select></td>
+</tr>';
+$admin .= '<tr>
+	<td>Tingkat</td>
+		<td>:</td>
+	<td><select name="tingkat" class="form-control" id="tingkat"required>';
+$hasilj = $koneksi_db->sql_query("SELECT * FROM aka_subtingkat ORDER BY subtingkat asc");
+$admin .= '<option value="">== Tingkat ==</option>';
+while ($datasj =  $koneksi_db->sql_fetchrow ($hasilj)){
+		$pilihan = ($datasj['replid']==$tingkat)?"selected":'';
+$admin .= '<option value="'.$datasj['replid'].'"class="'.$datasj['tingkat'].'"'.$pilihan.'>'.$datasj['subtingkat'].'</option>';
+}
+$admin .='</select></td>
+</tr>';
 $admin .= '<tr>
 	<td>Lokasi</td>
 		<td>:</td>
@@ -235,6 +301,7 @@ $admin.='
 <table id="example"class="table table-striped table-bordered" cellspacing="0" width="100%">
     <thead>
         <tr>
+			<th>Jenjang / Tingkat</th>
             <th>Nama Guru</th>
             <th>NIP</th>
             <th>Mata Pelajaran</th>
@@ -246,12 +313,15 @@ $admin.='
     </thead>';
 $hasil = $koneksi_db->sql_query( "SELECT * FROM akad_guru" );
 while ($data = $koneksi_db->sql_fetchrow($hasil)) {
+	$jenjang 		= $data['jenjang'];
+	$tingkat 		= $data['tingkat'];
 	$lokasi 		= $data['lokasi'];
 	$matpel 		= $data['matpel'];
 	$guru 		= $data['guru'];
 	$sks 		= $data['sks'];
 	$status 		= $data['status'];
 $admin .='<tr>
+<td>'.getjenjang($jenjang).' / '.gettingkat($tingkat).'</td>
 <td>'.getdataguru("nama",$guru).'</td>
 <td>'.getdataguru("nip",$guru).'</td>
 <td>'.getmatpel($matpel).'</td>

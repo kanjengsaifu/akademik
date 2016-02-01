@@ -146,7 +146,7 @@ $JS_SCRIPT.= <<<js
 $(function() {
 $("#tingkat").chained("#jenjang");
 $("#kelas").chained("#tingkat"); 
-$("#matpel").chained("#guru");/* or $("#series").chainedTo("#mark"); */
+$("#guru").chained("#matpel");/* or $("#series").chainedTo("#mark"); */
 } );
 </script>
 js;
@@ -385,28 +385,29 @@ $admin .= '<tr>
 </tr>';
 $admin .='
 	<tr>
-		<td>Guru</td>
+		<td>Mata Pelajaran</td>
 		<td>:</td>
-<td><select name="guru" class="form-control" id="guru" required>';
-$hasilj = $koneksi_db->sql_query("SELECT * FROM akad_guru ORDER BY id asc");
-$admin .= '<option value="">== Pilih Guru ==</option>';
+<td><select name="matpel" class="form-control" id="matpel" required>';
+$hasilj = $koneksi_db->sql_query("SELECT *FROM akad_guru where tingkat = '$tingkat' ORDER BY id asc");
+$admin .= '<option value="">== Pilih Mata Pelajaran ==</option>';
 while ($datasj =  $koneksi_db->sql_fetchrow ($hasilj)){
-$admin .= '<option value="'.$datasj['guru'].'"'.$pilihan.'>'.getdataguru('nama',$datasj['guru']).'</option>';
+$admin .= '<option value="'.$datasj['matpel'].'">'.getmatpel($datasj['matpel']).'</option>';
 }
 $admin .='</select></td>
 	</tr>';
 $admin .='
 	<tr>
-		<td>Mata Pelajaran</td>
+		<td>Guru</td>
 		<td>:</td>
-<td><select name="matpel" class="form-control" id="matpel" required>';
-$hasilj = $koneksi_db->sql_query("SELECT *FROM akad_guru ORDER BY id asc");
-$admin .= '<option value="">== Pilih Mata Pelajaran ==</option>';
+<td><select name="guru" class="form-control" id="guru" required>';
+$hasilj = $koneksi_db->sql_query("SELECT * FROM akad_guru  ORDER BY id asc");
+$admin .= '<option value="">== Pilih Guru ==</option>';
 while ($datasj =  $koneksi_db->sql_fetchrow ($hasilj)){
-$admin .= '<option value="'.$datasj['matpel'].'"class="'.$datasj['guru'].'">'.getmatpel($datasj['matpel']).'</option>';
+$admin .= '<option value="'.$datasj['guru'].'"class="'.$datasj['matpel'].'"'.$pilihan.'>'.getdataguru('nama',$datasj['guru']).'</option>';
 }
 $admin .='</select></td>
 	</tr>';
+
 
 $admin .='
 	<tr>
