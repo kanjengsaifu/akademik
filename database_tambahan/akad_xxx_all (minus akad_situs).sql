@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 01 Feb 2016 pada 14.21
+-- Generation Time: 03 Feb 2016 pada 12.38
 -- Versi Server: 5.6.16
 -- PHP Version: 5.5.11
 
@@ -90,7 +90,7 @@ CREATE TABLE IF NOT EXISTS `akad_gradeafektif` (
   `nama` varchar(125) NOT NULL,
   `ket` varchar(512) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data untuk tabel `akad_gradeafektif`
@@ -319,6 +319,33 @@ CREATE TABLE IF NOT EXISTS `akad_lessonplan` (
   `jangkawaktu` varchar(215) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `akad_linkssites`
+--
+
+DROP TABLE IF EXISTS `akad_linkssites`;
+CREATE TABLE IF NOT EXISTS `akad_linkssites` (
+  `id` int(5) NOT NULL AUTO_INCREMENT,
+  `nama` varchar(125) NOT NULL,
+  `url` varchar(512) NOT NULL,
+  `gambar` varchar(125) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+
+--
+-- Dumping data untuk tabel `akad_linkssites`
+--
+
+INSERT INTO `akad_linkssites` (`id`, `nama`, `url`, `gambar`) VALUES
+(2, 'Dispendik Surabaya', 'http://dispendik.surabaya.go.id', '62ec8da9ce78fcb483968b32d34dc341.jpg'),
+(3, 'Surabaya Belajar', 'http://dispendik.surabaya.go.id/sb/index.php?lang=en', 'a32e83e5e67a671e78b7429d28394df5.jpg'),
+(4, 'Profil Sekolah', 'http://profilsekolah.dispendik.surabaya.go.id/', '1d87028a330e30f1a756c0c17f34c86c.jpg'),
+(5, 'Try Out Online', 'http://tryoutonline.dispendik.surabaya.go.id/', 'ba4a1d4b5195fae25a2cb0b77e880ed0.jpg'),
+(6, 'Rapor Online', 'http://raporku.net/', '4220a633a7dc31ce20d5c550f1c8a8d5.jpg'),
+(7, 'Dispendik Ketenagaan Surabaya', 'https://dispendiksurabaya.wordpress.com/', '07fc1703c92c64fa1f5050a9249a8e40.jpg');
 
 -- --------------------------------------------------------
 
@@ -643,7 +670,7 @@ CREATE TABLE IF NOT EXISTS `akad_useraura` (
 --
 
 INSERT INTO `akad_useraura` (`UserId`, `user`, `password`, `email`, `avatar`, `level`, `tipe`, `is_online`, `last_ping`, `start`, `exp`, `biodata`) VALUES
-(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'admin@elyon.sch.id', 'af0675a9e843c6c8f78163a9118efc78.jpg', 'Administrator', 'aktif', 1, '2016-02-01 13:15:24', '2010-08-27 00:00:00', '2034-08-27 00:00:00', '<p><b>none</b></p>'),
+(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'admin@elyon.sch.id', 'af0675a9e843c6c8f78163a9118efc78.jpg', 'Administrator', 'aktif', 1, '2016-02-03 08:45:14', '2010-08-27 00:00:00', '2034-08-27 00:00:00', '<p><b>none</b></p>'),
 (28, 'superadmin', 'b11d5ece6353d17f85c5ad30e0a02360', 'rekysda@gmail.com', '', 'Administrator', 'aktif', 1, '2015-03-21 23:05:28', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
