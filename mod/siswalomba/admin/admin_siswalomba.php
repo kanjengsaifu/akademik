@@ -353,11 +353,52 @@ $admin .='<tr>
 <td>'.($nisn).'</td>
 <td>'.($nama).'</td>
 <td>'.$datalomba.'</td>
-<td><a href="?pilih=siswalomba&amp;mod=yes&amp;aksi=add&amp;siswa='.$data['replid'].'" onclick="return confirm(\'Apakah Anda Yakin Ingin menambah Prestasi Siswa ?\')"><span class="btn btn-success">Tambah</span></a></td>
+<td><a href="?pilih=siswalomba&amp;mod=yes&amp;aksi=add&amp;siswa='.$data['replid'].'" onclick="return confirm(\'Apakah Anda Yakin Ingin menambah Prestasi Siswa ?\')"><span class="btn btn-primary">Tambah</span></a>&nbsp;&nbsp;<a href="?pilih=siswalomba&amp;mod=yes&amp;aksi=cetak&amp;idsiswa='.$data['replid'].'"><span class="btn btn-success">Cetak</span></a></td>
 </tr>';
 }
 $admin .= '</tbody></table>';
 $admin .= '</div>';
+}
+
+if($_GET['aksi']== 'cetak'){ 
+$idsiswa     = int_filter($_GET['idsiswa']);
+if(isset($_POST['cetak'])){
+$tgl1 		= $_POST['tgl1'];
+$tgl2 		= $_POST['tgl2'];
+$admin .= '<script language=javascript>
+window.open("./cetaksiswalomba.php?idsiswa='.$idsiswa.'&tgl1='.$tgl1.'&tgl2='.$tgl2.'", "_blank", "toolbar=yes, scrollbars=yes, resizable=yes, top=50, left=200, width=800, height=600");
+</script>';
+
+}
+$admin .= '<div class="panel panel-info">
+<div class="panel-heading"><h3 class="panel-title">Cari Siswa</h3></div>';
+$admin .= '
+<form method="post" action="" class="form-inline"id="posts"class="form-inline">
+<table class="table table-striped table-hover">
+	<tr>
+		<td>Siswa</td>
+		<td>:</td>
+		<td>'.getsiswa($idsiswa).'<input type="hidden" name="idsiswa" value="'.$idsiswa.'"></td>
+		</tr>
+	<tr>
+		<td>Tanggal Mulai</td>
+		<td>:</td>
+		<td><input type="text" id="tgl1" name="tgl1" value="'.$tgl1.'"class="form-control"  required></td>
+		</tr>
+	<tr>
+		<td>Tanggal Akhir</td>
+		<td>:</td>
+		<td><input type="text" id="tgl2" name="tgl2" value="'.$tgl2.'"class="form-control" required></td>
+		</tr>	
+<tr>
+		<td></td>
+		<td></td>
+		<td>
+		<input type="submit" value="Cetak" name="cetak"class="btn btn-success">&nbsp;
+		<a href="?pilih=siswalomba&amp;mod=yes"><span class="btn btn-danger">Kembali</span></a>
+		</td>
+	</tr>		
+		</table></form></div>';
 }
 
 

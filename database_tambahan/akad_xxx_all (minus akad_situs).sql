@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 03 Feb 2016 pada 12.38
+-- Generation Time: 04 Feb 2016 pada 12.56
 -- Versi Server: 5.6.16
 -- PHP Version: 5.5.11
 
@@ -398,6 +398,71 @@ INSERT INTO `akad_matpel` (`id`, `nama`, `sks`, `slot`, `jenjang`, `tingkat`, `k
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `akad_mnmaster`
+--
+
+DROP TABLE IF EXISTS `akad_mnmaster`;
+CREATE TABLE IF NOT EXISTS `akad_mnmaster` (
+  `id` int(5) NOT NULL AUTO_INCREMENT,
+  `nama` varchar(100) NOT NULL,
+  `url` varchar(100) NOT NULL,
+  `gambar` varchar(100) NOT NULL,
+  `urut` int(5) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
+
+--
+-- Dumping data untuk tabel `akad_mnmaster`
+--
+
+INSERT INTO `akad_mnmaster` (`id`, `nama`, `url`, `gambar`, `urut`) VALUES
+(1, 'lokasi', 'lokasi', 'lokasi', 1),
+(2, 'jenjang', 'jenjang', 'jenjang', 2),
+(3, 'kelas', 'kelas', 'kelas', 3),
+(4, 'tahunajaran', 'tahunajaran', 'kalender', 4),
+(5, 'mata pelajaran', 'matpel', 'matpel', 5),
+(6, 'jam', 'jam', 'jam', 6),
+(7, 'ulangan', 'ulangan', 'ulangan', 7),
+(8, 'guru', 'guru', 'guru', 8),
+(9, 'pelanggaran', 'pelanggaran', 'pelanggaran', 9),
+(10, 'lesson plan', 'lessonplan', 'lessonplan', 10),
+(11, 'rapor', 'rapor', 'rapor', 11),
+(12, 'kegiatan', 'kegiatan', 'kegiatan', 12),
+(13, 'kegiatan non akademik', 'kegiatannon', 'kegiatan', 13),
+(14, 'grade', 'grade', 'grade', 14),
+(15, 'linkssites', 'linkssites', 'linkssites', 15);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `akad_mntransaksi`
+--
+
+DROP TABLE IF EXISTS `akad_mntransaksi`;
+CREATE TABLE IF NOT EXISTS `akad_mntransaksi` (
+  `id` int(5) NOT NULL AUTO_INCREMENT,
+  `nama` varchar(100) NOT NULL,
+  `url` varchar(100) NOT NULL,
+  `gambar` varchar(100) NOT NULL,
+  `urut` int(5) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+
+--
+-- Dumping data untuk tabel `akad_mntransaksi`
+--
+
+INSERT INTO `akad_mntransaksi` (`id`, `nama`, `url`, `gambar`, `urut`) VALUES
+(1, 'kalender akademik', 'kalenderakademik', 'kalender', 1),
+(2, 'jadwal', 'jadwal', 'timetable', 2),
+(3, 'siswa kelas', 'siswakelas', 'siswakelas', 3),
+(4, 'siswa absensi', 'siswapresensi', 'presensi', 4),
+(5, 'siswa pelanggaran', 'siswapelanggaran', 'siswapelanggaran', 5),
+(6, 'siswa lomba', 'siswalomba', 'siswalomba', 6);
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `akad_pelanggaran`
 --
 
@@ -670,7 +735,7 @@ CREATE TABLE IF NOT EXISTS `akad_useraura` (
 --
 
 INSERT INTO `akad_useraura` (`UserId`, `user`, `password`, `email`, `avatar`, `level`, `tipe`, `is_online`, `last_ping`, `start`, `exp`, `biodata`) VALUES
-(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'admin@elyon.sch.id', 'af0675a9e843c6c8f78163a9118efc78.jpg', 'Administrator', 'aktif', 1, '2016-02-03 08:45:14', '2010-08-27 00:00:00', '2034-08-27 00:00:00', '<p><b>none</b></p>'),
+(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'admin@elyon.sch.id', 'af0675a9e843c6c8f78163a9118efc78.jpg', 'Administrator', 'aktif', 1, '2016-02-04 07:52:14', '2010-08-27 00:00:00', '2034-08-27 00:00:00', '<p><b>none</b></p>'),
 (28, 'superadmin', 'b11d5ece6353d17f85c5ad30e0a02360', 'rekysda@gmail.com', '', 'Administrator', 'aktif', 1, '2015-03-21 23:05:28', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

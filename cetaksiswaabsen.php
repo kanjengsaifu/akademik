@@ -60,7 +60,7 @@ echo '
 </table>
 <br />
 
-	<table class="tab" id="table" border="1" style="border-collapse:collapse" width="100%" align="left" bordercolor="#000000">
+	<table align="center"class="tab" id="table" border="1" style="border-collapse:collapse" width="99%" align="left" bordercolor="#000000">
    	<tr height="30" align="center">
     	<td width="5%" class="header">No</td>
 		<td width="20%" class="header">Periode</td>

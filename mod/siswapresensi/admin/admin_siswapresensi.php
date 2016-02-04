@@ -218,7 +218,7 @@ $admin .='<tr>
 		<td></td>
 		<td>
 		<input type="submit" value="Simpan" name="submit"class="btn btn-success">&nbsp;
-		<a href="?pilih=siswapresensi&amp;mod=yes&aksi=edit&idsiswa='.$replid.'"><span class="btn btn-warning">Batal</span></a>&nbsp;
+		<a href="?pilih=siswapresensi&amp;mod=yes&aksi=edit&idsiswa='.$replid.'"><span class="btn btn-warning">Edit</span></a>&nbsp;
 		<a href="?pilih=siswapresensi&amp;mod=yes"><span class="btn btn-danger">Kembali</span></a>
 		</td>
 	</tr>
