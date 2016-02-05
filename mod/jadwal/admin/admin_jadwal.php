@@ -258,7 +258,8 @@ $hasilj = $koneksi_db->sql_query("SELECT * FROM aka_tahunajaran ORDER BY tahunaj
 $admin .= '<option value="">== Tahun Ajaran ==</option>';
 while ($datasj =  $koneksi_db->sql_fetchrow ($hasilj)){
 		$pilihan = ($datasj['replid']==$tahunajaran)?"selected":'';
-$admin .= '<option value="'.$datasj['replid'].'"'.$pilihan.'>'.$datasj['tahunajaran'].'</option>';
+		$aktif = ($datasj['replid']==$tahunajaranaktif)?"(Aktif)":'';
+$admin .= '<option value="'.$datasj['replid'].'"'.$pilihan.'>'.$datasj['tahunajaran'].' '.$aktif.'</option>';
 }
 $admin .='</select></td>';
 $admin .= '
@@ -278,14 +279,14 @@ $query2 = mysql_query( $sql2 );
 while ($data2 = mysql_fetch_array($query2)) { 
 $nama = $data2['nama'];
 $id = $data2['id'];
-$namahari.='<td width="250px">'.$nama.'</td>';
+$namahari.='<td width="250px"  align="center">'.$nama.'</td>';
 
 }
 /*********************/
 $admin.='
 <table class="table table-bordered">
     <thead>
-        <tr><td width="50px">Jam</td>
+        <tr><td width="200px" align="center">Jam - Hari</td>
             '.$namahari.'
         </tr>
     </thead>';
@@ -294,8 +295,9 @@ $hasil = $koneksi_db->sql_query( "SELECT * FROM akad_jam" );
 while ($data = $koneksi_db->sql_fetchrow($hasil)) {
 $idjam=$data['id'];
 $namajam=$data['nama'];
-
-$admin .='<tr><td>'.$namajam.'</td>';
+$mulai=$data['mulai'];
+$selesai=$data['selesai'];
+$admin .='<tr><td  align="center">'.$namajam.' ('.$mulai.'-'.$selesai.')</td>';
 /***************************/
 if (isset($_GET['lihatdata'])or isset($_GET['kelas'])){
 $hasil3 = $koneksi_db->sql_query( "SELECT * FROM akad_hari order by id asc" );

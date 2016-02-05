@@ -396,7 +396,8 @@ $hasilj = $koneksi_db->sql_query("SELECT * FROM aka_tahunajaran ORDER BY tahunaj
 $admin .= '<option value="">== Tahun Ajaran ==</option>';
 while ($datasj =  $koneksi_db->sql_fetchrow ($hasilj)){
 		$pilihan = ($datasj['replid']==$tahunajaran)?"selected":'';
-$admin .= '<option value="'.$datasj['replid'].'"'.$pilihan.'>'.$datasj['tahunajaran'].'</option>';
+						$aktif = ($datasj['replid']==$tahunajaranaktif)?"(Aktif)":'';
+$admin .= '<option value="'.$datasj['replid'].'"'.$pilihan.'>'.$datasj['tahunajaran'].' '.$aktif.'</option>';
 }
 $admin .='</select></td>';
 $admin .= '

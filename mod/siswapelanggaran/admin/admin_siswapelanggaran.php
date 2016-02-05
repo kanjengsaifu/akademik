@@ -191,7 +191,7 @@ $point = getfieldtabel('point','akad_pelanggaran','id',$pelanggaran);
 			$admin .= '<div class="error"><b> Gagal di Buat.</b></div>';
 		}
 		unset($tgl1);
-		unset($siswa);
+
 		unset($kelas);
 		unset($pelanggaran);
 
@@ -231,8 +231,8 @@ $admin .= '<tr>
 $hasilj = $koneksi_db->sql_query("SELECT * FROM akad_siswakelas ORDER BY tahunajaran desc");
 $admin .= '<option value="">== Kelas ==</option>';
 while ($datasj =  $koneksi_db->sql_fetchrow ($hasilj)){
-				$aktif = ($datasj['tahunajaran']==$tahunajaranaktif)?"(Aktif)":'';
-$admin .= '<option value="'.$datasj['kelas'].'"class="'.$datasj['siswa'].'">'.getkelas($datasj['kelas']).' ('.$aktif.')</option>';
+$aktif = ($datasj['tahunajaran']==$tahunajaranaktif)?"(Aktif)":'';
+$admin .= '<option value="'.$datasj['kelas'].'"class="'.$datasj['siswa'].'">'.getkelas($datasj['kelas']).' '.$aktif.'</option>';
 }
 $admin .='</select></td>
 </tr>';
@@ -276,6 +276,7 @@ $admin .= '</div>';
 }
 
 if (($_GET['aksi'] == 'add')or($_GET['aksi'] == 'edit')){
+		$siswa = int_filter ($_GET['siswa']);
 $admin .= '<div class="panel panel-info">
 <div class="panel-heading"><h3 class="panel-title">Siswa Pelanggaran</h3></div>';
 $admin.='
@@ -290,7 +291,7 @@ $admin.='
             <th>Aksi</th>
         </tr>
     </thead>';
-$hasil = $koneksi_db->sql_query( "SELECT * FROM akad_siswapelanggaran  order by tgl desc" );
+$hasil = $koneksi_db->sql_query( "SELECT * FROM akad_siswapelanggaran  where siswa='$siswa' order by tgl desc" );
 while ($data = $koneksi_db->sql_fetchrow($hasil)) {
 $tgl1     		= $data['tgl'];
 $siswa     		= $data['siswa'];
@@ -311,8 +312,9 @@ $admin .= '</div>';
 }
 
 if ($_GET['aksi'] == ''){
+
 $admin .= '<div class="panel panel-info">
-<div class="panel-heading"><h3 class="panel-title">Daftar Siswa</h3></div>';
+<div class="panel-heading"><h3 class="panel-title">Daftar Pelanggaran Siswa</h3></div>';
 $admin.='
 <table id="example"class="table table-striped table-bordered" cellspacing="0" width="100%">
     <thead>
@@ -325,7 +327,7 @@ $admin.='
             <th>Aksi</th>
         </tr>
     </thead>';
-$hasil = $koneksi_db->sql_query( "SELECT * FROM aka_siswa  order by nama asc" );
+$hasil = $koneksi_db->sql_query( "SELECT * FROM aka_siswa    order by nama asc" );
 while ($data = $koneksi_db->sql_fetchrow($hasil)) {
 	$replid     		= $data['replid'];
 $nama     		= $data['nama'];

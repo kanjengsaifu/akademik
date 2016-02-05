@@ -71,6 +71,7 @@ $admin.='
             <th>NIS</th>
             <th>Nama</th>
             <th>Jumlah Bulan Presensi</th>
+			            <th>Status</th>
             <th width="15%">Aksi</th>
         </tr>
     </thead>';
@@ -79,11 +80,13 @@ while ($data = $koneksi_db->sql_fetchrow($hasil)) {
 $idsiswa=$data['replid'];
 $nama=$data['nama'];
 $nis=$data['nis'];
+$status = (cekstatussiswakelas($idsiswa)>0)?"Aktif":'Belum ada Kelas';
 $admin .='<tr>
 <td>'.$nis.'</td>
 <td>'.$nama.'</td>
 <td>'.cekabsenbulansiswa($idsiswa).'</td>
-<td><a href="?pilih=siswapresensi&amp;mod=yes&amp;aksi=lihat&amp;idsiswa='.$data['replid'].'"><span class="btn btn-primary">Lihat</span></a>&nbsp;&nbsp;<a href="?pilih=siswapresensi&amp;mod=yes&amp;aksi=cetak&amp;idsiswa='.$data['replid'].'"><span class="btn btn-success">Cetak</span></a></td>
+<td>'.$status.'</td>
+<td><a href="?pilih=siswapresensi&amp;mod=yes&amp;aksi=lihat&amp;idsiswa='.$data['replid'].'" onclick="return confirm(\'Apakah Anda Yakin Ingin menambah Absensi ?\')"><span class="btn btn-primary">Tambah</span></a>&nbsp;&nbsp;<a href="?pilih=siswapresensi&amp;mod=yes&amp;aksi=cetak&amp;idsiswa='.$data['replid'].'"><span class="btn btn-success">Cetak</span></a></td>
 </tr>';
 }
 $admin .= '</tbody></table>';
@@ -291,17 +294,18 @@ $admin .= '<tr>
 		<td>:</td>
 	<td>'.$nama.'</td></tr>';
 $admin .= '<tr>
-	<td>Kelas</td>
+	<td>Kelas Siswa</td>
 		<td>:</td>
-	<td><select name="kelas" class="form-control" id="kelas"required>';
-$hasilj = $koneksi_db->sql_query("SELECT * FROM akad_kelas ORDER BY kelas asc");
+	<td><select name="kelas" id="kelas"class="form-control" required>';
+$hasilj = $koneksi_db->sql_query("SELECT * FROM akad_siswakelas where siswa='$idsiswa' ORDER BY tahunajaran desc");
 $admin .= '<option value="">== Kelas ==</option>';
 while ($datasj =  $koneksi_db->sql_fetchrow ($hasilj)){
-$pilihan = ($datasj['replid']==$kelas)?"selected":'';
-$aktif = ($datasj['replid']==$kelas)?"(Aktif)":'';
-$admin .= '<option value="'.$datasj['replid'].'"'.$pilihan.'>'.$datasj['kelas'].' '.$aktif.'</option>';
+	$pilihanj = ($datasj['tahunajaran']==$tahunajaranaktif)?"selected":'';
+				$aktif = ($datasj['tahunajaran']==$tahunajaranaktif)?"(Aktif)":'';
+$admin .= '<option value="'.$datasj['kelas'].'"class="'.$datasj['siswa'].'"'.$pilihanj.'>'.getkelas($datasj['kelas']).' '.$aktif.'</option>';
 }
-$admin .='</select></td></tr>';	
+$admin .='</select></td>
+</tr>';
 $admin .= '<tr>
 	<td>Semester</td>
 		<td>:</td>

@@ -210,7 +210,7 @@ $admin .='<tr>
 <td>'.$nama.'</td>
 <td>'.$alamat.'</td>
 <td>'.$telepon.'</td>
-<td>'.getfieldtabel('nama','hrd_karyawan',$kepsek,'id').'</td>
+<td>'.getdataguru('nama',$kepsek).'</td>
 <td><a href="?pilih=lokasi&amp;mod=yes&amp;aksi=del&amp;id='.$data['replid'].'" onclick="return confirm(\'Apakah Anda Yakin Ingin Menghapus Data Ini ?\')"><span class="btn btn-danger">Hapus</span></a> <a href="?pilih=lokasi&amp;mod=yes&amp;aksi=edit&amp;id='.$data['replid'].'"><span class="btn btn-warning">Edit</span></a></td>
 </tr>';
 }

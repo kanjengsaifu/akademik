@@ -51,14 +51,14 @@ $id = int_filter ($_GET['id']);
 if(isset($_POST['submit'])){
 $tingkat=$_POST['tingkat'];
 $kode=$_POST['kode'];
-$tahunajaran=$_POST['tahunajaran'];
+//$tahunajaran=$_POST['tahunajaran'];
 	
 	$error 	= '';	
 	if (cekkodesama('kode','aka_tingkat',$kode) > 1) $error .= "Error: Kode ".$kode." sudah terdaftar , silahkan ulangi.<br />";
 	if ($error){
 		$admin .= '<div class="error">'.$error.'</div>';
 	}else{
-		$hasil  = mysql_query( "UPDATE `aka_tingkat` SET `tingkat`='$tingkat' ,`kode`='$kode',`tahunajaran`='$tahunajaran' WHERE `replid`='$id'" );
+		$hasil  = mysql_query( "UPDATE `aka_tingkat` SET `tingkat`='$tingkat' ,`kode`='$kode' WHERE `replid`='$id'" );
 		if($hasil){
 			$admin .= '<div class="sukses"><b>Berhasil di Update.</b></div>';
 			$style_include[] ='<meta http-equiv="refresh" content="1; url=admin.php?pilih=lokasi&amp;mod=yes" />';	
@@ -92,6 +92,7 @@ $admin .='<tr>
 		<td>:</td>
 		<td><input type="text" name="kode" value="'.$kode.'" size="30" class="form-control"required></td>
 	</tr>';
+	/*
 $admin .= '<tr>
 	<td>Tahun Ajaran</td>
 		<td>:</td>
@@ -103,7 +104,7 @@ while ($datasj =  $koneksi_db->sql_fetchrow ($hasilj)){
 $admin .= '<option value="'.$datasj['replid'].'"'.$pilihan.'>'.$datasj['tahunajaran'].'</option>';
 }
 $admin .='</select></td>
-</tr>';
+</tr>';*/
 $admin .='
 	<tr>
 		<td></td>
@@ -121,13 +122,13 @@ if($_GET['aksi']==""){
 if(isset($_POST['submit'])){
 $tingkat=$_POST['tingkat'];
 $kode=$_POST['kode'];
-$tahunajaran=$_POST['tahunajaran'];
+//$tahunajaran=$_POST['tahunajaran'];
 	$error 	= '';	
 	if (cekkodesama('kode','aka_tingkat',$kode) > 0) $error .= "Error: Kode ".$kode." sudah terdaftar , silahkan ulangi.<br />";
 	if ($error){
 		$admin .= '<div class="error">'.$error.'</div>';
 	}else{
-		$hasil  = mysql_query( "INSERT INTO `aka_tingkat`(tingkat,kode,tahunajaran) VALUES ('$tingkat','$kode','$tahunajaran')" );
+		$hasil  = mysql_query( "INSERT INTO `aka_tingkat`(tingkat,kode) VALUES ('$tingkat','$kode')" );
 		if($hasil){
 			$admin .= '<div class="sukses"><b>Berhasil di Buat.</b></div>';
 		}else{
@@ -158,6 +159,7 @@ $admin .='<tr>
 		<td>:</td>
 		<td><input type="text" name="kode" value="'.$kode.'" size="30" class="form-control"required></td>
 	</tr>';
+	/*
 $admin .= '<tr>
 	<td>Tahun Ajaran</td>
 		<td>:</td>
@@ -169,7 +171,7 @@ while ($datasj =  $koneksi_db->sql_fetchrow ($hasilj)){
 $admin .= '<option value="'.$datasj['replid'].'"'.$pilihan.'>'.$datasj['tahunajaran'].'</option>';
 }
 $admin .='</select></td>
-</tr>';
+</tr>';*/
 $admin .='
 	<tr>
 		<td></td>
@@ -190,7 +192,6 @@ $admin.='
         <tr>
             <th>Kode</th>
             <th>Nama</th>
-            <th>Tahun Ajaran</th>
             <th>Aksi</th>
         </tr>
     </thead>';
@@ -202,7 +203,6 @@ $idtahunajaran=$data['tahunajaran'];
 $admin .='<tr>
 <td>'.$kode.'</td>
 <td>'.$tingkat.'</td>
-<td>'.getfieldtabel('tahunajaran','aka_tahunajaran','replid',$idtahunajaran).'</td>
 <td><a href="?pilih=jenjang&amp;mod=yes&amp;aksi=del&amp;id='.$data['replid'].'" onclick="return confirm(\'Apakah Anda Yakin Ingin Menghapus Data Ini ?\')"><span class="btn btn-danger">Hapus</span></a> <a href="?pilih=jenjang&amp;mod=yes&amp;aksi=edit&amp;id='.$data['replid'].'"><span class="btn btn-warning">Edit</span></a></td>
 </tr>';
 }

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 04 Feb 2016 pada 12.56
+-- Generation Time: 05 Feb 2016 pada 11.23
 -- Versi Server: 5.6.16
 -- PHP Version: 5.5.11
 
@@ -19,6 +19,21 @@ SET time_zone = "+00:00";
 --
 -- Database: `sister_siadu`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `akad_afektifkat`
+--
+
+DROP TABLE IF EXISTS `akad_afektifkat`;
+CREATE TABLE IF NOT EXISTS `akad_afektifkat` (
+  `id` int(5) NOT NULL AUTO_INCREMENT,
+  `rapor` int(5) NOT NULL,
+  `master` int(5) NOT NULL,
+  `nama` varchar(512) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -199,7 +214,7 @@ CREATE TABLE IF NOT EXISTS `akad_jam` (
   `mulai` varchar(10) NOT NULL,
   `selesai` varchar(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data untuk tabel `akad_jam`
@@ -426,7 +441,7 @@ INSERT INTO `akad_mnmaster` (`id`, `nama`, `url`, `gambar`, `urut`) VALUES
 (8, 'guru', 'guru', 'guru', 8),
 (9, 'pelanggaran', 'pelanggaran', 'pelanggaran', 9),
 (10, 'lesson plan', 'lessonplan', 'lessonplan', 10),
-(11, 'rapor', 'rapor', 'rapor', 11),
+(11, 'rapor', 'raporafektif', 'rapor', 11),
 (12, 'kegiatan', 'kegiatan', 'kegiatan', 12),
 (13, 'kegiatan non akademik', 'kegiatannon', 'kegiatan', 13),
 (14, 'grade', 'grade', 'grade', 14),
@@ -529,6 +544,30 @@ INSERT INTO `akad_pelanggarankat` (`id`, `nama`) VALUES
 (4, 'Kepribadian'),
 (5, 'Ketertiban'),
 (6, 'Pelanggaran terhadap Sekolah');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `akad_raporafektif`
+--
+
+DROP TABLE IF EXISTS `akad_raporafektif`;
+CREATE TABLE IF NOT EXISTS `akad_raporafektif` (
+  `id` int(5) NOT NULL AUTO_INCREMENT,
+  `lokasi` int(5) NOT NULL,
+  `jenjang` int(5) NOT NULL,
+  `tahunajaran` int(5) NOT NULL,
+  `semester` int(5) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data untuk tabel `akad_raporafektif`
+--
+
+INSERT INTO `akad_raporafektif` (`id`, `lokasi`, `jenjang`, `tahunajaran`, `semester`) VALUES
+(1, 1, 2, 5, 1),
+(2, 1, 1, 5, 1);
 
 -- --------------------------------------------------------
 
@@ -674,7 +713,7 @@ CREATE TABLE IF NOT EXISTS `akad_siswapelanggaran` (
   `pelanggaran` int(4) NOT NULL,
   `point` int(10) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
 --
 -- Dumping data untuk tabel `akad_siswapelanggaran`
@@ -682,7 +721,9 @@ CREATE TABLE IF NOT EXISTS `akad_siswapelanggaran` (
 
 INSERT INTO `akad_siswapelanggaran` (`id`, `tgl`, `siswa`, `kelas`, `pelanggaran`, `point`) VALUES
 (5, '2016-01-28', 205, 3, 3, 10),
-(6, '2016-01-27', 205, 3, 15, 20);
+(6, '2016-01-27', 205, 3, 15, 20),
+(7, '2016-02-05', 577, 2, 2, 2),
+(8, '2016-02-05', 577, 2, 2, 2);
 
 -- --------------------------------------------------------
 
@@ -735,7 +776,7 @@ CREATE TABLE IF NOT EXISTS `akad_useraura` (
 --
 
 INSERT INTO `akad_useraura` (`UserId`, `user`, `password`, `email`, `avatar`, `level`, `tipe`, `is_online`, `last_ping`, `start`, `exp`, `biodata`) VALUES
-(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'admin@elyon.sch.id', 'af0675a9e843c6c8f78163a9118efc78.jpg', 'Administrator', 'aktif', 1, '2016-02-04 07:52:14', '2010-08-27 00:00:00', '2034-08-27 00:00:00', '<p><b>none</b></p>'),
+(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'admin@elyon.sch.id', 'af0675a9e843c6c8f78163a9118efc78.jpg', 'Administrator', 'aktif', 1, '2016-02-05 08:03:24', '2010-08-27 00:00:00', '2034-08-27 00:00:00', '<p><b>none</b></p>'),
 (28, 'superadmin', 'b11d5ece6353d17f85c5ad30e0a02360', 'rekysda@gmail.com', '', 'Administrator', 'aktif', 1, '2015-03-21 23:05:28', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
