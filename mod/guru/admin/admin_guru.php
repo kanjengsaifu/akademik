@@ -20,6 +20,7 @@ js;
 $JS_SCRIPT.= <<<js
 <script language="JavaScript" type="text/javascript">
 $(function() {
+	$("#lokasi").chained("#jenjang");
 $("#tingkat").chained("#jenjang");
 
 } );
@@ -136,7 +137,8 @@ $admin .= '<tr>
 	<td>Guru</td>
 		<td>:</td>
 	<td><select name="guru" class="form-control" id="guru"required>';
-$hasilj = $koneksi_db->sql_query("SELECT * FROM hrd_karyawan ORDER BY nama asc");
+	$idjabatan = getidjabatan('guru');
+$hasilj = $koneksi_db->sql_query("SELECT * FROM hrd_karyawan where jabatan='$idjabatan'  ORDER BY nama asc");
 $admin .= '<option value="">== Nama Guru ==</option>';
 while ($datasj =  $koneksi_db->sql_fetchrow ($hasilj)){
 		$pilihan = ($datasj['id']==$guru)?"selected":'';
@@ -224,6 +226,18 @@ $admin .= '<option value="'.$datasj['replid'].'"'.$pilihan.'>'.$datasj['tingkat'
 $admin .='</select></td>
 </tr>';
 $admin .= '<tr>
+	<td>Departemen</td>
+		<td>:</td>
+	<td><select name="lokasi" class="form-control" id="lokasi"required>';
+$hasilj = $koneksi_db->sql_query("SELECT * FROM departemen ORDER BY urut asc");
+$admin .= '<option value="">== Departemen ==</option>';
+while ($datasj =  $koneksi_db->sql_fetchrow ($hasilj)){
+		$pilihan = ($datasj['replid']==$lokasi)?"selected":'';
+$admin .= '<option value="'.$datasj['replid'].'"class="'.$datasj['keterangan'].'"'.$pilihan.'>'.$datasj['nama'].'</option>';
+}
+$admin .='</select></td>
+</tr>';
+$admin .= '<tr>
 	<td>Tingkat</td>
 		<td>:</td>
 	<td><select name="tingkat" class="form-control" id="tingkat"required>';
@@ -235,18 +249,7 @@ $admin .= '<option value="'.$datasj['replid'].'"class="'.$datasj['tingkat'].'"'.
 }
 $admin .='</select></td>
 </tr>';
-$admin .= '<tr>
-	<td>Lokasi</td>
-		<td>:</td>
-	<td><select name="lokasi" class="form-control" id="lokasi"required>';
-$hasilj = $koneksi_db->sql_query("SELECT * FROM departemen ORDER BY urut asc");
-$admin .= '<option value="">== Lokasi ==</option>';
-while ($datasj =  $koneksi_db->sql_fetchrow ($hasilj)){
-		$pilihan = ($datasj['replid']==$lokasi)?"selected":'';
-$admin .= '<option value="'.$datasj['replid'].'"'.$pilihan.'>'.$datasj['nama'].'</option>';
-}
-$admin .='</select></td>
-</tr>';
+
 $admin .= '<tr>
 	<td>Mata Pelajaran</td>
 		<td>:</td>
@@ -263,7 +266,8 @@ $admin .= '<tr>
 	<td>Guru</td>
 		<td>:</td>
 	<td><select name="guru" class="form-control" id="guru"required>';
-$hasilj = $koneksi_db->sql_query("SELECT * FROM hrd_karyawan ORDER BY nama asc");
+	$idjabatan = getidjabatan('guru');
+$hasilj = $koneksi_db->sql_query("SELECT * FROM hrd_karyawan where jabatan='$idjabatan'  ORDER BY nama asc");
 $admin .= '<option value="">== Nama Guru ==</option>';
 while ($datasj =  $koneksi_db->sql_fetchrow ($hasilj)){
 		$pilihan = ($datasj['id']==$guru)?"selected":'';
@@ -301,13 +305,14 @@ $admin.='
 <table id="example"class="table table-striped table-bordered" cellspacing="0" width="100%">
     <thead>
         <tr>
+            <th>Departemen</th>
 			<th>Jenjang / Tingkat</th>
             <th>Nama Guru</th>
             <th>NIP</th>
             <th>Mata Pelajaran</th>
             <th>SKS</th>
             <th>Status</th>
-            <th>Lokasi</th>
+
             <th>Aksi</th>
         </tr>
     </thead>';
@@ -321,13 +326,14 @@ while ($data = $koneksi_db->sql_fetchrow($hasil)) {
 	$sks 		= $data['sks'];
 	$status 		= $data['status'];
 $admin .='<tr>
+<td>'.getlokasi($lokasi).'</td>
 <td>'.getjenjang($jenjang).' / '.gettingkat($tingkat).'</td>
 <td>'.getdataguru("nama",$guru).'</td>
 <td>'.getdataguru("nip",$guru).'</td>
 <td>'.getmatpel($matpel).'</td>
 <td>'.$sks.'</td>
 <td>'.$status.'</td>
-<td>'.getlokasi($lokasi).'</td>
+
 <td><a href="?pilih=guru&amp;mod=yes&amp;aksi=del&amp;id='.$data['id'].'" onclick="return confirm(\'Apakah Anda Yakin Ingin Menghapus Data Ini ?\')"><span class="btn btn-danger">Hapus</span></a> <a href="?pilih=guru&amp;mod=yes&amp;aksi=edit&amp;id='.$data['id'].'"><span class="btn btn-warning">Edit</span></a></td>
 </tr>';
 }
