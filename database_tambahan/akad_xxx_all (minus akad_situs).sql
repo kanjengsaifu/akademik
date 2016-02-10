@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 10 Feb 2016 pada 06.18
+-- Generation Time: 10 Feb 2016 pada 19.10
 -- Versi Server: 10.1.9-MariaDB
 -- PHP Version: 5.6.15
 
@@ -464,7 +464,8 @@ INSERT INTO `akad_mntransaksi` (`id`, `nama`, `url`, `gambar`, `urut`) VALUES
 (3, 'siswa kelas', 'siswakelas', 'siswakelas', 3),
 (4, 'siswa absensi', 'siswapresensi', 'presensi', 4),
 (5, 'siswa pelanggaran', 'siswapelanggaran', 'siswapelanggaran', 5),
-(6, 'siswa lomba', 'siswalomba', 'siswalomba', 6);
+(6, 'siswa lomba', 'siswalomba', 'siswalomba', 6),
+(7, 'siswa rapor', 'siswarapor', 'grade', 7);
 
 -- --------------------------------------------------------
 
@@ -710,6 +711,21 @@ INSERT INTO `akad_siswapelanggaran` (`id`, `tgl`, `siswa`, `kelas`, `pelanggaran
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `akad_siswaraporaf`
+--
+
+DROP TABLE IF EXISTS `akad_siswaraporaf`;
+CREATE TABLE `akad_siswaraporaf` (
+  `id` int(5) NOT NULL,
+  `raporaf` int(5) NOT NULL,
+  `kelas` int(5) NOT NULL,
+  `siswa` int(5) NOT NULL,
+  `nilai` int(5) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `akad_ulangan`
 --
 
@@ -756,7 +772,7 @@ CREATE TABLE `akad_useraura` (
 --
 
 INSERT INTO `akad_useraura` (`UserId`, `user`, `password`, `email`, `avatar`, `level`, `tipe`, `is_online`, `last_ping`, `start`, `exp`, `biodata`) VALUES
-(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'admin@elyon.sch.id', 'af0675a9e843c6c8f78163a9118efc78.jpg', 'Administrator', 'aktif', 1, '2016-02-10 10:20:58', '2010-08-27 00:00:00', '2034-08-27 00:00:00', '<p><b>none</b></p>'),
+(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'admin@elyon.sch.id', 'af0675a9e843c6c8f78163a9118efc78.jpg', 'Administrator', 'aktif', 1, '2016-02-10 23:16:30', '2010-08-27 00:00:00', '2034-08-27 00:00:00', '<p><b>none</b></p>'),
 (28, 'superadmin', 'b11d5ece6353d17f85c5ad30e0a02360', 'rekysda@gmail.com', '', 'Administrator', 'aktif', 1, '2015-03-21 23:05:28', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '');
 
 --
@@ -928,6 +944,12 @@ ALTER TABLE `akad_siswapelanggaran`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `akad_siswaraporaf`
+--
+ALTER TABLE `akad_siswaraporaf`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `akad_ulangan`
 --
 ALTER TABLE `akad_ulangan`
@@ -947,7 +969,7 @@ ALTER TABLE `akad_useraura`
 -- AUTO_INCREMENT for table `akad_afektifkat`
 --
 ALTER TABLE `akad_afektifkat`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `akad_bulan`
 --
@@ -967,7 +989,7 @@ ALTER TABLE `akad_gradeafektif`
 -- AUTO_INCREMENT for table `akad_guru`
 --
 ALTER TABLE `akad_guru`
-  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `akad_hari`
 --
@@ -987,7 +1009,7 @@ ALTER TABLE `akad_jam`
 -- AUTO_INCREMENT for table `akad_kalender`
 --
 ALTER TABLE `akad_kalender`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `akad_kegiatan`
 --
@@ -1002,7 +1024,7 @@ ALTER TABLE `akad_kegiatannon`
 -- AUTO_INCREMENT for table `akad_kelas`
 --
 ALTER TABLE `akad_kelas`
-  MODIFY `replid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `replid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `akad_lessonplan`
 --
@@ -1032,7 +1054,7 @@ ALTER TABLE `akad_mnmaster`
 -- AUTO_INCREMENT for table `akad_mntransaksi`
 --
 ALTER TABLE `akad_mntransaksi`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `akad_pelanggaran`
 --
@@ -1078,6 +1100,11 @@ ALTER TABLE `akad_siswalomba`
 --
 ALTER TABLE `akad_siswapelanggaran`
   MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+--
+-- AUTO_INCREMENT for table `akad_siswaraporaf`
+--
+ALTER TABLE `akad_siswaraporaf`
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `akad_ulangan`
 --
