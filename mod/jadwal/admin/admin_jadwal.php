@@ -144,6 +144,7 @@ js;
 $JS_SCRIPT.= <<<js
 <script language="JavaScript" type="text/javascript">
 $(function() {
+$("#lokasi").chained("#jenjang");
 $("#tingkat").chained("#jenjang");
 $("#kelas").chained("#tingkat"); 
 $("#guru").chained("#matpel");/* or $("#series").chainedTo("#mark"); */
@@ -215,15 +216,7 @@ $admin .= '<div class="panel panel-info">
 $admin.='<form class="form-inline" method="get" action="" enctype ="multipart/form-data" id="posts">';
 $admin.='
 <table class="table">';
-$admin .= '<tr>
-	<td><select name="lokasi" class="form-control" id="lokasi"required>';
-$hasilj = $koneksi_db->sql_query("SELECT * FROM departemen ORDER BY urut asc");
-$admin .= '<option value="">== Lokasi ==</option>';
-while ($datasj =  $koneksi_db->sql_fetchrow ($hasilj)){
-		$pilihan = ($datasj['replid']==$lokasi)?"selected":'';
-$admin .= '<option value="'.$datasj['replid'].'"'.$pilihan.'>'.$datasj['nama'].'</option>';
-}
-$admin .='</select></td>';
+$admin .= '<tr>';
 $admin .= '
 	<td><select name="jenjang" class="form-control" id="jenjang">';
 $hasilj = $koneksi_db->sql_query("SELECT * FROM aka_tingkat ORDER BY urutan asc");
@@ -231,6 +224,14 @@ $admin .= '<option value="">== Jenjang ==</option>';
 while ($datasj =  $koneksi_db->sql_fetchrow ($hasilj)){
 		$pilihan = ($datasj['replid']==$jenjang)?"selected":'';
 $admin .= '<option value="'.$datasj['replid'].'"'.$pilihan.'>'.$datasj['tingkat'].'</option>';
+}
+$admin .='</select></td>';
+$admin .= '<td><select name="lokasi" class="form-control" id="lokasi"required>';
+$hasilj = $koneksi_db->sql_query("SELECT * FROM departemen ORDER BY urut asc");
+$admin .= '<option value="">== Departemen ==</option>';
+while ($datasj =  $koneksi_db->sql_fetchrow ($hasilj)){
+		$pilihan = ($datasj['replid']==$lokasi)?"selected":'';
+$admin .= '<option value="'.$datasj['replid'].'"class="'.$datasj['keterangan'].'"'.$pilihan.'>'.$datasj['nama'].'</option>';
 }
 $admin .='</select></td>';
 
@@ -292,12 +293,13 @@ $admin.='
     </thead>';
 	$jam=1;
 $hasil = $koneksi_db->sql_query( "SELECT * FROM akad_jam" );
+if (isset($_GET['lihatdata'])or isset($_GET['kelas'])){
 while ($data = $koneksi_db->sql_fetchrow($hasil)) {
 $idjam=$data['id'];
 $namajam=$data['nama'];
 $mulai=$data['mulai'];
 $selesai=$data['selesai'];
-$admin .='<tr><td  align="center">'.$namajam.' ('.$mulai.'-'.$selesai.')</td>';
+$admin .='<tr><td width="15%"  align="center" >'.$namajam.' ('.$mulai.'-'.$selesai.')</td>';
 /***************************/
 if (isset($_GET['lihatdata'])or isset($_GET['kelas'])){
 $hasil3 = $koneksi_db->sql_query( "SELECT * FROM akad_hari order by id asc" );
@@ -320,6 +322,7 @@ $admin.='<td align="center"><a href="admin.php?pilih=jadwal&mod=yes&lokasi='.$lo
 /*************************/
 $admin .='</tr>';
 $jam++;
+}
 }
 $admin .= '</tbody></table>';
 }
@@ -351,7 +354,7 @@ $admin .= '
 <form method="post" action="" class="form-inline">
 <table class="table">';
 $admin .= '<tr>
-<td>Lokasi</td>
+<td>Departemen</td>
 		<td>:</td>
 		<td>'.getlokasi($lokasi).'</td>
 </tr>';

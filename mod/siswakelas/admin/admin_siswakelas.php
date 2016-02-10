@@ -18,6 +18,7 @@ js;
 $JS_SCRIPT.= <<<js
 <script language="JavaScript" type="text/javascript">
 $(function() {
+	$("#lokasi").chained("#jenjang");
 $("#tingkat").chained("#jenjang"); /* or $("#series").chainedTo("#mark"); */
 } );
 </script>
@@ -66,7 +67,7 @@ $admin .= '<div class="panel panel-info">
 $admin .= '
 <table class="table table-striped table-hover">';
 $admin .= '<tr>
-	<td>Lokasi</td>
+	<td>Departemen</td>
 		<td>:</td>
 	<td>'.getlokasi($lokasi).'</td>
 </tr>';
@@ -207,15 +208,7 @@ $admin .= '<div class="panel panel-info">
 $admin.='<form class="form-inline" method="post" action="" enctype ="multipart/form-data" id="posts">';
 $admin.='
 <table class="table">';
-$admin .= '<tr>
-	<td><select name="lokasi" class="form-control" id="lokasi"required>';
-$hasilj = $koneksi_db->sql_query("SELECT * FROM departemen ORDER BY urut asc");
-$admin .= '<option value="">== Lokasi ==</option>';
-while ($datasj =  $koneksi_db->sql_fetchrow ($hasilj)){
-		$pilihan = ($datasj['replid']==$lokasi)?"selected":'';
-$admin .= '<option value="'.$datasj['replid'].'"'.$pilihan.'>'.$datasj['nama'].'</option>';
-}
-$admin .='</select></td>';
+$admin .= '<tr>';
 $admin .= '
 	<td><select name="jenjang" class="form-control" id="jenjang">';
 $hasilj = $koneksi_db->sql_query("SELECT * FROM aka_tingkat ORDER BY urutan asc");
@@ -225,6 +218,15 @@ while ($datasj =  $koneksi_db->sql_fetchrow ($hasilj)){
 $admin .= '<option value="'.$datasj['replid'].'"'.$pilihan.'>'.$datasj['tingkat'].'</option>';
 }
 $admin .='</select></td>';
+$admin .= '<td><select name="lokasi" class="form-control" id="lokasi"required>';
+$hasilj = $koneksi_db->sql_query("SELECT * FROM departemen ORDER BY urut asc");
+$admin .= '<option value="">== Departemen ==</option>';
+while ($datasj =  $koneksi_db->sql_fetchrow ($hasilj)){
+		$pilihan = ($datasj['replid']==$lokasi)?"selected":'';
+$admin .= '<option value="'.$datasj['replid'].'"class="'.$datasj['keterangan'].'"'.$pilihan.'>'.$datasj['nama'].'</option>';
+}
+$admin .='</select></td>';
+
 
 $admin .= '
 	<td><select name="tingkat" class="form-control" id="tingkat">';
@@ -241,7 +243,8 @@ $hasilj = $koneksi_db->sql_query("SELECT * FROM aka_tahunajaran ORDER BY tahunaj
 $admin .= '<option value="">== Tahun Ajaran ==</option>';
 while ($datasj =  $koneksi_db->sql_fetchrow ($hasilj)){
 		$pilihan = ($datasj['replid']==$tahunajaran)?"selected":'';
-$admin .= '<option value="'.$datasj['replid'].'"'.$pilihan.'>'.$datasj['tahunajaran'].'</option>';
+				$aktif = ($datasj['replid']==$tahunajaranaktif)?"(Aktif)":'';
+$admin .= '<option value="'.$datasj['replid'].'"'.$pilihan.'>'.$datasj['tahunajaran'].' '.$aktif.'</option>';
 }
 $admin .='</select></td>';
 $admin .= '

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.1.12
+-- version 4.5.1
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 06 Feb 2016 pada 12.49
--- Versi Server: 5.6.16
--- PHP Version: 5.5.11
+-- Generation Time: 10 Feb 2016 pada 06.18
+-- Versi Server: 10.1.9-MariaDB
+-- PHP Version: 5.6.15
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -14,7 +14,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Database: `sister_siadu`
@@ -27,13 +27,25 @@ SET time_zone = "+00:00";
 --
 
 DROP TABLE IF EXISTS `akad_afektifkat`;
-CREATE TABLE IF NOT EXISTS `akad_afektifkat` (
-  `id` int(5) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `akad_afektifkat` (
+  `id` int(5) NOT NULL,
   `rapor` int(5) NOT NULL,
   `master` int(5) NOT NULL,
   `nama` varchar(512) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  `urut` int(5) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `akad_afektifkat`
+--
+
+INSERT INTO `akad_afektifkat` (`id`, `rapor`, `master`, `nama`, `urut`) VALUES
+(2, 2, 0, 'Core Value', 0),
+(3, 2, 0, 'Cognitive', 0),
+(4, 2, 0, 'Life Skill', 0),
+(5, 2, 0, 'Sports', 0),
+(8, 2, 2, 'Is able to pray', 0),
+(9, 2, 3, 'Understands a story', 0);
 
 -- --------------------------------------------------------
 
@@ -42,11 +54,10 @@ CREATE TABLE IF NOT EXISTS `akad_afektifkat` (
 --
 
 DROP TABLE IF EXISTS `akad_bulan`;
-CREATE TABLE IF NOT EXISTS `akad_bulan` (
-  `id` int(2) NOT NULL AUTO_INCREMENT,
-  `nama` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
+CREATE TABLE `akad_bulan` (
+  `id` int(2) NOT NULL,
+  `nama` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `akad_bulan`
@@ -73,13 +84,12 @@ INSERT INTO `akad_bulan` (`id`, `nama`) VALUES
 --
 
 DROP TABLE IF EXISTS `akad_grade`;
-CREATE TABLE IF NOT EXISTS `akad_grade` (
-  `id` int(5) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `akad_grade` (
+  `id` int(5) NOT NULL,
   `nilai` int(4) NOT NULL,
   `nama` varchar(125) NOT NULL,
-  `ket` varchar(512) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+  `ket` varchar(512) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `akad_grade`
@@ -100,12 +110,11 @@ INSERT INTO `akad_grade` (`id`, `nilai`, `nama`, `ket`) VALUES
 --
 
 DROP TABLE IF EXISTS `akad_gradeafektif`;
-CREATE TABLE IF NOT EXISTS `akad_gradeafektif` (
-  `id` int(5) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `akad_gradeafektif` (
+  `id` int(5) NOT NULL,
   `nama` varchar(125) NOT NULL,
-  `ket` varchar(512) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+  `ket` varchar(512) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `akad_gradeafektif`
@@ -124,17 +133,16 @@ INSERT INTO `akad_gradeafektif` (`id`, `nama`, `ket`) VALUES
 --
 
 DROP TABLE IF EXISTS `akad_guru`;
-CREATE TABLE IF NOT EXISTS `akad_guru` (
-  `id` int(4) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `akad_guru` (
+  `id` int(4) NOT NULL,
   `lokasi` varchar(50) NOT NULL,
   `matpel` varchar(50) NOT NULL,
   `guru` varchar(50) NOT NULL,
   `sks` varchar(50) NOT NULL,
   `status` varchar(50) NOT NULL,
   `jenjang` int(4) NOT NULL,
-  `tingkat` int(4) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+  `tingkat` int(4) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `akad_guru`
@@ -151,11 +159,10 @@ INSERT INTO `akad_guru` (`id`, `lokasi`, `matpel`, `guru`, `sks`, `status`, `jen
 --
 
 DROP TABLE IF EXISTS `akad_hari`;
-CREATE TABLE IF NOT EXISTS `akad_hari` (
-  `id` int(4) NOT NULL AUTO_INCREMENT,
-  `nama` varchar(10) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+CREATE TABLE `akad_hari` (
+  `id` int(4) NOT NULL,
+  `nama` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `akad_hari`
@@ -176,8 +183,8 @@ INSERT INTO `akad_hari` (`id`, `nama`) VALUES
 --
 
 DROP TABLE IF EXISTS `akad_jadwal`;
-CREATE TABLE IF NOT EXISTS `akad_jadwal` (
-  `id` int(4) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `akad_jadwal` (
+  `id` int(4) NOT NULL,
   `lokasi` int(4) NOT NULL,
   `jenjang` int(4) NOT NULL,
   `tahunajaran` int(4) NOT NULL,
@@ -186,9 +193,8 @@ CREATE TABLE IF NOT EXISTS `akad_jadwal` (
   `matpel` int(4) NOT NULL,
   `guru` int(4) NOT NULL,
   `hari` int(4) NOT NULL,
-  `jam` int(4) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
+  `jam` int(4) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `akad_jadwal`
@@ -207,14 +213,13 @@ INSERT INTO `akad_jadwal` (`id`, `lokasi`, `jenjang`, `tahunajaran`, `tingkat`, 
 --
 
 DROP TABLE IF EXISTS `akad_jam`;
-CREATE TABLE IF NOT EXISTS `akad_jam` (
-  `id` int(4) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `akad_jam` (
+  `id` int(4) NOT NULL,
   `nama` varchar(255) NOT NULL,
   `jenjang` varchar(5) NOT NULL,
   `mulai` varchar(10) NOT NULL,
-  `selesai` varchar(10) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+  `selesai` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `akad_jam`
@@ -233,14 +238,13 @@ INSERT INTO `akad_jam` (`id`, `nama`, `jenjang`, `mulai`, `selesai`) VALUES
 --
 
 DROP TABLE IF EXISTS `akad_kalender`;
-CREATE TABLE IF NOT EXISTS `akad_kalender` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `akad_kalender` (
+  `id` int(10) NOT NULL,
   `lokasi` varchar(4) NOT NULL,
   `tgl1` datetime NOT NULL,
   `tgl2` datetime NOT NULL,
-  `nama` text NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+  `nama` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `akad_kalender`
@@ -248,8 +252,7 @@ CREATE TABLE IF NOT EXISTS `akad_kalender` (
 
 INSERT INTO `akad_kalender` (`id`, `lokasi`, `tgl1`, `tgl2`, `nama`) VALUES
 (1, '2', '2016-01-01 08:00:00', '2016-01-08 11:00:00', 'Bersihkan kamar'),
-(7, '1', '2016-01-05 00:00:00', '2016-01-07 00:00:00', 'test sukomanunggal'),
-(8, '4', '2016-01-14 00:00:00', '2016-01-22 00:00:00', 'ssf wrew rw werwer');
+(7, '1', '2016-01-05 00:00:00', '2016-01-07 00:00:00', 'test sukomanunggal');
 
 -- --------------------------------------------------------
 
@@ -258,13 +261,12 @@ INSERT INTO `akad_kalender` (`id`, `lokasi`, `tgl1`, `tgl2`, `nama`) VALUES
 --
 
 DROP TABLE IF EXISTS `akad_kegiatan`;
-CREATE TABLE IF NOT EXISTS `akad_kegiatan` (
-  `id` int(5) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `akad_kegiatan` (
+  `id` int(5) NOT NULL,
   `matpel` varchar(50) NOT NULL,
   `jenis` varchar(256) NOT NULL,
-  `penilaian` varchar(256) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+  `penilaian` varchar(256) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `akad_kegiatan`
@@ -280,13 +282,12 @@ INSERT INTO `akad_kegiatan` (`id`, `matpel`, `jenis`, `penilaian`) VALUES
 --
 
 DROP TABLE IF EXISTS `akad_kegiatannon`;
-CREATE TABLE IF NOT EXISTS `akad_kegiatannon` (
-  `id` int(5) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `akad_kegiatannon` (
+  `id` int(5) NOT NULL,
   `nama` varchar(256) NOT NULL,
   `sks` varchar(256) NOT NULL,
-  `thnajar` varchar(256) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  `thnajar` varchar(256) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -295,21 +296,18 @@ CREATE TABLE IF NOT EXISTS `akad_kegiatannon` (
 --
 
 DROP TABLE IF EXISTS `akad_kelas`;
-CREATE TABLE IF NOT EXISTS `akad_kelas` (
-  `replid` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `akad_kelas` (
+  `replid` int(11) NOT NULL,
   `departemen` int(11) NOT NULL,
   `kelas` varchar(100) NOT NULL,
   `subtingkat` int(11) NOT NULL,
-  `kapasitas` int(10) unsigned NOT NULL DEFAULT '0',
+  `kapasitas` int(10) UNSIGNED NOT NULL DEFAULT '0',
   `keterangan` text,
   `ts` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `tahunajaran` int(5) NOT NULL,
   `walikelas` int(5) NOT NULL,
-  `jenjang` int(5) NOT NULL,
-  PRIMARY KEY (`replid`),
-  KEY `departemenFK` (`departemen`),
-  KEY `subtingkatFK` (`subtingkat`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+  `jenjang` int(5) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data untuk tabel `akad_kelas`
@@ -325,14 +323,13 @@ INSERT INTO `akad_kelas` (`replid`, `departemen`, `kelas`, `subtingkat`, `kapasi
 --
 
 DROP TABLE IF EXISTS `akad_lessonplan`;
-CREATE TABLE IF NOT EXISTS `akad_lessonplan` (
-  `id` int(5) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `akad_lessonplan` (
+  `id` int(5) NOT NULL,
   `matpel` varchar(10) NOT NULL,
   `tujuan` varchar(512) NOT NULL,
   `target` varchar(215) NOT NULL,
-  `jangkawaktu` varchar(215) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  `jangkawaktu` varchar(215) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -341,13 +338,12 @@ CREATE TABLE IF NOT EXISTS `akad_lessonplan` (
 --
 
 DROP TABLE IF EXISTS `akad_linkssites`;
-CREATE TABLE IF NOT EXISTS `akad_linkssites` (
-  `id` int(5) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `akad_linkssites` (
+  `id` int(5) NOT NULL,
   `nama` varchar(125) NOT NULL,
   `url` varchar(512) NOT NULL,
-  `gambar` varchar(125) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+  `gambar` varchar(125) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `akad_linkssites`
@@ -368,13 +364,12 @@ INSERT INTO `akad_linkssites` (`id`, `nama`, `url`, `gambar`) VALUES
 --
 
 DROP TABLE IF EXISTS `akad_lomba`;
-CREATE TABLE IF NOT EXISTS `akad_lomba` (
-  `id` int(5) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `akad_lomba` (
+  `id` int(5) NOT NULL,
   `nama` varchar(215) NOT NULL,
   `pic` varchar(215) NOT NULL,
-  `bulan` varchar(215) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+  `bulan` varchar(215) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `akad_lomba`
@@ -390,16 +385,15 @@ INSERT INTO `akad_lomba` (`id`, `nama`, `pic`, `bulan`) VALUES
 --
 
 DROP TABLE IF EXISTS `akad_matpel`;
-CREATE TABLE IF NOT EXISTS `akad_matpel` (
-  `id` int(4) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `akad_matpel` (
+  `id` int(4) NOT NULL,
   `nama` varchar(255) NOT NULL,
   `sks` varchar(10) NOT NULL,
   `slot` varchar(10) NOT NULL,
   `jenjang` varchar(10) NOT NULL,
   `tingkat` varchar(10) NOT NULL,
-  `kuota` varchar(10) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+  `kuota` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `akad_matpel`
@@ -416,14 +410,13 @@ INSERT INTO `akad_matpel` (`id`, `nama`, `sks`, `slot`, `jenjang`, `tingkat`, `k
 --
 
 DROP TABLE IF EXISTS `akad_mnmaster`;
-CREATE TABLE IF NOT EXISTS `akad_mnmaster` (
-  `id` int(5) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `akad_mnmaster` (
+  `id` int(5) NOT NULL,
   `nama` varchar(100) NOT NULL,
   `url` varchar(100) NOT NULL,
   `gambar` varchar(100) NOT NULL,
-  `urut` int(5) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
+  `urut` int(5) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `akad_mnmaster`
@@ -453,14 +446,13 @@ INSERT INTO `akad_mnmaster` (`id`, `nama`, `url`, `gambar`, `urut`) VALUES
 --
 
 DROP TABLE IF EXISTS `akad_mntransaksi`;
-CREATE TABLE IF NOT EXISTS `akad_mntransaksi` (
-  `id` int(5) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `akad_mntransaksi` (
+  `id` int(5) NOT NULL,
   `nama` varchar(100) NOT NULL,
   `url` varchar(100) NOT NULL,
   `gambar` varchar(100) NOT NULL,
-  `urut` int(5) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+  `urut` int(5) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `akad_mntransaksi`
@@ -481,14 +473,13 @@ INSERT INTO `akad_mntransaksi` (`id`, `nama`, `url`, `gambar`, `urut`) VALUES
 --
 
 DROP TABLE IF EXISTS `akad_pelanggaran`;
-CREATE TABLE IF NOT EXISTS `akad_pelanggaran` (
-  `id` int(5) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `akad_pelanggaran` (
+  `id` int(5) NOT NULL,
   `kategori` int(4) NOT NULL,
   `nama` varchar(215) NOT NULL,
   `point` int(10) NOT NULL,
-  `hukuman` varchar(512) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=25 ;
+  `hukuman` varchar(512) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `akad_pelanggaran`
@@ -526,11 +517,10 @@ INSERT INTO `akad_pelanggaran` (`id`, `kategori`, `nama`, `point`, `hukuman`) VA
 --
 
 DROP TABLE IF EXISTS `akad_pelanggarankat`;
-CREATE TABLE IF NOT EXISTS `akad_pelanggarankat` (
-  `id` int(5) NOT NULL AUTO_INCREMENT,
-  `nama` varchar(215) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+CREATE TABLE `akad_pelanggarankat` (
+  `id` int(5) NOT NULL,
+  `nama` varchar(215) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `akad_pelanggarankat`
@@ -551,14 +541,13 @@ INSERT INTO `akad_pelanggarankat` (`id`, `nama`) VALUES
 --
 
 DROP TABLE IF EXISTS `akad_raporafektif`;
-CREATE TABLE IF NOT EXISTS `akad_raporafektif` (
-  `id` int(5) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `akad_raporafektif` (
+  `id` int(5) NOT NULL,
   `lokasi` int(5) NOT NULL,
   `jenjang` int(5) NOT NULL,
   `tahunajaran` int(5) NOT NULL,
-  `semester` int(5) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+  `semester` int(5) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `akad_raporafektif`
@@ -575,11 +564,10 @@ INSERT INTO `akad_raporafektif` (`id`, `lokasi`, `jenjang`, `tahunajaran`, `seme
 --
 
 DROP TABLE IF EXISTS `akad_semester`;
-CREATE TABLE IF NOT EXISTS `akad_semester` (
-  `id` int(4) NOT NULL AUTO_INCREMENT,
-  `nama` varchar(10) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+CREATE TABLE `akad_semester` (
+  `id` int(4) NOT NULL,
+  `nama` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `akad_semester`
@@ -596,13 +584,12 @@ INSERT INTO `akad_semester` (`id`, `nama`) VALUES
 --
 
 DROP TABLE IF EXISTS `akad_setting`;
-CREATE TABLE IF NOT EXISTS `akad_setting` (
-  `id` int(4) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `akad_setting` (
+  `id` int(4) NOT NULL,
   `semesteraktif` int(4) NOT NULL,
   `tahunaktif` int(5) NOT NULL,
-  `tahunajaranaktif` int(5) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+  `tahunajaranaktif` int(5) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `akad_setting`
@@ -618,8 +605,8 @@ INSERT INTO `akad_setting` (`id`, `semesteraktif`, `tahunaktif`, `tahunajaranakt
 --
 
 DROP TABLE IF EXISTS `akad_siswaabsen`;
-CREATE TABLE IF NOT EXISTS `akad_siswaabsen` (
-  `id` int(4) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `akad_siswaabsen` (
+  `id` int(4) NOT NULL,
   `semester` int(4) NOT NULL,
   `bulan` int(5) NOT NULL,
   `tahun` int(5) NOT NULL,
@@ -629,9 +616,8 @@ CREATE TABLE IF NOT EXISTS `akad_siswaabsen` (
   `sakit` int(5) NOT NULL,
   `ijin` int(5) NOT NULL,
   `alpa` int(5) NOT NULL,
-  `terlambat` int(5) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
+  `terlambat` int(5) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `akad_siswaabsen`
@@ -652,13 +638,12 @@ INSERT INTO `akad_siswaabsen` (`id`, `semester`, `bulan`, `tahun`, `kelas`, `sis
 --
 
 DROP TABLE IF EXISTS `akad_siswakelas`;
-CREATE TABLE IF NOT EXISTS `akad_siswakelas` (
-  `id` int(5) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `akad_siswakelas` (
+  `id` int(5) NOT NULL,
   `tahunajaran` int(10) NOT NULL,
   `kelas` int(5) NOT NULL,
-  `siswa` int(5) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
+  `siswa` int(5) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `akad_siswakelas`
@@ -679,16 +664,15 @@ INSERT INTO `akad_siswakelas` (`id`, `tahunajaran`, `kelas`, `siswa`) VALUES
 --
 
 DROP TABLE IF EXISTS `akad_siswalomba`;
-CREATE TABLE IF NOT EXISTS `akad_siswalomba` (
-  `id` int(4) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `akad_siswalomba` (
+  `id` int(4) NOT NULL,
   `tgl` varchar(10) NOT NULL,
   `siswa` int(4) NOT NULL,
   `kelas` int(4) NOT NULL,
   `lomba` int(4) NOT NULL,
   `pic` varchar(50) NOT NULL,
-  `hasillomba` varchar(125) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+  `hasillomba` varchar(125) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `akad_siswalomba`
@@ -704,15 +688,14 @@ INSERT INTO `akad_siswalomba` (`id`, `tgl`, `siswa`, `kelas`, `lomba`, `pic`, `h
 --
 
 DROP TABLE IF EXISTS `akad_siswapelanggaran`;
-CREATE TABLE IF NOT EXISTS `akad_siswapelanggaran` (
-  `id` int(4) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `akad_siswapelanggaran` (
+  `id` int(4) NOT NULL,
   `tgl` varchar(10) NOT NULL,
   `siswa` int(4) NOT NULL,
   `kelas` int(4) NOT NULL,
   `pelanggaran` int(4) NOT NULL,
-  `point` int(10) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+  `point` int(10) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `akad_siswapelanggaran`
@@ -731,12 +714,11 @@ INSERT INTO `akad_siswapelanggaran` (`id`, `tgl`, `siswa`, `kelas`, `pelanggaran
 --
 
 DROP TABLE IF EXISTS `akad_ulangan`;
-CREATE TABLE IF NOT EXISTS `akad_ulangan` (
-  `id` int(4) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `akad_ulangan` (
+  `id` int(4) NOT NULL,
   `nama` varchar(255) NOT NULL,
-  `kode` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+  `kode` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `akad_ulangan`
@@ -754,8 +736,8 @@ INSERT INTO `akad_ulangan` (`id`, `nama`, `kode`) VALUES
 --
 
 DROP TABLE IF EXISTS `akad_useraura`;
-CREATE TABLE IF NOT EXISTS `akad_useraura` (
-  `UserId` int(15) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `akad_useraura` (
+  `UserId` int(15) NOT NULL,
   `user` varchar(250) NOT NULL DEFAULT '',
   `password` text NOT NULL,
   `email` varchar(250) NOT NULL DEFAULT '',
@@ -766,18 +748,346 @@ CREATE TABLE IF NOT EXISTS `akad_useraura` (
   `last_ping` text NOT NULL,
   `start` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `exp` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `biodata` text NOT NULL,
-  PRIMARY KEY (`UserId`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=35 ;
+  `biodata` text NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `akad_useraura`
 --
 
 INSERT INTO `akad_useraura` (`UserId`, `user`, `password`, `email`, `avatar`, `level`, `tipe`, `is_online`, `last_ping`, `start`, `exp`, `biodata`) VALUES
-(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'admin@elyon.sch.id', 'af0675a9e843c6c8f78163a9118efc78.jpg', 'Administrator', 'aktif', 1, '2016-02-06 10:34:45', '2010-08-27 00:00:00', '2034-08-27 00:00:00', '<p><b>none</b></p>'),
+(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'admin@elyon.sch.id', 'af0675a9e843c6c8f78163a9118efc78.jpg', 'Administrator', 'aktif', 1, '2016-02-10 10:20:58', '2010-08-27 00:00:00', '2034-08-27 00:00:00', '<p><b>none</b></p>'),
 (28, 'superadmin', 'b11d5ece6353d17f85c5ad30e0a02360', 'rekysda@gmail.com', '', 'Administrator', 'aktif', 1, '2015-03-21 23:05:28', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '');
 
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `akad_afektifkat`
+--
+ALTER TABLE `akad_afektifkat`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `akad_bulan`
+--
+ALTER TABLE `akad_bulan`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `akad_grade`
+--
+ALTER TABLE `akad_grade`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `akad_gradeafektif`
+--
+ALTER TABLE `akad_gradeafektif`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `akad_guru`
+--
+ALTER TABLE `akad_guru`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `akad_hari`
+--
+ALTER TABLE `akad_hari`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `akad_jadwal`
+--
+ALTER TABLE `akad_jadwal`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `akad_jam`
+--
+ALTER TABLE `akad_jam`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `akad_kalender`
+--
+ALTER TABLE `akad_kalender`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `akad_kegiatan`
+--
+ALTER TABLE `akad_kegiatan`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `akad_kegiatannon`
+--
+ALTER TABLE `akad_kegiatannon`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `akad_kelas`
+--
+ALTER TABLE `akad_kelas`
+  ADD PRIMARY KEY (`replid`),
+  ADD KEY `departemenFK` (`departemen`),
+  ADD KEY `subtingkatFK` (`subtingkat`);
+
+--
+-- Indexes for table `akad_lessonplan`
+--
+ALTER TABLE `akad_lessonplan`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `akad_linkssites`
+--
+ALTER TABLE `akad_linkssites`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `akad_lomba`
+--
+ALTER TABLE `akad_lomba`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `akad_matpel`
+--
+ALTER TABLE `akad_matpel`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `akad_mnmaster`
+--
+ALTER TABLE `akad_mnmaster`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `akad_mntransaksi`
+--
+ALTER TABLE `akad_mntransaksi`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `akad_pelanggaran`
+--
+ALTER TABLE `akad_pelanggaran`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `akad_pelanggarankat`
+--
+ALTER TABLE `akad_pelanggarankat`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `akad_raporafektif`
+--
+ALTER TABLE `akad_raporafektif`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `akad_semester`
+--
+ALTER TABLE `akad_semester`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `akad_setting`
+--
+ALTER TABLE `akad_setting`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `akad_siswaabsen`
+--
+ALTER TABLE `akad_siswaabsen`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `akad_siswakelas`
+--
+ALTER TABLE `akad_siswakelas`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `akad_siswalomba`
+--
+ALTER TABLE `akad_siswalomba`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `akad_siswapelanggaran`
+--
+ALTER TABLE `akad_siswapelanggaran`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `akad_ulangan`
+--
+ALTER TABLE `akad_ulangan`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `akad_useraura`
+--
+ALTER TABLE `akad_useraura`
+  ADD PRIMARY KEY (`UserId`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `akad_afektifkat`
+--
+ALTER TABLE `akad_afektifkat`
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+--
+-- AUTO_INCREMENT for table `akad_bulan`
+--
+ALTER TABLE `akad_bulan`
+  MODIFY `id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+--
+-- AUTO_INCREMENT for table `akad_grade`
+--
+ALTER TABLE `akad_grade`
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT for table `akad_gradeafektif`
+--
+ALTER TABLE `akad_gradeafektif`
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `akad_guru`
+--
+ALTER TABLE `akad_guru`
+  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `akad_hari`
+--
+ALTER TABLE `akad_hari`
+  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT for table `akad_jadwal`
+--
+ALTER TABLE `akad_jadwal`
+  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+--
+-- AUTO_INCREMENT for table `akad_jam`
+--
+ALTER TABLE `akad_jam`
+  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `akad_kalender`
+--
+ALTER TABLE `akad_kalender`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+--
+-- AUTO_INCREMENT for table `akad_kegiatan`
+--
+ALTER TABLE `akad_kegiatan`
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `akad_kegiatannon`
+--
+ALTER TABLE `akad_kegiatannon`
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `akad_kelas`
+--
+ALTER TABLE `akad_kelas`
+  MODIFY `replid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT for table `akad_lessonplan`
+--
+ALTER TABLE `akad_lessonplan`
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `akad_linkssites`
+--
+ALTER TABLE `akad_linkssites`
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+--
+-- AUTO_INCREMENT for table `akad_lomba`
+--
+ALTER TABLE `akad_lomba`
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `akad_matpel`
+--
+ALTER TABLE `akad_matpel`
+  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT for table `akad_mnmaster`
+--
+ALTER TABLE `akad_mnmaster`
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+--
+-- AUTO_INCREMENT for table `akad_mntransaksi`
+--
+ALTER TABLE `akad_mntransaksi`
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT for table `akad_pelanggaran`
+--
+ALTER TABLE `akad_pelanggaran`
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+--
+-- AUTO_INCREMENT for table `akad_pelanggarankat`
+--
+ALTER TABLE `akad_pelanggarankat`
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT for table `akad_raporafektif`
+--
+ALTER TABLE `akad_raporafektif`
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `akad_semester`
+--
+ALTER TABLE `akad_semester`
+  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `akad_setting`
+--
+ALTER TABLE `akad_setting`
+  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `akad_siswaabsen`
+--
+ALTER TABLE `akad_siswaabsen`
+  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+--
+-- AUTO_INCREMENT for table `akad_siswakelas`
+--
+ALTER TABLE `akad_siswakelas`
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+--
+-- AUTO_INCREMENT for table `akad_siswalomba`
+--
+ALTER TABLE `akad_siswalomba`
+  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `akad_siswapelanggaran`
+--
+ALTER TABLE `akad_siswapelanggaran`
+  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+--
+-- AUTO_INCREMENT for table `akad_ulangan`
+--
+ALTER TABLE `akad_ulangan`
+  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT for table `akad_useraura`
+--
+ALTER TABLE `akad_useraura`
+  MODIFY `UserId` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

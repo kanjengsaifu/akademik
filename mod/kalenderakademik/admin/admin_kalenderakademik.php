@@ -97,14 +97,14 @@ $admin .= '
 <form method="post" action="" class="form-inline">
 <table class="table table-striped table-hover">';
 $admin .= '<tr>
-	<td>Lokasi</td>
+	<td>Departemen</td>
 		<td>:</td>
 	<td><select name="lokasi" class="form-control" id="lokasi"required>';
 $hasilj = $koneksi_db->sql_query("SELECT * FROM departemen ORDER BY urut asc");
-$admin .= '<option value="">== Lokasi ==</option>';
+$admin .= '<option value="">== Departemen ==</option>';
 while ($datasj =  $koneksi_db->sql_fetchrow ($hasilj)){
 		$pilihan = ($datasj['replid']==$lokasi)?"selected":'';
-$admin .= '<option value="'.$datasj['replid'].'"'.$pilihan.'>'.$datasj['nama'].'</option>';
+$admin .= '<option value="'.$datasj['replid'].'"'.$pilihan.'>'.$datasj['nama'].' ('.getjenjang($datasj['keterangan']).')</option>';
 }
 $admin .='</select></td>
 </tr>';
@@ -180,14 +180,14 @@ $admin .= '
 <form method="post" action="" class="form-inline">
 <table class="table table-striped table-hover">';
 $admin .= '<tr>
-	<td>Lokasi</td>
+	<td>Departemen</td>
 		<td>:</td>
 	<td><select name="lokasi" class="form-control" id="lokasi"required>';
 $hasilj = $koneksi_db->sql_query("SELECT * FROM departemen ORDER BY urut asc");
-$admin .= '<option value="">== Lokasi ==</option>';
+$admin .= '<option value="">== Departemen ==</option>';
 while ($datasj =  $koneksi_db->sql_fetchrow ($hasilj)){
 		$pilihan = ($datasj['replid']==$lokasi)?"selected":'';
-$admin .= '<option value="'.$datasj['replid'].'"'.$pilihan.'>'.$datasj['nama'].'</option>';
+$admin .= '<option value="'.$datasj['replid'].'"'.$pilihan.'>'.$datasj['nama'].' ('.getjenjang($datasj['keterangan']).')</option>';
 }
 $admin .='</select></td>
 </tr>';
@@ -253,10 +253,10 @@ $admin.='
 $admin .= '<tr>
 	<td><select name="lokasi" class="form-control" id="lokasi"required>';
 $hasilj = $koneksi_db->sql_query("SELECT * FROM departemen ORDER BY urut asc");
-$admin .= '<option value="">== Lokasi ==</option>';
+$admin .= '<option value="">== Departemen ==</option>';
 while ($datasj =  $koneksi_db->sql_fetchrow ($hasilj)){
 		$pilihan = ($datasj['replid']==$lokasi)?"selected":'';
-$admin .= '<option value="'.$datasj['replid'].'"'.$pilihan.'>'.$datasj['nama'].'</option>';
+$admin .= '<option value="'.$datasj['replid'].'"'.$pilihan.'>'.$datasj['nama'].'('.getjenjang($datasj['keterangan']).')</option>';
 }
 $admin .='</select></td>';
 $admin .='
@@ -291,7 +291,7 @@ $admin.='
 <table id="example"class="table table-striped table-bordered" cellspacing="0" width="100%">
     <thead>
         <tr>
-            <th>Lokasi</th>
+            <th>Departemen</th>
             <th>Tgl Mulai</th>
             <th>Tgl Akhir</th>
             <th>Kegiatan</th>			
