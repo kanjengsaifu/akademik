@@ -53,6 +53,6 @@ function tanggal_sekarang($time=FALSE)
 	}
 </style>
 <div align="center">
-<h2>Kalender Akademik</h2></div>
+<h2>Kalender Akademik #</h2></div>
 <div id='loading'>loading...</div>
 <div id='calendar'></div>

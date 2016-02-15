@@ -57,7 +57,7 @@ $id = int_filter ($_GET['id']);
 if(isset($_POST['submit'])){
 $lokasi     		= $_POST['lokasi'];
 $tgl1     		= $_POST['tgl1'];
-$tgl2     		= $_POST['tgl2'];
+$tgl2     		= $_POST['tgl2'].' 23:55:00';
 $nama     		= $_POST['nama'];
 
 	$error 	= '';	
@@ -82,8 +82,8 @@ $nama     		= $_POST['nama'];
 $query 		= mysql_query ("SELECT * FROM `akad_kalender` WHERE `id`='$id'");
 $data 		= mysql_fetch_array($query);
 $lokasi     		= $data['lokasi'];
-$tgl1     		= $data['tgl1'];
-$tgl2     		= $data['tgl2'];
+$tgl1     		= substr($data['tgl1'], 0,10);
+$tgl2     		= substr($data['tgl2'], 0,10);
 $nama     		= $data['nama'];
 
 $lokasi     		= !isset($lokasi) ? '' : $lokasi;
@@ -147,7 +147,7 @@ if($_GET['aksi']==""){
 if(isset($_POST['submit'])){
 $lokasi     		= $_POST['lokasi'];
 $tgl1     		= $_POST['tgl1'];
-$tgl2     		= $_POST['tgl2'];
+$tgl2     		= $_POST['tgl2'].' 23:55:00';
 $nama     		= $_POST['nama'];
 	$error 	= '';	
 	if ($error){
